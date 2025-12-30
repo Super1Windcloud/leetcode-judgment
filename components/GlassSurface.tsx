@@ -98,6 +98,11 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
 	const gaussianBlurRef = useRef<SVGFEGaussianBlurElement>(null);
 
 	const isDarkMode = useDarkMode();
+	const [mounted, setMounted] = useState(false);
+
+	useEffect(() => {
+		setMounted(true);
+	}, []);
 
 	const generateDisplacementMap = useCallback(() => {
 		const rect = containerRef.current?.getBoundingClientRect();
@@ -221,9 +226,30 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
 			width: typeof width === "number" ? `${width}px` : width,
 			height: typeof height === "number" ? `${height}px` : height,
 			borderRadius: `${borderRadius}px`,
-			"--glass-frost": backgroundOpacity,
-			"--glass-saturation": saturation,
+			"--glass-frost": backgroundOpacity.toString(),
+			"--glass-saturation": saturation.toString(),
 		} as React.CSSProperties;
+
+		if (!mounted) {
+			return {
+				...baseStyles,
+				background: isDarkMode
+					? "rgba(0, 0, 0, 0.4)"
+					: "rgba(255, 255, 255, 0.4)",
+				border:
+					borderWidth === 0
+						? "none"
+						: isDarkMode
+							? "1px solid rgba(255, 255, 255, 0.2)"
+							: "1px solid rgba(255, 255, 255, 0.3)",
+				boxShadow:
+					borderWidth === 0
+						? "none"
+						: isDarkMode
+							? "inset 0 1px 0 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 0 rgba(255, 255, 255, 0.1)"
+							: "inset 0 1px 0 0 rgba(255, 255, 255, 0.5), inset 0 -1px 0 0 rgba(255, 255, 255, 0.3)",
+			};
+		}
 
 		const backdropFilterSupported = supportsBackdropFilter();
 
@@ -402,12 +428,11 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
 							result="blue"
 						/>
 
-						<feBlend in="red" in2="green" mode="screen" result="rg" />
 						<feBlend in="rg" in2="blue" mode="screen" result="output" />
 						<feGaussianBlur
 							ref={gaussianBlurRef}
 							in="output"
-							stdDeviation="0.7"
+							stdDeviation={displace.toString()}
 						/>
 					</filter>
 				</defs>
