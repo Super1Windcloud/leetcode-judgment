@@ -21,7 +21,7 @@ export function Navbar() {
 	];
 
 	return (
-		<header className="sticky top-0 z-50 w-full animate-slide-down">
+		<header className="sticky top-0 z-50 w-full animate-slide-down border-none">
 			<GlassSurface
 				width="100%"
 				height="64px"
@@ -32,13 +32,15 @@ export function Navbar() {
 				className="border-none"
 			>
 				<div className="container mx-auto flex h-full items-center px-4">
-					<div className="mr-8 flex items-center space-x-2">
+					<div className="mr-30  flex items-center space-x-2 scale-150 ">
 						<Link href="/" className="flex items-center space-x-2 group">
-							<span className="text-xl font-bold bg-linear-to-r from-primary via-primary/80 to-primary/60 bg-size-[200%_auto] animate-shimmer bg-clip-text text-transparent transition-all duration-300 group-hover:scale-105">
-								<GradientText animationSpeed={3} className="custom-class">
-									{commonT("logo")}
-								</GradientText>
-							</span>
+							<GradientText
+								showBorder={false}
+								animationSpeed={3}
+								className="bg-transparent"
+							>
+								{commonT("logo")}
+							</GradientText>
 						</Link>
 					</div>
 
@@ -97,10 +99,6 @@ export function Navbar() {
 					</div>
 				</div>
 			</GlassSurface>
-			{/* Animated Border Layers */}
-			<div className="absolute bottom-0 left-0 h-px w-full bg-border" />
-			<div className="absolute bottom-0 left-0 h-0.5 w-full bg-linear-to-r from-transparent via-primary/80 to-transparent bg-size-[200%_auto] animate-shimmer opacity-40 blur-[0.5px]" />
-			<div className="absolute bottom-px left-0 h-px w-full bg-linear-to-r from-transparent via-primary/40 to-transparent bg-size-[200%_auto] animate-shimmer" />
 		</header>
 	);
 }
