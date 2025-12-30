@@ -331,7 +331,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
 				xmlns="http://www.w3.org/2000/svg"
 				aria-hidden="true"
 			>
-				<title>Glass effect filter</title>
+				<title>Glass effect background filter</title>
 				<defs>
 					<filter
 						id={filterId}
