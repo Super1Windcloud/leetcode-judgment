@@ -34,7 +34,7 @@ export async function generateMetadata({
 	return {
 		title: {
 			template: "%s | Next.js Template",
-			default: "Next.js + shadcn Template",
+			default: "Leetcode Judgement Platform",
 		},
 		description:
 			"A modern, production-ready Next.js 16 template with i18n and Theme support",
@@ -112,7 +112,7 @@ export default async function LocaleLayout({
 								<Footer />
 							</QueryProvider>
 						</NextAuthProvider>
-						<Toaster position="top-right" richColors closeButton />
+						<Toaster position="top-center" richColors closeButton />
 					</ThemeProvider>
 				</NextIntlClientProvider>
 			</body>

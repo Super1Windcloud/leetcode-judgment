@@ -82,19 +82,19 @@ export async function getProblems(
 				const title = titleMatch ? titleMatch[1] : p.title;
 
 				let difficulty = data.difficulty;
-				
+
 				if (locale === "en") {
-				    // If reading README_EN.md, difficulty should be English (Easy/Medium/Hard)
-                    // If fallback to README.md (Chinese), map it.
-                    if (isFallback) {
-                        if (difficulty === "简单") difficulty = "Easy";
-                        if (difficulty === "中等") difficulty = "Medium";
-                        if (difficulty === "困难") difficulty = "Hard";
-                    }
+					// If reading README_EN.md, difficulty should be English (Easy/Medium/Hard)
+					// If fallback to README.md (Chinese), map it.
+					if (isFallback) {
+						if (difficulty === "简单") difficulty = "Easy";
+						if (difficulty === "中等") difficulty = "Medium";
+						if (difficulty === "困难") difficulty = "Hard";
+					}
 				} else if (locale === "zh") {
-				    // Expect Chinese. If for some reason we read English file or it's English,
-                    // we might want to map back, but typically README.md is Chinese.
-                    // Assuming README.md has "简单"/"中等"/"困难".
+					// Expect Chinese. If for some reason we read English file or it's English,
+					// we might want to map back, but typically README.md is Chinese.
+					// Assuming README.md has "简单"/"中等"/"困难".
 				}
 
 				return {
@@ -164,17 +164,19 @@ export async function getProblem(
 		if (solutionMatch) {
 			solution = solutionMatch[1];
 		}
-		
+
 		const titleMatch = content.match(/# \[\d+\. (.+?)\]/);
-        // Default to slug-derived title if regex fails, but try to use content title
-        const title = titleMatch ? titleMatch[1] : slug.split(".").slice(1).join(".");
+		// Default to slug-derived title if regex fails, but try to use content title
+		const title = titleMatch
+			? titleMatch[1]
+			: slug.split(".").slice(1).join(".");
 
 		// Attempt to map difficulty from Chinese to English if simple and language is EN
 		let difficulty = data.difficulty;
 		if (language === "en") {
-             if (difficulty === "简单") difficulty = "Easy";
-             if (difficulty === "中等") difficulty = "Medium";
-             if (difficulty === "困难") difficulty = "Hard";
+			if (difficulty === "简单") difficulty = "Easy";
+			if (difficulty === "中等") difficulty = "Medium";
+			if (difficulty === "困难") difficulty = "Hard";
 		}
 
 		return {
