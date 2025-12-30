@@ -70,25 +70,25 @@ const Squares: React.FC<SquaresProps> = ({
 						ctx.fillRect(squareX, squareY, squareSize, squareSize);
 					}
 
-					ctx.strokeStyle = borderColor;
-					ctx.strokeRect(squareX, squareY, squareSize, squareSize);
-				}
-			}
+          ctx.strokeStyle = borderColor;
+          ctx.strokeRect(squareX, squareY, squareSize, squareSize);
+        }
+      }
 
-			const gradient = ctx.createRadialGradient(
-				canvas.width / 2,
-				canvas.height / 2,
-				0,
-				canvas.width / 2,
-				canvas.height / 2,
-				Math.sqrt(canvas.width ** 2 + canvas.height ** 2) / 2,
-			);
-			gradient.addColorStop(0, "rgba(0, 0, 0, 0)");
-			gradient.addColorStop(1, "#060010");
+      const gradient = ctx.createRadialGradient(
+        canvas.width / 2,
+        canvas.height / 2,
+        0,
+        canvas.width / 2,
+        canvas.height / 2,
+        Math.sqrt(canvas.width ** 2 + canvas.height ** 2) / 2
+      );
+      gradient.addColorStop(0, 'rgba(6, 6, 6, 0)'); // Very dark background transparent
+      gradient.addColorStop(1, 'rgba(6, 6, 6, 1)'); // Very dark background solid
 
-			ctx.fillStyle = gradient;
-			ctx.fillRect(0, 0, canvas.width, canvas.height);
-		};
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    };
 
 		const updateAnimation = () => {
 			const effectiveSpeed = Math.max(speed, 0.1);

@@ -11,15 +11,15 @@ export default async function Home({
 	const { problems } = await getProblems(1, 100, locale);
 
 	return (
-		<div className="relative min-h-screen bg-zinc-950 font-sans text-zinc-100 overflow-hidden">
-			{/* Animated Background */}
-			<div className="fixed inset-0 -z-30">
+		<div className="relative min-h-screen bg-zinc-618  font-sans text-zinc-100 overflow-hidden">
+			{/* Animated Background - Move to -z-10 to ensure it sits on top of the base background color */}
+			<div className="fixed inset-0 -z-10">
 				<Squares
-					speed={0.3}
+					speed={0.5}
 					squareSize={40}
 					direction="diagonal"
-					borderColor="rgba(255, 255, 255, 0.05)"
-					hoverFillColor="rgba(59, 130, 246, 0.1)"
+					borderColor="rgba(147, 51, 234, 0.25)" // Dark Purple (Purple 600)
+					hoverFillColor="rgba(147, 51, 234, 0.4)"
 				/>
 			</div>
 
