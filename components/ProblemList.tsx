@@ -1,18 +1,12 @@
 "use client";
 
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Link } from "@/i18n/routing";
+import type { Problem } from "@/lib/problems";
 import SearchInput from "./SearchInput";
-
-interface Problem {
-	id: string | number;
-	slug: string;
-	title: string;
-	difficulty: string;
-	tags?: string[];
-}
 
 interface ProblemListProps {
 	initialProblems: Problem[];
@@ -21,6 +15,7 @@ interface ProblemListProps {
 
 export function ProblemList({ initialProblems, locale }: ProblemListProps) {
 	const [searchQuery, setSearchQuery] = useState("");
+	const [parent] = useAutoAnimate();
 
 	const filteredProblems = useMemo(() => {
 		return initialProblems.filter((problem) => {
@@ -34,23 +29,21 @@ export function ProblemList({ initialProblems, locale }: ProblemListProps) {
 	}, [initialProblems, searchQuery]);
 
 	return (
-		<div>
+		<div ref={parent}>
 			<div className="mb-12 flex justify-center w-full">
 				<div className="w-full max-w-2xl">
 					<SearchInput
 						value={searchQuery}
 						onChange={setSearchQuery}
 						placeholder={
-							locale === "zh"
-								? "搜索题目、ID 或标签..."
-								: "Search problems, ID or tags..."
+							locale === "zh" ? "搜索题目..." : "Search problems, ID or tags..."
 						}
 					/>
 				</div>
 			</div>
 
 			{filteredProblems.length > 0 ? (
-				<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+				<div ref={parent} className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 					{filteredProblems.map((problem) => (
 						<Link
 							key={problem.id}

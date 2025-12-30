@@ -19,7 +19,12 @@ export function Navbar() {
 	];
 
 	return (
-		<header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60 animate-slide-down">
+		<header className="sticky top-0 z-50 w-full animate-slide-down">
+			{/* Cool Gradient Background with Glassmorphism */}
+			<div className="absolute inset-0 bg-background/80 backdrop-blur-xl -z-20" />
+			<div className="absolute inset-0 bg-linear-to-r from-primary/10 via-transparent to-primary/10 opacity-40 -z-10" />
+			<div className="absolute inset-0 bg-linear-to-r from-transparent via-primary/10 to-transparent bg-size-[200%_auto] animate-shimmer -z-10" />
+
 			<div className="container mx-auto flex h-16 items-center px-4">
 				<div className="mr-8 flex items-center space-x-2">
 					<Link href="/" className="flex items-center space-x-2 group">

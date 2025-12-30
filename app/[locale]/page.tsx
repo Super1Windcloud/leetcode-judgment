@@ -1,4 +1,5 @@
 import { ProblemList } from "@/components/ProblemList";
+import Squares from "@/components/Squares";
 import { getProblems } from "@/lib/problems";
 
 export default async function Home({
@@ -10,8 +11,19 @@ export default async function Home({
 	const { problems } = await getProblems(1, 100, locale);
 
 	return (
-		<div className="min-h-screen bg-linear-to-b from-zinc-900 via-black to-zinc-950 font-sans text-zinc-100">
-			<main className="container mx-auto px-4 py-16">
+		<div className="relative min-h-screen bg-zinc-950 font-sans text-zinc-100 overflow-hidden">
+			{/* Animated Background */}
+			<div className="fixed inset-0 -z-30">
+				<Squares
+					speed={0.3}
+					squareSize={40}
+					direction="diagonal"
+					borderColor="rgba(255, 255, 255, 0.05)"
+					hoverFillColor="rgba(59, 130, 246, 0.1)"
+				/>
+			</div>
+
+			<main className="container relative mx-auto px-4 py-16 z-10">
 				<div className="mx-auto max-w-5xl">
 					<div className="mb-16 text-center">
 						<h1 className="mb-4 bg-linear-to-r from-blue-400 to-purple-600 bg-clip-text text-5xl font-extrabold text-transparent">
