@@ -381,16 +381,12 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
 							ref={redChannelRef}
 							in="SourceGraphic"
 							in2="map"
-							id="redchannel"
 							result="dispRed"
 						/>
 						<feColorMatrix
 							in="dispRed"
 							type="matrix"
-							values="1 0 0 0 0
-                      0 0 0 0 0
-                      0 0 0 0 0
-                      0 0 0 1 0"
+							values="1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"
 							result="red"
 						/>
 
@@ -398,16 +394,12 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
 							ref={greenChannelRef}
 							in="SourceGraphic"
 							in2="map"
-							id="greenchannel"
 							result="dispGreen"
 						/>
 						<feColorMatrix
 							in="dispGreen"
 							type="matrix"
-							values="0 0 0 0 0
-                      0 1 0 0 0
-                      0 0 0 0 0
-                      0 0 0 1 0"
+							values="0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0"
 							result="green"
 						/>
 
@@ -415,19 +407,16 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
 							ref={blueChannelRef}
 							in="SourceGraphic"
 							in2="map"
-							id="bluechannel"
 							result="dispBlue"
 						/>
 						<feColorMatrix
 							in="dispBlue"
 							type="matrix"
-							values="0 0 0 0 0
-                      0 0 0 0 0
-                      0 0 1 0 0
-                      0 0 0 1 0"
+							values="0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0"
 							result="blue"
 						/>
 
+						<feBlend in="red" in2="green" mode="screen" result="rg" />
 						<feBlend in="rg" in2="blue" mode="screen" result="output" />
 						<feGaussianBlur
 							ref={gaussianBlurRef}
