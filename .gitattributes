@@ -1,0 +1,2 @@
+# 将 assets 文件夹及其子目录下的所有内容标记为“第三方资源”
+assets/** linguist-vendored
