@@ -252,7 +252,7 @@ export function ProblemClient({problem, t}: ProblemClientProps) {
                                                 style={{
                                                     borderWidth: 0
                                                 }}
-                                                className="my-4 p-2 border border-zinc-200
+                                                className="border border-zinc-200
                                                  dark:border-[#383a3c]  bg-transparent  rounded-md flex items-center
                                                  justify-between shrink-0">
                                                 <Select
@@ -287,7 +287,7 @@ export function ProblemClient({problem, t}: ProblemClientProps) {
                                                 {
                                                     pre: ({node, ...props}) => (
                                                         <pre
-                                                            className="rounded-md bg-transparent overflow-x-auto border border-zinc-200 dark:border-[#383a3c] shadow-sm"
+                                                            className="rounded-md m-0 p-0  bg-transparent overflow-x-auto border border-zinc-200 dark:border-[#383a3c] shadow-sm"
                                                             {...props}
                                                         />
                                                     ),
