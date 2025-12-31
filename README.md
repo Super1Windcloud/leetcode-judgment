@@ -1,22 +1,27 @@
-l   # Next.js + shadcn/ui Template
+# 🏆 LeetCode Judgment
 
-A modern, production-ready Next.js 16 template with shadcn/ui, Tailwind CSS v4, TypeScript, and Biome. Features internationalization (i18n), a global UI framework, and comprehensive developer tooling.
+A modern, high-performance LeetCode problem-solving and management platform built with **Next.js 16**, **React 19**, and **Tailwind CSS v4**. Featuring a stunning UI with advanced animations, full internationalization, and a seamless developer experience.
 
-## ✨ Features
+## ✨ Key Features
 
-- **Next.js 16** - Latest React 19 features with App Router & Streaming.
-- **Internationalization (i18n)** - Full support with `next-intl`, localized routing, and automatic language detection.
-- **Global UI Framework** - Responsive Navbar with localized links, user profile dropdown, and a sticky Footer.
-- **User Authentication** - Next-Auth v4 integration with shared config and middleware protection.
-- **UX Enhancements** - Navigation progress bar (`nextjs-toploader`) and rich global notifications (`sonner`).
-- **Standardized States** - Global `loading.tsx` (Skeletons) and `error.tsx` (Error Boundaries) for a polished experience.
-- **Tailwind CSS v4** - Utility-first CSS with modern oklch color spaces and theming.
-- **Custom Hooks Library** - Built-in hooks for `useDebounce`, `useLocalStorage`, `useMediaQuery`, etc.
-- **SEO Optimized** - Dynamic `sitemap.xml`, `robots.txt`, and automated `hreflang` metadata.
-- **Docker Support** - Optimized multi-stage `Dockerfile` with standalone output.
-- **CI/CD** - Automated GitHub Actions for linting, testing, and building.
-- **Conventional Commits** - Enforced with Husky and Commitlint.
-- **Testing** - Vitest with React Testing Library and fully typed configuration.
+- **🚀 Next.js 16 & React 19** - Utilizing the latest features like Server Components, Streaming, and the React Compiler.
+- **🎨 Stunning Visuals**
+  - **ElectricBorder**: Dynamic, animated borders that react to user interaction.
+  - **ASCIIText**: Unique retro-style animated text for headers.
+  - **Glassmorphism**: High-quality `GlassSurface` components with SVG filters.
+  - **Eye-Comfort Dark Mode**: Custom-tuned `#292b2d` dark gray theme designed for long coding sessions.
+- **🔍 Advanced Problem Filtering** - Blazing fast search and multi-dimensional filtering by **Difficulty** and **Tags**.
+- **📝 Problem Creation System** - Full-featured interface to contribute problems, including Markdown descriptions, dynamic test cases, and reference solutions.
+- **🌐 Full Internationalization (i18n)** - Seamless switching between **English** and **Chinese** using `next-intl`.
+- **⚡ Optimized UX**
+  - **Precision Skeletons**: Pre-render skeletons that perfectly match the final layout to eliminate layout shift.
+  - **NextTopLoader**: Smooth navigation progress indicators.
+  - **Sonner**: Beautiful, stackable toast notifications.
+- **🛠️ Robust Tooling**
+  - **Biome**: Ultra-fast linting and formatting.
+  - **Vitest**: Modern unit testing suite.
+  - **Supabase**: Integrated database client.
+  - **Sentry**: Comprehensive monitoring and error tracking.
 
 ## 🚀 Quick Start
 
@@ -28,7 +33,7 @@ A modern, production-ready Next.js 16 template with shadcn/ui, Tailwind CSS v4, 
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/Super1Windcloud/next-shadcn-template.git
+git clone https://github.com/Super1Windcloud/leetcode-judgment.git
 ```
 
 2. Install dependencies:
@@ -42,62 +47,51 @@ pnpm install
 ```bash
 pnpm dev
 ```
+Access the app at `http://localhost:33333`.
 
 ## 📦 Scripts
 
-- `pnpm dev` - Start development server (port 33333)
+- `pnpm dev` - Start development server
 - `pnpm build` - Build for production
 - `pnpm start` - Build and start production server
+- `pnpm type-check` - Run TypeScript compilation checks
 - `pnpm lint` - Lint code with Biome
 - `pnpm fix` - Auto-fix formatting/lint issues
 - `pnpm test` - Run unit tests with Vitest
-- `pnpm shadcn` - Add new shadcn/ui components
 
 ## 🏗️ Project Structure
 
 ```
-├── .github/workflows/          # CI/CD (GitHub Actions)
 ├── app/[locale]/               # Localized pages (en, zh)
-│   ├── layout.tsx              # Unified layout (Navbar, Footer, Toaster)
-│   ├── loading.tsx             # Global skeleton loading
-│   └── error.tsx               # Global error handling
-├── i18n/                       # i18n routing & request config
-├── messages/                   # Translation JSON files (en, zh)
+│   ├── about/                  # Project & Author info
+│   ├── create/                 # Problem contribution system
+│   ├── problems/               # Problem listing & detail pages
+│   └── layout.tsx              # Dynamic layout shell
 ├── components/                 
 │   ├── ui/                     # shadcn/ui primitives
-│   ├── Navbar.tsx              # Global navigation
-│   ├── UserAccountNav.tsx      # Auth status & menu
-│   └── ModeToggle.tsx          # Theme switcher
-├── hooks/                      # Custom hooks (debounce, storage, etc.)
-├── lib/                        # Shared utilities & configs
-├── proxy.ts                    # Next.js 16 Interceptor (Auth & i18n)
-├── Dockerfile                  # Optimized production image
-└── commitlint.config.ts        # Commit message rules
+│   ├── ElectricBorder.tsx      # Hover animation component
+│   ├── GlassSurface.tsx        # SVG-filtered glass component
+│   └── NavbarActions.tsx       # Reusable user/theme/lang actions
+├── i18n/                       # i18n routing & request config
+├── messages/                   # Translation JSON files
+├── lib/                        # Problem fetching & Supabase logic
+└── assets/                     # Markdown-based problem database
 ```
-
-## 🌐 Internationalization (i18n)
-
-This template uses `next-intl` for localized routing.
-- **Default Locale**: `en`
-- **Supported Locales**: `en`, `zh`
-- **Routing**: Routes are automatically prefixed (e.g., `/en/dashboard`).
-- **Configuration**: Easily add public routes in `proxy.ts` to skip authentication.
 
 ## 🐳 Docker
 
 Build the optimized production image:
 ```bash
-docker build -t next-shadcn-template .
+docker build -t leetcode-judgment .
 ```
-The image leverages Next.js **standalone output** to ensure the smallest possible footprint.
 
 ## 🤝 Contributing
 
-This project enforces **Conventional Commits**. Please follow the format:
+This project enforces **Conventional Commits**.
 - `feat: ...` for new features
 - `fix: ...` for bug fixes
 - `chore: ...` for maintenance
 
 ## 📄 License
 
-MIT License - see [LICENSE](LICENSE) for details.
+Apache-2.0 License - see [LICENSE](LICENSE) for details.
