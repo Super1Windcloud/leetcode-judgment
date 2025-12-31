@@ -43,8 +43,8 @@ interface ParsedSolution {
 
 export function ProblemClient({problem, t}: ProblemClientProps) {
     const [activeTab, setActiveTab] = useState("description");
-    const [editorCode, setEditorCode] = useState("// Write your code here...");
-    const [editorLanguage, setEditorLanguage] = useState("javascript");
+    const [editorCode, setEditorCode] = useState("");
+    const [editorLanguage, setEditorLanguage] = useState("java");
 
     // Improved parser to extract preamble and code blocks from the solution markdown
     const parsedData = useMemo((): ParsedSolution => {
@@ -110,11 +110,11 @@ export function ProblemClient({problem, t}: ProblemClientProps) {
     }, [currentSolution]);
 
     return (
-        <div className="h-screen w-full overflow-hidden bg-zinc-50 dark:bg-[#292b2d] text-foreground flex flex-col">
+        <div className="h-screen w-full overflow-hidden bg-[#f5f5f5] dark:bg-[#292b2c] text-foreground flex flex-col">
             {" "}
             {/* Header */}
             <div
-                className="h-12 border-b border-zinc-200 dark:border-[#383a3c] flex items-center px-4 bg-white dark:bg-[#242628] shrink-0">
+                className="h-12 border-b border-zinc-200 dark:border-[#383a3c] flex items-center px-4  shrink-0">
                 <Link
                     href="/"
                     className="flex items-center text-sm text-muted-foreground hover:text-foreground mr-4"
@@ -139,14 +139,14 @@ export function ProblemClient({problem, t}: ProblemClientProps) {
             <div className="flex-1 flex overflow-hidden">
                 {/* Left Panel: Description & Solution */}
                 <div
-                    className="w-1/2 border-r   border-zinc-200 dark:border-[#383a3c] flex flex-col bg-white dark:bg-[#292b2d]">
+                    className="w-1/2 border-r   border-zinc-200 dark:border-[#383a3c] flex flex-col bg-white dark:bg-[#292b2c]">
                     <Tabs
                         value={activeTab}
                         onValueChange={setActiveTab}
                         className="flex flex-col h-full "
                     >
                         <div
-                            className="px-4 border-b border-zinc-200 dark:border-[#383a3c] bg-zinc-50 dark:bg-[#242628] flex items-center justify-between shrink-0 h-10">
+                            className="px-4 border-b border-zinc-200 dark:border-[#383a3c] bg-[#f8f9fa] dark:bg-transparent  flex items-center justify-between shrink-0 h-10">
                             <TabsList className="bg-transparent cursor-pointer   border-none gap-0 h-full p-0">
                                 <TabsTrigger
                                     value="description"
@@ -196,7 +196,7 @@ export function ProblemClient({problem, t}: ProblemClientProps) {
                                                 <Badge
                                                     key={tag}
                                                     variant="outline"
-                                                    className="text-xs border-zinc-200 dark:border-[#383a3c] bg-zinc-50 dark:bg-[#343638] text-zinc-600 dark:text-zinc-300"
+                                                    className="text-xs border-zinc-200 dark:border-[#383a3c] bg-zinc-50 dark:bg-[#383a3c] text-zinc-600 dark:text-zinc-300"
                                                 >
                                                     {tag}
                                                 </Badge>
@@ -209,7 +209,7 @@ export function ProblemClient({problem, t}: ProblemClientProps) {
                                             components={{
                                                 pre: ({node, ...props}) => (
                                                     <pre
-                                                        className="rounded-md bg-zinc-100 dark:bg-[#242628] p-4 overflow-x-auto border border-zinc-200 dark:border-[#383a3c] shadow-sm"
+                                                        className="rounded-md bg-zinc-100 dark:bg-[#292a30]   p-4 overflow-x-auto border border-zinc-200 dark:border-[#383a3c] shadow-sm"
                                                         {...props}
                                                     />
                                                 ),
@@ -219,7 +219,7 @@ export function ProblemClient({problem, t}: ProblemClientProps) {
                                                         <code className={className} {...props} />
                                                     ) : (
                                                         <code
-                                                            className="bg-zinc-100 dark:bg-[#343638] px-1 py-0.5 rounded-sm text-zinc-900 dark:text-zinc-200"
+                                                            className="bg-zinc-100 dark:bg-[#383a3c] px-1 py-0.5 rounded-sm text-zinc-900 dark:text-zinc-200"
                                                             {...props}
                                                         />
                                                     );
@@ -262,10 +262,11 @@ export function ProblemClient({problem, t}: ProblemClientProps) {
                                                     }
                                                 >
                                                     <SelectTrigger
-                                                        className="h-8 w-35 text-xs bg-zinc-100 dark:bg-[#343638] border-[#383a3c] text-zinc-700 dark:text-zinc-300">
+                                                        className="h-8 w-35 text-xs bg-zinc-100 dark:bg-[#383a3c] border-[#383a3c] text-zinc-700 dark:text-zinc-300">
                                                         <SelectValue/>
                                                     </SelectTrigger>
-                                                    <SelectContent className="dark:bg-[#242628] dark:border-[#383a3c]">
+                                                    <SelectContent
+                                                        className="dark:bg-[#292a30]   dark:border-[#383a3c]">
                                                         {parsedData.solutions.map((s, index) => (
                                                             <SelectItem
                                                                 key={`${s.label}-${index}`}
@@ -316,13 +317,13 @@ export function ProblemClient({problem, t}: ProblemClientProps) {
 
                 {/* Right Panel: Code Editor */}
                 <div
-                    className="flex-1 flex flex-col bg-white dark:bg-[#242628] border-l border-zinc-200 dark:border-[#383a3c]">
+                    className="flex-1 flex flex-col bg-white dark:bg-[#1e1f20] border-l border-zinc-200 dark:border-[#383a3c]">
                     <CodeEditor
                         language={editorLanguage}
                         onLanguageChange={setEditorLanguage}
                         value={editorCode}
                         onChange={setEditorCode}
-                        className="border-none rounded-none"
+                        className="border-none rounded-none "
                         actions={
                             <>
                                 <Button
@@ -331,7 +332,6 @@ export function ProblemClient({problem, t}: ProblemClientProps) {
                                     className="h-6 text-[10px] text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
                                 >
                                     <Play className="w-3 h-3 mr-1.5"/>
-                                    Run
                                 </Button>
                                 <Button
                                     variant="default"
