@@ -2,7 +2,7 @@
 
 import { Plus, Send, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import React, { useState } from "react";
 import { toast } from "sonner";
 import Squares from "@/components/Squares";
 import { Button } from "@/components/ui/button";
@@ -185,7 +185,7 @@ export default function CreateProblemPage() {
 											<Textarea
 												id="content"
 												placeholder="Given an array of integers nums and an integer target..."
-												className="min-h-[300px] bg-zinc-800/50 border-zinc-700 font-mono text-sm"
+												className="min-h-75 bg-zinc-800/50 border-zinc-700 font-mono text-sm"
 												value={formData.content}
 												onChange={(e) =>
 													setFormData({ ...formData, content: e.target.value })
@@ -235,7 +235,7 @@ export default function CreateProblemPage() {
 																{t("testCaseInput")}
 															</Label>
 															<Textarea
-																className="min-h-[80px] bg-zinc-800/50 border-zinc-700 font-mono text-xs"
+																className="min-h-20 bg-zinc-800/50 border-zinc-700 font-mono text-xs"
 																value={tc.input}
 																onChange={(e) =>
 																	updateTestCase(tc.id, "input", e.target.value)
@@ -247,7 +247,7 @@ export default function CreateProblemPage() {
 																{t("testCaseOutput")}
 															</Label>
 															<Textarea
-																className="min-h-[80px] bg-zinc-800/50 border-zinc-700 font-mono text-xs"
+																className="min-h-20 bg-zinc-800/50 border-zinc-700 font-mono text-xs"
 																value={tc.output}
 																onChange={(e) =>
 																	updateTestCase(
@@ -295,7 +295,7 @@ export default function CreateProblemPage() {
 											<Textarea
 												id="solution"
 												placeholder="class Solution: ..."
-												className="min-h-[300px] bg-zinc-800/50 border-zinc-700 font-mono text-sm"
+												className="min-h-75 bg-zinc-800/50 border-zinc-700 font-mono text-sm"
 												value={formData.solution}
 												onChange={(e) =>
 													setFormData({ ...formData, solution: e.target.value })

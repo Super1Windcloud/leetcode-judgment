@@ -12,6 +12,7 @@ import { QueryProvider } from "@/components/QueryProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
 import { routing } from "@/i18n/routing";
+import React from "react";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",

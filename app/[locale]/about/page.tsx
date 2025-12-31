@@ -1,4 +1,5 @@
 import { Github, Globe, Mail, Twitter } from "lucide-react";
+import type { Metadata } from "next";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import Squares from "@/components/Squares";
@@ -9,7 +10,7 @@ export async function generateMetadata({
 	params,
 }: {
 	params: Promise<{ locale: string }>;
-}) {
+}): Promise<Metadata> {
 	const { locale } = await params;
 	const t = await getTranslations({ locale, namespace: "About" });
 
@@ -50,7 +51,7 @@ export default async function AboutPage({
 							>
 								{t("projectBadge")}
 							</Badge>
-							<h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-500">
+							<h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-linear-to-r from-white to-zinc-500">
 								{t("projectTitle")}
 							</h1>
 							<p className="text-xl text-zinc-400 max-w-2xl mx-auto">
@@ -107,7 +108,7 @@ export default async function AboutPage({
 					<section className="pt-12 border-t border-zinc-800">
 						<div className="flex flex-col md:flex-row items-center gap-8">
 							<div className="relative group">
-								<div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+								<div className="absolute -inset-1 bg-linear-to-r from-purple-600 to-blue-600 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
 								<div className="relative w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden border-2 border-zinc-800">
 									<Image
 										src="https://github.com/Super1Windcloud.png"

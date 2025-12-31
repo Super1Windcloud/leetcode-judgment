@@ -27,7 +27,10 @@
         "./*"
       ]
     },
-    "types": ["@testing-library/jest-dom", "vitest/globals"]
+    "types": [
+      "@testing-library/jest-dom",
+      "vitest/globals"
+    ]
   },
   "include": [
     "next-env.d.ts",

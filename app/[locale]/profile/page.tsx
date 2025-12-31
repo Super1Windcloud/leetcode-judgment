@@ -186,7 +186,7 @@ export default function ProfilePage() {
 										onChange={(e) =>
 											setProfile({ ...profile, bio: e.target.value })
 										}
-										className="mt-2 w-full p-2 border rounded-md min-h-[100px]"
+										className="mt-2 w-full p-2 border rounded-md min-h-25"
 									/>
 								) : (
 									<p className="mt-2 text-muted-foreground">{profile.bio}</p>
