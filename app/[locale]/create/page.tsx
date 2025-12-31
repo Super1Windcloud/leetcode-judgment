@@ -2,7 +2,8 @@
 
 import { Plus, Send, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import React, { useState } from "react";
+import type React from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import Squares from "@/components/Squares";
 import { Button } from "@/components/ui/button";

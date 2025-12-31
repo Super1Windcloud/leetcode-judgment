@@ -8,6 +8,7 @@ import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import GradientText from "@/components/GradientText";
+import { NavbarActions } from "@/components/NavbarActions";
 import { Badge } from "@/components/ui/badge";
 import {
 	ResizableHandle,
@@ -57,6 +58,10 @@ export default async function ProblemPage({
 				</Link>
 				<div className="font-medium mr-2">
 					{problem.id}. {problem.title}
+				</div>
+
+				<div className="ml-auto flex items-center gap-4">
+					<NavbarActions className="scale-90" />
 				</div>
 			</div>
 

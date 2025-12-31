@@ -5,14 +5,13 @@ import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import NextTopLoader from "nextjs-toploader";
-import { Footer } from "@/components/Footer";
-import { Navbar } from "@/components/Navbar";
+import type React from "react";
+import { LayoutShell } from "@/components/LayoutShell";
 import NextAuthProvider from "@/components/NextAuthProvider";
 import { QueryProvider } from "@/components/QueryProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
 import { routing } from "@/i18n/routing";
-import React from "react";
 
 const geistSans = Geist({
 	variable: "--font-geist-sans",
@@ -108,9 +107,7 @@ export default async function LocaleLayout({
 						/>
 						<NextAuthProvider>
 							<QueryProvider>
-								<Navbar />
-								<main className="flex-1">{children}</main>
-								<Footer />
+								<LayoutShell>{children}</LayoutShell>
 							</QueryProvider>
 						</NextAuthProvider>
 						<Toaster position="top-center" richColors closeButton />
