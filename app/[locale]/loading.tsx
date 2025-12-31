@@ -3,28 +3,68 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Loading() {
 	return (
-		<div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-			<main className="flex min-h-screen w-full max-w-4xl flex-col items-center py-16 px-4 bg-white dark:bg-black sm:items-start">
-				<div className="w-full max-w-3xl mx-auto space-y-8">
-					{/* Logo Skeleton */}
-					<div className="flex justify-center mb-10">
-						<Skeleton className="h-10 w-32" />
+		<div className="relative min-h-screen bg-zinc-900 font-sans text-zinc-100 overflow-hidden">
+			<main className="container relative mx-auto px-4 py-16 z-10">
+				<div className="mx-auto max-w-5xl">
+					{/* Header Skeleton (matches ASCIIText + VariableProximity) */}
+					<div className="mb-16 text-center space-y-8">
+						<div className="relative h-32 w-full flex items-center justify-center">
+							<Skeleton className="h-20 w-3/4 bg-zinc-800/50" />
+						</div>
+						<div className="mx-auto max-w-2xl min-h-[1.5em] flex justify-center">
+							<Skeleton className="h-6 w-full bg-zinc-800/50" />
+						</div>
 					</div>
 
-					{/* Header Skeleton */}
-					<div className="space-y-4 text-center">
-						<Skeleton className="h-12 w-3/4 mx-auto" />
-						<Skeleton className="h-6 w-full max-w-2xl mx-auto" />
+					{/* Search & Filters Skeleton */}
+					<div className="space-y-8 mb-12">
+						<div className="flex justify-center w-full">
+							<Skeleton className="h-12 w-full max-w-2xl rounded-xl bg-zinc-800/50" />
+						</div>
+
+						<div className="flex flex-col md:flex-row gap-8 p-6 rounded-xl border border-zinc-800 bg-zinc-900/30">
+							<div className="space-y-4 min-w-[150px]">
+								<Skeleton className="h-4 w-16 bg-zinc-800/50" />
+								<div className="space-y-3">
+									<Skeleton className="h-4 w-24 bg-zinc-800/50" />
+									<Skeleton className="h-4 w-24 bg-zinc-800/50" />
+									<Skeleton className="h-4 w-24 bg-zinc-800/50" />
+								</div>
+							</div>
+							<div className="space-y-4 flex-1">
+								<Skeleton className="h-4 w-16 bg-zinc-800/50" />
+								<div className="flex flex-wrap gap-4">
+									{[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((i) => (
+										<Skeleton
+											key={`tag-skel-${i}`}
+											className="h-4 w-20 bg-zinc-800/50"
+										/>
+									))}
+								</div>
+							</div>
+						</div>
 					</div>
 
-					{/* Grid Skeleton */}
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-						{[...Array(6)].map(() => (
-							<Card key={crypto.randomUUID()} className="p-6 space-y-4">
-								<Skeleton className="h-6 w-1/2" />{" "}
-								<Skeleton className="h-4 w-full" />
-								<Skeleton className="h-4 w-3/4" />
-								<Skeleton className="h-10 w-full" />
+					{/* Grid Skeleton (matches ProblemList cards) */}
+					<div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+						{[0, 1, 2, 3, 4, 5].map((i) => (
+							<Card
+								key={`card-skel-${i}`}
+								className="h-[210px] border-zinc-800 bg-zinc-900/50 p-6 backdrop-blur-sm"
+							>
+								<div className="flex items-start justify-between mb-4">
+									<Skeleton className="h-8 w-8 rounded-full bg-zinc-800" />
+									<Skeleton className="h-6 w-16 rounded-md bg-zinc-800" />
+								</div>
+
+								<Skeleton className="h-7 w-full mb-3 bg-zinc-800" />
+								<Skeleton className="h-7 w-2/3 mb-4 bg-zinc-800" />
+
+								<div className="flex gap-2">
+									<Skeleton className="h-4 w-12 bg-zinc-800" />
+									<Skeleton className="h-4 w-16 bg-zinc-800" />
+									<Skeleton className="h-4 w-14 bg-zinc-800" />
+								</div>
 							</Card>
 						))}
 					</div>
