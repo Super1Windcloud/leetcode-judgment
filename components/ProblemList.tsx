@@ -1,11 +1,20 @@
 "use client";
 
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { X } from "lucide-react";
 import { useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
 import { Link } from "@/i18n/routing";
 import type { Problem } from "@/lib/problems";
 import ElectricBorder from "./ElectricBorder";
@@ -125,28 +134,57 @@ export function ProblemList({ initialProblems, locale }: ProblemListProps) {
 							{locale === "zh" ? "标签" : "Tags"}
 						</h3>
 
-						<div
-							style={{
-								scrollbarWidth: "none",
-							}}
-							className="flex flex-wrap gap-x-6 gap-y-3 max-h-30 overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-transparent"
-						>
-							{allTags.map((tag) => (
-								<div key={tag} className="flex items-center space-x-2">
-									<Checkbox
-										id={`tag-${tag}`}
-										checked={selectedTags.includes(tag)}
-										onCheckedChange={() => toggleTag(tag)}
+						<div className="flex flex-col gap-4">
+							<Select
+								onValueChange={(tag) =>
+									!selectedTags.includes(tag) && toggleTag(tag)
+								}
+							>
+								<SelectTrigger className="w-full md:w-[240px] bg-zinc-800/50 border-zinc-700 text-zinc-300">
+									<SelectValue
+										placeholder={
+											locale === "zh" ? "选择标签..." : "Select tags..."
+										}
 									/>
+								</SelectTrigger>
+								<SelectContent className="bg-zinc-900 border-zinc-800 text-zinc-300">
+									<ScrollArea className="h-[200px]">
+										{allTags.map((tag) => (
+											<SelectItem key={tag} value={tag}>
+												{tag}
+											</SelectItem>
+										))}
+									</ScrollArea>
+								</SelectContent>
+							</Select>
 
-									<Label
-										htmlFor={`tag-${tag}`}
-										className="text-sm font-medium leading-none cursor-pointer text-zinc-300"
+							{selectedTags.length > 0 && (
+								<div className="flex flex-wrap gap-2 animate-in fade-in slide-in-from-top-1 duration-300">
+									{selectedTags.map((tag) => (
+										<Badge
+											key={tag}
+											variant="secondary"
+											className="bg-purple-500/20 text-purple-300 border-purple-500/30 pl-2 pr-1 py-0.5 flex items-center gap-1"
+										>
+											{tag}
+											<button
+												type="button"
+												onClick={() => toggleTag(tag)}
+												className="hover:bg-purple-500/30 rounded-full p-0.5 transition-colors"
+											>
+												<X className="w-3 h-3" />
+											</button>
+										</Badge>
+									))}
+									<button
+										type="button"
+										onClick={() => setSelectedTags([])}
+										className="text-xs text-zinc-500 hover:text-zinc-300 underline underline-offset-2 ml-2 transition-colors"
 									>
-										#{tag}
-									</Label>
+										{locale === "zh" ? "清除全部" : "Clear all"}
+									</button>
 								</div>
-							))}
+							)}
 						</div>
 					</div>
 				</div>

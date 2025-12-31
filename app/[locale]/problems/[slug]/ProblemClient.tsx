@@ -134,7 +134,7 @@ export function ProblemClient({ problem, t }: ProblemClientProps) {
 									value={selectedLanguage}
 									onValueChange={setSelectedLanguage}
 								>
-									<SelectTrigger className="h-7 w-[120px] text-[10px] bg-zinc-100 dark:bg-[#343638] border-[#383a3c]">
+									<SelectTrigger className="h-7 w-30 text-[10px] bg-zinc-100 dark:bg-[#343638] border-[#383a3c]">
 										<SelectValue />
 									</SelectTrigger>
 									<SelectContent className="dark:bg-[#242628] dark:border-[#383a3c]">
