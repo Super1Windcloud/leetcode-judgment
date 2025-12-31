@@ -8,7 +8,7 @@ export default async function Home({
 	params: Promise<{ locale: string }>;
 }) {
 	const { locale } = await params;
-	const { problems } = await getProblems(1, 100, locale);
+	const { problems } = await getProblems(1, 1000, locale);
 
 	return (
 		<div className="relative min-h-screen bg-zinc-900  font-sans text-zinc-100 overflow-hidden">

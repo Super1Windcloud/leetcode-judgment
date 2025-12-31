@@ -19,13 +19,16 @@ import {
 import { getProblems } from "@/lib/problems";
 
 export default async function ProblemsPage({
+	params,
 	searchParams,
 }: {
+	params: Promise<{ locale: string }>;
 	searchParams: Promise<{ page?: string }>;
 }) {
+	const { locale } = await params;
 	const resolvedSearchParams = await searchParams;
 	const page = Number(resolvedSearchParams.page) || 1;
-	const { problems, totalPages } = await getProblems(page);
+	const { problems, totalPages } = await getProblems(page, 50, locale);
 
 	return (
 		<div className="container mx-auto py-10">

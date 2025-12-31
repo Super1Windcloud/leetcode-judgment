@@ -2,7 +2,7 @@ import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
-import { getProblem } from "@/lib/problems";
+import getProblem from "@/lib/problems";
 import "highlight.js/styles/atom-one-dark.css";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";

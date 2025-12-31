@@ -78,7 +78,7 @@ export async function getProblems(
 				const { data, content } = matter(fileContent);
 
 				// Extract title from content if available: # [ID. Title](url)
-				const titleMatch = content.match(/# \[\d+\. (.+?)\]/);
+				const titleMatch = content.match(/# \[\d+\. (.+?)]/);
 				const title = titleMatch ? titleMatch[1] : p.title;
 
 				let difficulty = data.difficulty;
@@ -117,7 +117,7 @@ export async function getProblems(
 	};
 }
 
-export async function getProblem(
+async function getProblem(
 	slug: string,
 	language: string = "en",
 ): Promise<ProblemDetail | null> {
@@ -165,7 +165,7 @@ export async function getProblem(
 			solution = solutionMatch[1];
 		}
 
-		const titleMatch = content.match(/# \[\d+\. (.+?)\]/);
+		const titleMatch = content.match(/# \[\d+\. (.+?)]/);
 		// Default to slug-derived title if regex fails, but try to use content title
 		const title = titleMatch
 			? titleMatch[1]
@@ -194,3 +194,5 @@ export async function getProblem(
 		return null;
 	}
 }
+
+export default getProblem;
