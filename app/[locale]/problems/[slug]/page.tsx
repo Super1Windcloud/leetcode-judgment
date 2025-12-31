@@ -41,219 +41,134 @@ export default async function ProblemPage({
 		);
 	}
 
-		return (
+	return (
+		<div className="h-[calc(100vh-4rem)] w-full overflow-hidden bg-zinc-50 dark:bg-[#292b2d] text-foreground">
+			<div className="h-12 border-b border-zinc-200 dark:border-[#383a3c] flex items-center px-4 bg-white dark:bg-[#242628]">
+				<Link
+					href="/"
+					className="flex items-center text-sm text-muted-foreground hover:text-foreground mr-4"
+				>
+					<ChevronLeft className="w-4 h-4 mr-1" />
 
-			<div className="h-[calc(100vh-4rem)] w-full overflow-hidden bg-zinc-50 dark:bg-[#292b2d] text-foreground">
-
-				<div className="h-12 border-b border-zinc-200 dark:border-[#383a3c] flex items-center px-4 bg-white dark:bg-[#242628]">
-
-					<Link
-
-						href="/"
-
-						className="flex items-center text-sm text-muted-foreground hover:text-foreground mr-4"
-
+					<GradientText
+						colors={["#40ffaa", "#4079ff", "#40ffaa"]}
+						animationSpeed={3}
 					>
+						{t("allProblems")}
+					</GradientText>
+				</Link>
 
-						<ChevronLeft className="w-4 h-4 mr-1" />
-
-						<GradientText
-
-							colors={["#40ffaa", "#4079ff", "#40ffaa"]}
-
-							animationSpeed={3}
-
-						>
-
-							{t("allProblems")}
-
-						</GradientText>
-
-					</Link>
-
-					<div className="font-medium mr-2 text-zinc-900 dark:text-zinc-200">
-
-						{problem.id}. {problem.title}
-
-					</div>
-
-	
-
-					<div className="ml-auto flex items-center gap-4">
-
-						<NavbarActions className="scale-90" />
-
-					</div>
-
+				<div className="font-medium mr-2 text-zinc-900 dark:text-zinc-200">
+					{problem.id}. {problem.title}
 				</div>
 
-	
-
-				<ResizablePanelGroup
-
-					direction="horizontal"
-
-					className="h-[calc(100%-3rem)]"
-
-				>
-
-					<ResizablePanel defaultSize={50} minSize={30} className="bg-white dark:bg-[#292b2d]">
-
-						<ScrollArea className="h-full w-full p-6">
-
-							<div className="prose prose-sm dark:prose-invert max-w-none">
-
-								<div className="flex items-center gap-2 mb-4">
-
-									<h1 className="text-2xl font-bold m-0 text-zinc-900 dark:text-zinc-100">{problem.title}</h1>
-
-									<Badge
-
-										className={
-
-											problem.difficulty === "Easy"
-
-												? "bg-green-500 hover:bg-green-600"
-
-												: problem.difficulty === "Medium"
-
-													? "bg-yellow-500 hover:bg-yellow-600"
-
-													: problem.difficulty === "Hard"
-
-														? "bg-red-500 hover:bg-red-600"
-
-														: "bg-gray-500"
-
-										}
-
-									>
-
-										{problem.difficulty}
-
-									</Badge>
-
-								</div>
-
-	
-
-								<div className="flex gap-2 mb-6 flex-wrap">
-
-									{problem.tags?.map((tag) => (
-
-										<Badge key={tag} variant="outline" className="text-xs border-zinc-200 dark:border-[#383a3c] bg-zinc-50 dark:bg-[#343638] text-zinc-600 dark:text-zinc-300">
-
-											{tag}
-
-										</Badge>
-
-									))}
-
-								</div>
-
-	
-
-								<ReactMarkdown
-
-									remarkPlugins={[remarkGfm]}
-
-									rehypePlugins={[rehypeRaw, rehypeHighlight]}
-
-									components={{
-
-										pre: ({ node, ...props }) => (
-
-											<pre
-
-												className="rounded-md bg-zinc-100 dark:bg-[#242628] p-4 overflow-x-auto border border-zinc-200 dark:border-[#383a3c] shadow-sm"
-
-												{...props}
-
-											/>
-
-										),
-
-										code: ({ node, className, ...props }) => {
-
-											const match = /language-(\w+)/.exec(className || "");
-
-											return match ? (
-
-												<code className={className} {...props} />
-
-											) : (
-
-												<code
-
-													className="bg-zinc-100 dark:bg-[#343638] px-1 py-0.5 rounded-sm text-zinc-900 dark:text-zinc-200"
-
-													{...props}
-
-												/>
-
-											);
-
-										},
-
-									}}
-
-								>
-
-									{problem.description}
-
-								</ReactMarkdown>
-
-							</div>
-
-						</ScrollArea>
-
-					</ResizablePanel>
-
-	
-
-					<ResizableHandle withHandle className="bg-zinc-200 dark:bg-[#383a3c] w-1.5" />
-
-	
-
-					<ResizablePanel defaultSize={50} minSize={30} className="bg-zinc-50/50 dark:bg-[#242628]">
-
-						<ScrollArea className="h-full w-full">
-
-							<div className="flex flex-col h-full">
-
-								<div className="bg-zinc-100/80 dark:bg-[#292b2d] p-2 border-b border-zinc-200 dark:border-[#383a3c] text-sm font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-tight">
-
-									{t("solution")}
-
-								</div>
-
-								<div className="p-6 prose prose-sm dark:prose-invert max-w-none">
-
-									<ReactMarkdown
-
-										remarkPlugins={[remarkGfm]}
-
-										rehypePlugins={[rehypeRaw, rehypeHighlight]}
-
-									>
-
-										{problem.solution || "No solution provided in README."}
-
-									</ReactMarkdown>
-
-								</div>
-
-							</div>
-
-						</ScrollArea>
-
-					</ResizablePanel>
-
-				</ResizablePanelGroup>
-
+				<div className="ml-auto flex items-center gap-4">
+					<NavbarActions className="scale-90" />
+				</div>
 			</div>
 
-		);
+			<ResizablePanelGroup
+				direction="horizontal"
+				className="h-[calc(100%-3rem)]"
+			>
+				<ResizablePanel
+					defaultSize={50}
+					minSize={30}
+					className="bg-white dark:bg-[#292b2d]"
+				>
+					<ScrollArea className="h-full w-full p-6">
+						<div className="prose prose-sm dark:prose-invert max-w-none">
+							<div className="flex items-center gap-2 mb-4">
+								<h1 className="text-2xl font-bold m-0 text-zinc-900 dark:text-zinc-100">
+									{problem.title}
+								</h1>
 
-	
+								<Badge
+									className={
+										problem.difficulty === "Easy"
+											? "bg-green-500 hover:bg-green-600"
+											: problem.difficulty === "Medium"
+												? "bg-yellow-500 hover:bg-yellow-600"
+												: problem.difficulty === "Hard"
+													? "bg-red-500 hover:bg-red-600"
+													: "bg-gray-500"
+									}
+								>
+									{problem.difficulty}
+								</Badge>
+							</div>
+
+							<div className="flex gap-2 mb-6 flex-wrap">
+								{problem.tags?.map((tag) => (
+									<Badge
+										key={tag}
+										variant="outline"
+										className="text-xs border-zinc-200 dark:border-[#383a3c] bg-zinc-50 dark:bg-[#343638] text-zinc-600 dark:text-zinc-300"
+									>
+										{tag}
+									</Badge>
+								))}
+							</div>
+
+							<ReactMarkdown
+								remarkPlugins={[remarkGfm]}
+								rehypePlugins={[rehypeRaw, rehypeHighlight]}
+								components={{
+									pre: ({ node, ...props }) => (
+										<pre
+											className="rounded-md bg-zinc-100 dark:bg-[#242628] p-4 overflow-x-auto border border-zinc-200 dark:border-[#383a3c] shadow-sm"
+											{...props}
+										/>
+									),
+
+									code: ({ node, className, ...props }) => {
+										const match = /language-(\w+)/.exec(className || "");
+
+										return match ? (
+											<code className={className} {...props} />
+										) : (
+											<code
+												className="bg-zinc-100 dark:bg-[#343638] px-1 py-0.5 rounded-sm text-zinc-900 dark:text-zinc-200"
+												{...props}
+											/>
+										);
+									},
+								}}
+							>
+								{problem.description}
+							</ReactMarkdown>
+						</div>
+					</ScrollArea>
+				</ResizablePanel>
+
+				<ResizableHandle
+					withHandle
+					className="bg-zinc-200 dark:bg-[#383a3c] w-1.5"
+				/>
+
+				<ResizablePanel
+					defaultSize={50}
+					minSize={30}
+					className="bg-zinc-50/50 dark:bg-[#242628]"
+				>
+					<ScrollArea className="h-full w-full">
+						<div className="flex flex-col h-full">
+							<div className="bg-zinc-100/80 dark:bg-[#292b2d] p-2 border-b border-zinc-200 dark:border-[#383a3c] text-sm font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-tight">
+								{t("solution")}
+							</div>
+
+							<div className="p-6 prose prose-sm dark:prose-invert max-w-none">
+								<ReactMarkdown
+									remarkPlugins={[remarkGfm]}
+									rehypePlugins={[rehypeRaw, rehypeHighlight]}
+								>
+									{problem.solution || "No solution provided in README."}
+								</ReactMarkdown>
+							</div>
+						</div>
+					</ScrollArea>
+				</ResizablePanel>
+			</ResizablePanelGroup>
+		</div>
+	);
 }

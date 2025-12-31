@@ -23,6 +23,9 @@ A modern, high-performance LeetCode problem-solving and management platform buil
   - **Supabase**: Integrated database client.
   - **Sentry**: Comprehensive monitoring and error tracking.
 
+## ScreenShot
+![img.png](./img.png)
+
 ## 🚀 Quick Start
 
 ### Prerequisites
