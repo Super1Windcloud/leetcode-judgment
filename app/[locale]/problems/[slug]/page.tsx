@@ -6,6 +6,8 @@ import getProblem from "@/lib/problems";
 import "highlight.js/styles/atom-one-dark.css";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import GradientText from "@/components/GradientText";
 import { Badge } from "@/components/ui/badge";
 import {
 	ResizableHandle,
@@ -22,6 +24,7 @@ export default async function ProblemPage({
 	const { slug, locale } = await params;
 	const decodedSlug = decodeURIComponent(slug);
 	const problem = await getProblem(decodedSlug, locale);
+	const t = await getTranslations({ locale, namespace: "Navigation" });
 
 	if (!problem) {
 		return (
@@ -31,7 +34,7 @@ export default async function ProblemPage({
 					href="/problems"
 					className="text-blue-500 hover:underline mt-4 block"
 				>
-					Back to Problems
+					{t("allProblems")}
 				</Link>
 			</div>
 		);
@@ -45,7 +48,12 @@ export default async function ProblemPage({
 					className="flex items-center text-sm text-muted-foreground hover:text-foreground mr-4"
 				>
 					<ChevronLeft className="w-4 h-4 mr-1" />
-					All Problems
+					<GradientText
+						colors={["#40ffaa", "#4079ff", "#40ffaa"]}
+						animationSpeed={3}
+					>
+						{t("allProblems")}
+					</GradientText>
 				</Link>
 				<div className="font-medium mr-2">
 					{problem.id}. {problem.title}

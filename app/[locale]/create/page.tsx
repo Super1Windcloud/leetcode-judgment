@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { Plus, Send, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
