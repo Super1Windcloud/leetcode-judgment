@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/select";
 import {cn} from "@/lib/utils";
 
+import {Editor} from "@monaco-editor/react";
+
 interface CodeEditorProps
     extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
     value?: string;
@@ -34,16 +36,31 @@ const SUPPORTED_LANGUAGES = [
     {value: "rust", label: "Rust"},
 ];
 
+const LANGUAGE_MAP: Record<string, string> = {
+    cpp: "cpp",
+    c: "c",
+    csharp: "csharp",
+    go: "go",
+    java: "java",
+    javascript: "javascript",
+    typescript: "typescript",
+    php: "php",
+    python: "python",
+    rust: "rust",
+};
+
 // bg-[#292a30]
 export function CodeEditor({
                                className,
                                value,
                                onChange,
-                               language = "Java",
+                               language = "javascript",
                                onLanguageChange,
                                actions,
                                ...props
                            }: CodeEditorProps) {
+    const monacoLanguage = LANGUAGE_MAP[language.toLowerCase()] || "javascript";
+
     return (
         <div
             className={cn(
@@ -78,20 +95,36 @@ export function CodeEditor({
                 </Select>
                 {actions && <div className="flex items-center gap-2">{actions}</div>}
             </div>
-            <div className="flex-1 relative border-t  mt-0.5 " style={{
-                scrollbarWidth: "none"
-            }}>
-				<textarea
-                    style={{
-                        scrollbarWidth: "none"
-                    }}
-                    className="w-full h-full bg-transparent text-zinc-300 font-mono text-sm p-4 resize-none focus:outline-none"
+            <div className="flex-1 relative border-t  mt-0.5 overflow-hidden">
+                <Editor
+                    height="100%"
+                    language={monacoLanguage}
+                    theme="custom-dark"
                     value={value}
-                    onChange={(e) => onChange?.(e.target.value)}
-                    spellCheck={false}
-                    autoCapitalize="none"
-                    autoComplete="off"
-                    autoCorrect="off"
+                    onChange={(val) => onChange?.(val || "")}
+                    beforeMount={(monaco) => {
+                        monaco.editor.defineTheme("custom-dark", {
+                            base: "vs-dark",
+                            inherit: true,
+                            rules: [],
+                            colors: {
+                                "editor.background": "#292b2c",
+                                "editor.lineHighlightBackground": "#2f3133",
+                            },
+                        });
+                    }}
+                    options={{
+                        minimap: {enabled: false},
+                        fontSize: 14,
+                        lineNumbers: "on",
+                        scrollBeyondLastLine: false,
+                        automaticLayout: true,
+                        padding: {top: 16, bottom: 16},
+                        fontFamily: "'Fira Code', 'Cascadia Code', Consolas, monospace",
+                        fontLigatures: true,
+                        readOnly: false,
+                    }}
+                    loading={<div className="p-4 text-zinc-500 text-xs">Loading editor...</div>}
                 />
             </div>
         </div>
