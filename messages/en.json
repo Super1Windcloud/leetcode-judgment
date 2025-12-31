@@ -8,11 +8,27 @@
     "dashboard": "Dashboard",
     "profile": "Profile",
     "integration": "Demo",
+    "about": "About",
     "signIn": "Sign In",
     "signOut": "Sign Out",
     "settings": "Settings"
   },
   "Common": {
     "logo": "Leetcode Judgment"
+  },
+  "About": {
+    "title": "About - Leetcode Judgment",
+    "description": "Learn more about the Leetcode Judgment project and its creator.",
+    "projectBadge": "The Project",
+    "projectTitle": "Leetcode Judgment",
+    "projectDescription": "A modern platform for browsing and studying LeetCode problems with a beautiful UI and seamless experience.",
+    "techStackTitle": "Tech Stack",
+    "featuresTitle": "Key Features",
+    "feature1": "Blazing fast search and filtering",
+    "feature2": "Beautiful glassmorphism and animations",
+    "feature3": "Full i18n support (EN/ZH)",
+    "feature4": "Mobile responsive design",
+    "authorName": "SuperWindcloud",
+    "authorBio": "A passionate developer focusing on building high-performance web applications with modern technologies. Love open source and clean code."
   }
 }

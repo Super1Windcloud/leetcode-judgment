@@ -18,6 +18,7 @@ export function Navbar() {
 		{ href: "/", label: t("home") },
 		{ href: "/dashboard", label: t("dashboard") },
 		{ href: "/integration-demo", label: t("integration") },
+		{ href: "/about", label: t("about") },
 	];
 
 	return (
@@ -66,7 +67,6 @@ export function Navbar() {
 							</Link>
 						))}
 					</nav>
-
 					<div className="flex items-center justify-end space-x-4">
 						<div className="flex items-center space-x-1 mr-2 border-r pr-4">
 							<Link

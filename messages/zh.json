@@ -8,11 +8,27 @@
     "dashboard": "仪表板",
     "profile": "个人资料",
     "integration": "示例",
+    "about": "关于",
     "signIn": "登录",
     "signOut": "退出",
     "settings": "设置"
   },
   "Common": {
     "logo": "LeetCode Judgment"
+  },
+  "About": {
+    "title": "关于 - LeetCode Judgment",
+    "description": "了解更多关于 LeetCode Judgment 项目及其作者的信息。",
+    "projectBadge": "项目介绍",
+    "projectTitle": "LeetCode Judgment",
+    "projectDescription": "一个现代化的平台，旨在通过精美的 UI 和流畅的体验来浏览和学习 LeetCode 题目。",
+    "techStackTitle": "技术栈",
+    "featuresTitle": "核心功能",
+    "feature1": "极致快速的搜索与过滤",
+    "feature2": "精美的玻璃拟态设计与动画",
+    "feature3": "完善的多语言支持 (中/英)",
+    "feature4": "全平台响应式设计",
+    "authorName": "SuperWindcloud",
+    "authorBio": "一名热衷于使用现代技术构建高性能 Web 应用的开发者。热爱开源和整洁的代码。"
   }
 }
