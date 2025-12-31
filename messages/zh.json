@@ -9,6 +9,7 @@
     "profile": "个人资料",
     "integration": "示例",
     "about": "关于",
+    "create": "出题",
     "signIn": "登录",
     "signOut": "退出",
     "settings": "设置"
@@ -30,5 +31,24 @@
     "feature4": "全平台响应式设计",
     "authorName": "SuperWindcloud",
     "authorBio": "一名热衷于使用现代技术构建高性能 Web 应用的开发者。热爱开源和整洁的代码。"
+  },
+  "CreateProblem": {
+    "title": "创建新题目",
+    "description": "通过添加您自己的题目来为社区做出贡献。",
+    "basicInfo": "基本信息",
+    "content": "题目描述",
+    "testCases": "测试用例",
+    "solution": "参考答案",
+    "problemTitle": "标题",
+    "difficulty": "难度",
+    "tags": "标签（逗号分隔）",
+    "contentLabel": "题目描述 (Markdown)",
+    "testCaseInput": "输入",
+    "testCaseOutput": "预期输出",
+    "addTestCase": "添加测试用例",
+    "solutionLabel": "参考答案",
+    "submit": "创建题目",
+    "success": "题目创建成功！",
+    "error": "创建题目失败。"
   }
 }

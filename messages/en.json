@@ -9,6 +9,7 @@
     "profile": "Profile",
     "integration": "Demo",
     "about": "About",
+    "create": "Create",
     "signIn": "Sign In",
     "signOut": "Sign Out",
     "settings": "Settings"
@@ -30,5 +31,24 @@
     "feature4": "Mobile responsive design",
     "authorName": "SuperWindcloud",
     "authorBio": "A passionate developer focusing on building high-performance web applications with modern technologies. Love open source and clean code."
+  },
+  "CreateProblem": {
+    "title": "Create New Problem",
+    "description": "Contribute to the community by adding your own problems.",
+    "basicInfo": "Basic Info",
+    "content": "Description",
+    "testCases": "Test Cases",
+    "solution": "Solution",
+    "problemTitle": "Title",
+    "difficulty": "Difficulty",
+    "tags": "Tags (comma separated)",
+    "contentLabel": "Problem Description (Markdown)",
+    "testCaseInput": "Input",
+    "testCaseOutput": "Expected Output",
+    "addTestCase": "Add Test Case",
+    "solutionLabel": "Reference Solution",
+    "submit": "Create Problem",
+    "success": "Problem created successfully!",
+    "error": "Failed to create problem."
   }
 }

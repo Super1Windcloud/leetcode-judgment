@@ -16,6 +16,7 @@ export function Navbar() {
 
 	const navItems = [
 		{ href: "/", label: t("home") },
+		{ href: "/create", label: t("create") },
 		{ href: "/dashboard", label: t("dashboard") },
 		{ href: "/integration-demo", label: t("integration") },
 		{ href: "/about", label: t("about") },
