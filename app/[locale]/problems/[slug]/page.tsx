@@ -42,7 +42,7 @@ export default async function ProblemPage({
 	}
 
 	return (
-		<div className="h-[calc(100vh-4rem)] w-full overflow-hidden bg-zinc-50 dark:bg-[#292b2d] text-foreground">
+		<div className="h-screen w-full overflow-hidden bg-zinc-50 dark:bg-[#292b2d] text-foreground">
 			<div className="h-12 border-b border-zinc-200 dark:border-[#383a3c] flex items-center px-4 bg-white dark:bg-[#242628]">
 				<Link
 					href="/"
