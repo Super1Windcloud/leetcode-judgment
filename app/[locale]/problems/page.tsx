@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { NavbarActions } from "@/components/NavbarActions";
 import { Badge } from "@/components/ui/badge";
 import {
 	Pagination,
@@ -37,10 +38,13 @@ export default async function ProblemsPage({
 				<Table>
 					<TableHeader>
 						<TableRow>
-							<TableHead className="w-[100px]">Status</TableHead>
+							<TableHead className="w-25">Status</TableHead>
 							<TableHead>Title</TableHead>
 							<TableHead>Difficulty</TableHead>
 							<TableHead>Tags</TableHead>
+							<TableHead className="text-right">
+								<NavbarActions className="justify-end scale-90 origin-right" />
+							</TableHead>
 						</TableRow>
 					</TableHeader>
 					<TableBody>
@@ -83,6 +87,7 @@ export default async function ProblemsPage({
 										))}
 									</div>
 								</TableCell>
+								<TableCell></TableCell>
 							</TableRow>
 						))}
 					</TableBody>

@@ -44,7 +44,7 @@ export default async function ProblemPage({
 		<div className="h-[calc(100vh-4rem)] w-full overflow-hidden">
 			<div className="h-12 border-b flex items-center px-4">
 				<Link
-					href="/problems"
+					href="/"
 					className="flex items-center text-sm text-muted-foreground hover:text-foreground mr-4"
 				>
 					<ChevronLeft className="w-4 h-4 mr-1" />
