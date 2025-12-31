@@ -1,18 +1,12 @@
 "use client";
 
-import {
-	BookOpen,
-	ChevronLeft,
-	Code2,
-	Play,
-	Send,
-	Terminal,
-} from "lucide-react";
+import { BookOpen, ChevronLeft, Code2, Play, Send } from "lucide-react";
 import { useMemo, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
+import { CodeEditor } from "@/components/CodeEditor";
 import GradientText from "@/components/GradientText";
 import { NavbarActions } from "@/components/NavbarActions";
 import { Badge } from "@/components/ui/badge";
@@ -45,6 +39,8 @@ interface ParsedSolution {
 
 export function ProblemClient({ problem, t }: ProblemClientProps) {
 	const [activeTab, setActiveTab] = useState("description");
+	const [editorCode, setEditorCode] = useState("// Write your code here...");
+	const [editorLanguage, setEditorLanguage] = useState("javascript");
 
 	// Simple parser to extract code blocks from the solution markdown
 	const parsedSolutions = useMemo(() => {
@@ -76,7 +72,9 @@ export function ProblemClient({ problem, t }: ProblemClientProps) {
 
 	const solutionMarkdown = useMemo(() => {
 		if (currentSolution.language === "markdown") return currentSolution.code;
-		return `\`\`\`${currentSolution.language}\n${currentSolution.code}\n\`\`\``;
+		return (
+			"```" + currentSolution.language + "\n" + currentSolution.code + "\n```"
+		);
 	}, [currentSolution]);
 
 	return (
@@ -226,7 +224,7 @@ export function ProblemClient({ problem, t }: ProblemClientProps) {
 											rehypePlugins={[rehypeRaw, rehypeHighlight]}
 										>
 											{solutionMarkdown}
-										</ReactMarkdown>{" "}
+										</ReactMarkdown>
 									</div>
 								</ScrollArea>
 							</TabsContent>
@@ -234,35 +232,35 @@ export function ProblemClient({ problem, t }: ProblemClientProps) {
 					</Tabs>
 				</div>
 
-				{/* Right Panel: Editor Placeholder */}
-				<div className="flex-1 flex flex-col bg-white dark:bg-[#242628]">
-					<div className="h-10 px-4 border-b border-zinc-200 dark:border-[#383a3c] bg-zinc-50 dark:bg-[#242628] flex items-center justify-between shrink-0">
-						<div className="flex items-center text-xs font-medium text-zinc-500 dark:text-zinc-400">
-							<Terminal className="w-3.5 h-3.5 mr-2" />
-							Code Editor
-						</div>
-						<div className="flex items-center gap-2">
-							<Button
-								variant="ghost"
-								size="sm"
-								className="h-7 text-[10px] text-zinc-400 hover:text-white"
-							>
-								<Play className="w-3 h-3 mr-1.5" />
-								Run
-							</Button>
-							<Button
-								variant="default"
-								size="sm"
-								className="h-7 text-[10px] bg-emerald-600 hover:bg-emerald-700"
-							>
-								<Send className="w-3 h-3 mr-1.5" />
-								Submit
-							</Button>
-						</div>
-					</div>
-					<div className="flex-1 bg-white dark:bg-[#1e1e1e] font-mono text-sm p-4 text-zinc-400 italic flex items-center justify-center">
-						Code Editor Interface Coming Soon...
-					</div>
+				{/* Right Panel: Code Editor */}
+				<div className="flex-1 flex flex-col bg-white dark:bg-[#242628] border-l border-zinc-200 dark:border-[#383a3c]">
+					<CodeEditor
+						language={editorLanguage}
+						onLanguageChange={setEditorLanguage}
+						value={editorCode}
+						onChange={setEditorCode}
+						className="border-none rounded-none"
+						actions={
+							<>
+								<Button
+									variant="ghost"
+									size="sm"
+									className="h-6 text-[10px] text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white"
+								>
+									<Play className="w-3 h-3 mr-1.5" />
+									Run
+								</Button>
+								<Button
+									variant="default"
+									size="sm"
+									className="h-6 text-[10px] bg-emerald-600 hover:bg-emerald-700 text-white"
+								>
+									<Send className="w-3 h-3 mr-1.5" />
+									Submit
+								</Button>
+							</>
+						}
+					/>
 				</div>
 			</div>
 		</div>
