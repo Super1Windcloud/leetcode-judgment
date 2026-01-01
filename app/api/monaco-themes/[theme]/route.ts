@@ -1,15 +1,14 @@
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { createRequire } from "node:module";
 import { type NextRequest, NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 
-const THEMES_DIR = path.join(
-	process.cwd(),
-	"node_modules",
-	"monaco-themes",
-	"themes",
-);
+const require = createRequire(import.meta.url);
+const MONACO_ENTRY_PATH = require.resolve("monaco-themes");
+const MONACO_PACKAGE_ROOT = path.dirname(path.dirname(MONACO_ENTRY_PATH));
+const THEMES_DIR = path.join(MONACO_PACKAGE_ROOT, "themes");
 const THEME_LIST_PATH = path.join(THEMES_DIR, "themelist.json");
 
 export async function GET(

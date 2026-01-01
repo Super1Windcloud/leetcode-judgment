@@ -78,7 +78,7 @@ export function CodeEditor({
 			try {
 				const response = await fetch("/api/monaco-themes");
 				if (!response.ok) {
-					throw new Error("Failed to load themes");
+					throw new Error(`Failed to load themes: ${response.status}`);
 				}
 				const themeList = (await response.json()) as Record<string, string>;
 				const options = Object.entries(themeList)

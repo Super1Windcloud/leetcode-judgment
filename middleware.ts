@@ -1,7 +1,7 @@
 import createMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
 import { withAuth } from "next-auth/middleware";
-import type { NextRequest } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -15,6 +15,7 @@ const publicPages = [
   "/data-fetching",
   "/form-handling",
   "/api/proxy-demo",
+  "/api/monaco-themes",
   // 在此处添加更多公开页面...
 ];
 
@@ -42,6 +43,11 @@ export default function middleware(req: NextRequest) {
     pathname.match(/\.(.*)$/)
   ) {
     return intlMiddleware(req);
+  }
+
+  // 特殊处理 API 路由，避免被 intlMiddleware 添加语言前缀
+  if (pathname.startsWith("/api/monaco-themes") || pathname.startsWith("/api/proxy-demo")) {
+    return NextResponse.next();
   }
 
   // 2. 检查是否匹配公开路由（考虑 i18n 前缀）
