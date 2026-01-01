@@ -69,9 +69,10 @@ export function CodeEditor({
             )}
             {...props}
         >
-            <div className="flex items-center  justify-between  bg-[#292b2c]  border-zinc-800">
+            <div className="flex items-center  justify-between  h-9.5  bg-[#292b2c]  border-zinc-800">
                 <Select value={language} onValueChange={onLanguageChange}>
-                    <SelectTrigger className="w-35 h-8 bg-[#292b2c]  border-zinc-700 text-zinc-100 text-xs">
+                    <SelectTrigger
+                        className="w-35 h-10  p-0 m-0   rounded-none  bg-[#292b2c]  border-zinc-700 text-zinc-100 text-xs">
                         <SelectValue placeholder="Select Language"/>
                     </SelectTrigger>
                     <SelectContent
@@ -95,7 +96,7 @@ export function CodeEditor({
                 </Select>
                 {actions && <div className="flex items-center gap-2">{actions}</div>}
             </div>
-            <div className="flex-1 relative border-t  mt-0.5 overflow-hidden">
+            <div className="flex-1 relative border-t  mt-px    overflow-hidden">
                 <Editor
                     height="100%"
                     language={monacoLanguage}
