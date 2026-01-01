@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { createRequire } from "node:module";
@@ -6,17 +7,39 @@ import { type NextRequest, NextResponse } from "next/server";
 export const runtime = "nodejs";
 
 const require = createRequire(import.meta.url);
-const MONACO_ENTRY_PATH = require.resolve("monaco-themes");
-const MONACO_PACKAGE_ROOT = path.dirname(path.dirname(MONACO_ENTRY_PATH));
-const THEMES_DIR = path.join(MONACO_PACKAGE_ROOT, "themes");
-const THEME_LIST_PATH = path.join(THEMES_DIR, "themelist.json");
+
+const getThemesDir = () => {
+	const candidates: string[] = [];
+
+	try {
+		const monacoEntryPath = require.resolve("monaco-themes");
+		const monacoPackageRoot = path.dirname(path.dirname(monacoEntryPath));
+		candidates.push(path.join(monacoPackageRoot, "themes"));
+	} catch {
+		// Ignore and fall back to cwd resolution.
+	}
+
+	candidates.push(
+		path.join(process.cwd(), "node_modules", "monaco-themes", "themes"),
+	);
+
+	for (const candidate of candidates) {
+		if (existsSync(candidate)) {
+			return candidate;
+		}
+	}
+
+	throw new Error("Monaco themes directory not found on server.");
+};
 
 export async function GET(
 	_request: NextRequest,
 	{ params }: { params: Promise<{ theme: string }> },
 ) {
 	const { theme } = await params;
-	const listPayload = await readFile(THEME_LIST_PATH, "utf-8");
+	const themesDir = getThemesDir();
+	const themeListPath = path.join(themesDir, "themelist.json");
+	const listPayload = await readFile(themeListPath, "utf-8");
 	const themeList = JSON.parse(listPayload) as Record<string, string>;
 	const themeLabel = themeList[theme];
 
@@ -24,7 +47,7 @@ export async function GET(
 		return new NextResponse("Theme not found", { status: 404 });
 	}
 
-	const themePath = path.join(THEMES_DIR, `${themeLabel}.json`);
+	const themePath = path.join(themesDir, `${themeLabel}.json`);
 	const themePayload = await readFile(themePath, "utf-8");
 
 	return new NextResponse(themePayload, {
