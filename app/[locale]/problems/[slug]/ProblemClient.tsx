@@ -317,7 +317,7 @@ export function ProblemClient({problem, t}: ProblemClientProps) {
 
                 {/* Right Panel: Code Editor */}
                 <div
-                    className="flex-1 flex flex-col bg-white dark:bg-[#1e1f20] border-l border-zinc-200 dark:border-[#383a3c]">
+                    className="w-1/2 flex-none flex flex-col bg-white dark:bg-[#1e1f20] border-l border-zinc-200 dark:border-[#383a3c]">
                     <CodeEditor
                         language={editorLanguage}
                         onLanguageChange={setEditorLanguage}

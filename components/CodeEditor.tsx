@@ -72,7 +72,7 @@ export function CodeEditor({
             <div className="flex items-center  justify-between  h-9.5  bg-[#292b2c]  border-zinc-800">
                 <Select value={language} onValueChange={onLanguageChange}>
                     <SelectTrigger
-                        className="w-35 h-10  p-0 m-0   rounded-none  bg-[#292b2c]  border-zinc-700 text-zinc-100 text-xs">
+                        className="w-25  pl-3  h-full! px-0! py-0! m-0 rounded-none bg-[#292b2c] border-none! text-zinc-100 text-xs leading-tight  shadow-none!">
                         <SelectValue placeholder="Select Language"/>
                     </SelectTrigger>
                     <SelectContent
