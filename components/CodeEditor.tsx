@@ -147,7 +147,8 @@ export function CodeEditor({
 			<div className="flex items-center  justify-between  h-9.5  bg-[#292b2c]  border-zinc-800">
 				<div className="flex items-center gap-0">
 					<Select value={language} onValueChange={onLanguageChange}>
-						<SelectTrigger className="w-25  pl-3  h-9.5 px-0! py-0! m-0 rounded-none bg-[#292b2c] border-none! text-zinc-100 text-xs leading-tight  shadow-none! focus:ring-0">
+						<SelectTrigger className="w-35  pl-3  h-9.5 px-0! py-0! m-0 rounded-none bg-[#292b2c] border-none! text-zinc-100 text-xs leading-tight  shadow-none! focus:ring-0">
+							<span className="text-zinc-500 mr-2">Lang:</span>
 							<SelectValue placeholder="Select Language" />
 						</SelectTrigger>
 						<SelectContent
@@ -173,21 +174,22 @@ export function CodeEditor({
 					<div className="w-px h-4 bg-zinc-700 mx-1" />
 
 					<Select value={editorTheme} onValueChange={handleThemeChange}>
-						<SelectTrigger className="w-40  pl-3  h-9.5 px-0! py-0! m-0 rounded-none bg-[#292b2c] border-none! text-zinc-100 text-xs leading-tight  shadow-none! focus:ring-0">
+						<SelectTrigger className="w-52  pl-3  h-9.5 px-0! py-0! m-0 rounded-none bg-[#292b2c] border-none! text-zinc-100 text-xs leading-tight  shadow-none! focus:ring-0">
+							<span className="text-zinc-500 mr-2">Theme:</span>
 							<SelectValue placeholder="Select Theme" />
 						</SelectTrigger>
 						<SelectContent 
-							className="bg-[#292b2c] border-zinc-700 text-zinc-100 min-w-75 max-h-80"
+							className="bg-[#292b2c] border-zinc-700 text-zinc-100 min-w-[560px] max-h-80"
 							position="popper"
 							side="bottom"
 							sideOffset={4}
 						>
-							<div className="grid grid-cols-2 gap-1 p-1">
+							<div className="grid grid-cols-4 gap-1 p-1">
 								<SelectItem
 									value="custom-dark"
 									className="text-xs hover:bg-[#2a2d2e] focus:bg-[#094771]"
 								>
-									Default (Custom)
+									Default
 								</SelectItem>
 								<SelectItem
 									value="vs-dark"
