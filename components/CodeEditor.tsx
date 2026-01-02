@@ -183,7 +183,7 @@ export function CodeEditor({
 							<SelectValue placeholder="Select Theme" />
 						</SelectTrigger>
 						<SelectContent
-							className="bg-[#292b2c] border-zinc-700 text-zinc-100 min-w-[560px] max-h-80"
+							className="bg-[#292b2c] border-zinc-700 text-zinc-100 min-w-140 max-h-80"
 							position="popper"
 							side="bottom"
 							sideOffset={4}
