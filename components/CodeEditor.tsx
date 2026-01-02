@@ -501,13 +501,13 @@ export function CodeEditor({
 				                                    <Button
 				                                        variant="ghost"
 				                                        size="icon"
-				                                        className="h-7 w-7 text-zinc-500 hover:text-zinc-200"
+				                                        className="h-7 w-7 text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50"
 				                                        onClick={handleFormat}
 				                                    >
 				                                        <AlignLeft className="h-3.5 w-3.5" />
 				                                    </Button>
 				                                </TooltipTrigger>
-				                                <TooltipContent>
+				                                <TooltipContent className="bg-zinc-800 text-zinc-200 border-zinc-700">
 				                                    <p className="text-xs">Format Code (Ctrl+Alt+L)</p>
 				                                </TooltipContent>
 				                            </Tooltip>
@@ -517,20 +517,20 @@ export function CodeEditor({
 				                                    <Button
 				                                        variant="ghost"
 				                                        size="icon"
-				                                        className="h-7 w-7 text-zinc-500 hover:text-zinc-200"
+				                                        className="h-7 w-7 text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50"
 				                                        onClick={handleResetTemplate}
 				                                    >
 				                                        <RotateCcw className="h-3.5 w-3.5" />
 				                                    </Button>
 				                                </TooltipTrigger>
-				                                <TooltipContent>
+				                                <TooltipContent className="bg-zinc-800 text-zinc-200 border-zinc-700">
 				                                    <p className="text-xs">Reset to default template</p>
 				                                </TooltipContent>
 				                            </Tooltip>
+
+				                            {actions && <div className="flex items-center gap-1">{actions}</div>}
 				                        </div>
 				                    </TooltipProvider>
-				
-				                    {actions && <div className="flex items-center gap-2">{actions}</div>}
 				                </div>
 				            </div>
 				            <div className="flex-1 relative border-t  mt-px    overflow-hidden">
