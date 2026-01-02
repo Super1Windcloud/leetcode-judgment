@@ -247,6 +247,13 @@ const XCODE_DARK_THEME_DATA = {
 
 // bg-[#292a30]
 
+// 规范化代码以进行比较（忽略空白字符）
+const isSameContent = (a: string, b: string) => {
+	if (a === b) return true;
+	const normalize = (s: string) => s.trim().replace(/\s/g, "");
+	return normalize(a) === normalize(b);
+};
+
 export function CodeEditor({
 	className,
 
@@ -262,25 +269,33 @@ export function CodeEditor({
 
 	...props
 }: CodeEditorProps) {
-		const monacoLanguage = LANGUAGE_MAP[language.toLowerCase()] || "javascript";
-		const monacoRef = React.useRef<Monaco | null>(null);
-		const editorRef = React.useRef<any>(null);
-	
-		const [editorTheme, setEditorTheme] = React.useState("xcode-dark");
-		const [themeOptions, setThemeOptions] = React.useState<MonacoThemeOption[]>(
-			[],
-		);
-	
-		const lastTemplateRef = React.useRef("");
-		const valueRef = React.useRef(value);
-		const onChangeRef = React.useRef(onChange);
-	
-		// 格式化文档逻辑
-		const handleFormat = React.useCallback(() => {
-			if (editorRef.current) {
-				editorRef.current.getAction("editor.action.formatDocument").run();
+	const monacoLanguage = LANGUAGE_MAP[language.toLowerCase()] || "javascript";
+	const monacoRef = React.useRef<Monaco | null>(null);
+	const editorRef = React.useRef<any>(null);
+
+	const [editorTheme, setEditorTheme] = React.useState("xcode-dark");
+	const [themeOptions, setThemeOptions] = React.useState<MonacoThemeOption[]>(
+		[],
+	);
+
+	const lastTemplateRef = React.useRef("");
+	const valueRef = React.useRef(value);
+	const onChangeRef = React.useRef(onChange);
+	const codeCacheRef = React.useRef<Record<string, string>>({});
+	const prevLanguageRef = React.useRef(language);
+
+	// 格式化文档逻辑
+	const handleFormat = React.useCallback(() => {
+		if (editorRef.current) {
+			editorRef.current.focus();
+			const action = editorRef.current.getAction("editor.action.formatDocument");
+			if (action) {
+				void action.run();
+			} else {
+				console.warn("Format action not available for this language");
 			}
-		}, []);
+		}
+	}, []);
 
 	// 同步最新的 props 到 ref
 	React.useEffect(() => {
@@ -288,29 +303,38 @@ export function CodeEditor({
 		onChangeRef.current = onChange;
 	}, [value, onChange]);
 
-	// 当语言改变时，智能决定是否切换模版
+	// 当语言改变时，自动切换到对应语言的代码（从缓存加载或使用模板）
 	React.useEffect(() => {
-		const currentTemplate = LANGUAGE_TEMPLATES[language.toLowerCase()];
-		if (!currentTemplate) return;
+		const currentLanguage = language.toLowerCase();
+		const oldLanguage = prevLanguageRef.current.toLowerCase();
 
-		const currentValue = valueRef.current;
+		if (oldLanguage !== currentLanguage) {
+			// 1. 保存旧语言的代码到缓存
+			codeCacheRef.current[oldLanguage] = valueRef.current || "";
 
-		// 如果满足以下任一条件，则切换：
-		// 1. 编辑器内容为空
-		// 2. 编辑器当前内容恰好是上一个语言的模板（说明用户还没动过代码）
-		if (
-			!currentValue ||
-			currentValue.trim() === "" ||
-			currentValue === lastTemplateRef.current
-		) {
-			lastTemplateRef.current = currentTemplate;
-			onChangeRef.current?.(currentTemplate);
+			// 2. 加载新语言的代码
+			const cachedCode = codeCacheRef.current[currentLanguage];
+			const template = LANGUAGE_TEMPLATES[currentLanguage];
+
+			if (cachedCode !== undefined && cachedCode.trim() !== "") {
+				// 如果缓存中有内容，则恢复缓存
+				onChangeRef.current?.(cachedCode);
+			} else if (template) {
+				// 否则加载模板
+				lastTemplateRef.current = template;
+				onChangeRef.current?.(template);
+			}
+
+			prevLanguageRef.current = language;
 		}
-	}, [language]); // 现在依赖项只有 language，实现了真正的“只监听语言变化”
+	}, [language]);
+
 	const handleResetTemplate = () => {
 		const template = LANGUAGE_TEMPLATES[language.toLowerCase()];
 		if (template) {
 			lastTemplateRef.current = template;
+			// 重置时清除当前语言的缓存
+			codeCacheRef.current[language.toLowerCase()] = template;
 			onChange?.(template);
 		}
 	};
