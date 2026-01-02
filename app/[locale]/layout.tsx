@@ -13,6 +13,10 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
 import { routing } from "@/i18n/routing";
 
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
+import { NextAuthConfig } from "@/lib/nextauth.config";
+
 const geistSans = Geist({
 	variable: "--font-geist-sans",
 	subsets: ["latin"],
@@ -75,6 +79,10 @@ export default async function LocaleLayout({
 	if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
 		notFound();
 	}
+
+	// 权限检查 (RSC 层级)
+	const session = await getServerSession(NextAuthConfig);
+
 	// Enable static rendering
 	setRequestLocale(locale);
 
