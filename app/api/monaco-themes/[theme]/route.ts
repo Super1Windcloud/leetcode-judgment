@@ -1,7 +1,7 @@
 import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
-import path from "node:path";
 import { createRequire } from "node:module";
+import path from "node:path";
 import { type NextRequest, NextResponse } from "next/server";
 
 export const runtime = "nodejs";

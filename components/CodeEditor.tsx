@@ -110,7 +110,11 @@ export function CodeEditor({
 	}, []);
 
 	const applyTheme = React.useCallback(async (nextTheme: string) => {
-		if (nextTheme === "custom-dark" || nextTheme === "vs-dark" || nextTheme === "vs-light") {
+		if (
+			nextTheme === "custom-dark" ||
+			nextTheme === "vs-dark" ||
+			nextTheme === "vs-light"
+		) {
 			setEditorTheme(nextTheme);
 			return;
 		}
@@ -178,7 +182,7 @@ export function CodeEditor({
 							<span className="text-zinc-500 mr-2">Theme:</span>
 							<SelectValue placeholder="Select Theme" />
 						</SelectTrigger>
-						<SelectContent 
+						<SelectContent
 							className="bg-[#292b2c] border-zinc-700 text-zinc-100 min-w-[560px] max-h-80"
 							position="popper"
 							side="bottom"

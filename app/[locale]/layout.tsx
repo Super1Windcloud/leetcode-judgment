@@ -2,19 +2,16 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { getServerSession } from "next-auth";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import NextTopLoader from "nextjs-toploader";
 import type React from "react";
-import { LayoutShell } from "@/components/LayoutShell";
 import NextAuthProvider from "@/components/NextAuthProvider";
 import { QueryProvider } from "@/components/QueryProvider";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
 import { routing } from "@/i18n/routing";
-
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
 import { NextAuthConfig } from "@/lib/nextauth.config";
 
 const geistSans = Geist({
@@ -81,7 +78,7 @@ export default async function LocaleLayout({
 	}
 
 	// 权限检查 (RSC 层级)
-	const session = await getServerSession(NextAuthConfig);
+	const _session = await getServerSession(NextAuthConfig);
 
 	// Enable static rendering
 	setRequestLocale(locale);
@@ -114,9 +111,7 @@ export default async function LocaleLayout({
 							shadow="0 0 10px var(--primary),0 0 5px var(--primary)"
 						/>
 						<NextAuthProvider>
-							<QueryProvider>
-								<LayoutShell>{children}</LayoutShell>
-							</QueryProvider>
+							<QueryProvider>{children}</QueryProvider>
 						</NextAuthProvider>
 						<Toaster position="top-center" richColors closeButton />
 					</ThemeProvider>

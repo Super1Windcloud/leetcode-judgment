@@ -7,11 +7,13 @@ import type { Problem } from "@/lib/problems";
 
 interface HomePageClientProps {
 	problems: Problem[];
+	allTags: string[];
 	locale: string;
 }
 
 export default function HomePageClient({
 	problems,
+	allTags,
 	locale,
 }: HomePageClientProps) {
 	const containerRef = useRef<HTMLDivElement>(null);
@@ -30,7 +32,11 @@ export default function HomePageClient({
 					/>
 				</div>
 
-				<ProblemList initialProblems={problems} locale={locale} />
+				<ProblemList
+					initialProblems={problems}
+					allTags={allTags}
+					locale={locale}
+				/>
 			</div>
 		</main>
 	);

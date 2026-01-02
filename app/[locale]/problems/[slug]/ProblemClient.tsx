@@ -25,87 +25,58 @@ import type { ProblemDetail } from "@/lib/problems";
 
 interface ProblemClientProps {
 	problem: ProblemDetail;
+
 	t: {
 		allProblems: string;
+
 		solution: string;
+
 		description: string;
 	};
+
+	parsedSolution: ParsedSolution;
 }
 
 interface ParsedSolution {
 	preamble: string;
+
 	solutions: {
 		label: string;
+
 		language: string;
+
 		code: string;
 	}[];
 }
 
-export function ProblemClient({ problem, t }: ProblemClientProps) {
+export function ProblemClient({
+	problem,
+	t,
+	parsedSolution,
+}: ProblemClientProps) {
 	const [activeTab, setActiveTab] = useState("description");
+
 	const [editorCode, setEditorCode] = useState("");
+
 	const [editorLanguage, setEditorLanguage] = useState("java");
-
-	// Improved parser to extract preamble and code blocks from the solution markdown
-	const parsedData = useMemo((): ParsedSolution => {
-		const solutions: ParsedSolution["solutions"] = [];
-		const regex =
-			/(?:####\s+([^\r\n]+)[\r\n\s]*)?```(\w+)[^\r\n]*[\r\n]+([\s\S]*?)[\r\n]+```/g;
-
-		let match: RegExpExecArray | null;
-		let firstMatchIndex = -1;
-
-		// biome-ignore lint/suspicious/noAssignInExpressions: standard regex loop
-		while ((match = regex.exec(problem.solution)) !== null) {
-			if (firstMatchIndex === -1) {
-				firstMatchIndex = match.index;
-			}
-			const headerName = match[1]?.trim();
-			const langIdentifier = match[2];
-			const code = match[3].trim();
-
-			solutions.push({
-				label: headerName || langIdentifier.toUpperCase(),
-				language: langIdentifier,
-				code: code,
-			});
-		}
-
-		const preamble =
-			firstMatchIndex !== -1
-				? problem.solution.slice(0, firstMatchIndex).trim()
-				: "";
-
-		if (solutions.length === 0) {
-			return {
-				preamble: "",
-				solutions: [
-					{
-						label: "Markdown",
-						language: "markdown",
-						code: problem.solution,
-					},
-				],
-			};
-		}
-
-		return { preamble, solutions };
-	}, [problem.solution]);
 
 	const [selectedSolutionIndex, setSelectedSolutionIndex] = useState(0);
 
 	// Reset selection when problem changes
-	// biome-ignore lint/correctness/useExhaustiveDependencies: reset index on new solution
+
 	useEffect(() => {
 		setSelectedSolutionIndex(0);
-	}, [problem.solution]);
+	}, []);
 
 	const currentSolution =
-		parsedData.solutions[selectedSolutionIndex] || parsedData.solutions[0];
+		parsedSolution.solutions[selectedSolutionIndex] ||
+		parsedSolution.solutions[0];
 
 	const solutionMarkdown = useMemo(() => {
 		if (!currentSolution) return "";
+
 		if (currentSolution.language === "markdown") return currentSolution.code;
+
 		return `\`\`\`${currentSolution.language}\n${currentSolution.code}\n\`\`\``;
 	}, [currentSolution]);
 
@@ -235,16 +206,16 @@ export function ProblemClient({ problem, t }: ProblemClientProps) {
 							>
 								<ScrollArea className="flex-1 min-h-0 p-6">
 									<div className="prose prose-sm dark:prose-invert max-w-none">
-										{parsedData.preamble && (
+										{parsedSolution.preamble && (
 											<ReactMarkdown
 												remarkPlugins={[remarkGfm]}
 												rehypePlugins={[rehypeRaw, rehypeHighlight]}
 											>
-												{parsedData.preamble}
+												{parsedSolution.preamble}
 											</ReactMarkdown>
 										)}
 
-										{parsedData.solutions.length > 1 && (
+										{parsedSolution.solutions.length > 1 && (
 											<div
 												style={{
 													borderWidth: 0,
@@ -263,7 +234,7 @@ export function ProblemClient({ problem, t }: ProblemClientProps) {
 														<SelectValue />
 													</SelectTrigger>
 													<SelectContent className="dark:bg-[#292a30]   dark:border-[#383a3c]">
-														{parsedData.solutions.map((s, index) => (
+														{parsedSolution.solutions.map((s, index) => (
 															<SelectItem
 																key={`${s.label}-${index}`}
 																value={index.toString()}
