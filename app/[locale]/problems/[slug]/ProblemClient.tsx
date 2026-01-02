@@ -1,6 +1,14 @@
 "use client";
 
-import { BookOpen, ChevronLeft, Code2, Play, Send } from "lucide-react";
+import {
+	BookOpen,
+	Check,
+	ChevronLeft,
+	Code2,
+	Copy,
+	Play,
+	Send,
+} from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
@@ -48,6 +56,53 @@ interface ParsedSolution {
 
 		code: string;
 	}[];
+}
+
+// 递归提取 React 节点中的纯文本
+
+function extractText(node: React.ReactNode): string {
+	if (!node) return "";
+
+	if (typeof node === "string") return node;
+
+	if (typeof node === "number") return String(node);
+
+	if (Array.isArray(node)) return node.map(extractText).join("");
+
+	// @ts-expect-error
+
+	if (node.props?.children) return extractText(node.props.children);
+
+	return "";
+}
+
+function CopyButton({ content }: { content: string }) {
+	const [copied, setCopied] = useState(false);
+
+	const handleCopy = async () => {
+		try {
+			await navigator.clipboard.writeText(content);
+			setCopied(true);
+			setTimeout(() => setCopied(false), 2000);
+		} catch (err) {
+			console.error("Failed to copy!", err);
+		}
+	};
+
+	return (
+		<Button
+			variant="ghost"
+			size="icon"
+			className="h-7 w-7 text-zinc-500 hover:text-zinc-200 hover:bg-zinc-800/50"
+			onClick={handleCopy}
+		>
+			{copied ? (
+				<Check className="h-3.5 w-3.5 text-emerald-500" />
+			) : (
+				<Copy className="h-3.5 w-3.5" />
+			)}
+		</Button>
+	);
 }
 
 export function ProblemClient({
@@ -256,12 +311,27 @@ export function ProblemClient({
 											remarkPlugins={[remarkGfm]}
 											rehypePlugins={[rehypeRaw, rehypeHighlight]}
 											components={{
-												pre: ({ node, ...props }) => (
-													<pre
-														className="rounded-md m-0 text-sm! p-0 font-mono bg-transparent overflow-x-auto border border-zinc-200 dark:border-[#383a3c] shadow-sm"
-														{...props}
-													/>
-												),
+												pre: ({ children, ...props }) => {
+													// 递归提取代码文本内容
+
+													const content = extractText(children);
+
+													return (
+														<div className="relative group">
+															<pre
+																className="rounded-md m-0 text-sm! p-0 font-mono bg-transparent overflow-x-auto border border-zinc-200 dark:border-[#383a3c] shadow-sm"
+																{...props}
+															>
+																{children}
+															</pre>
+
+															<div className="absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity">
+																<CopyButton content={content} />
+															</div>
+														</div>
+													);
+												},
+
 												code: ({ node, className, ...props }) => {
 													const _match = /language-(\w+)/.exec(className || "");
 													return (
