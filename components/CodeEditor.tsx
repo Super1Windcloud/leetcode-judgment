@@ -1,8 +1,8 @@
 "use client";
 
-import {Editor, type Monaco} from "@monaco-editor/react";
+import { Editor, type Monaco } from "@monaco-editor/react";
 
-import {AlignLeft, RotateCcw} from "lucide-react";
+import { AlignLeft, RotateCcw } from "lucide-react";
 
 import * as React from "react";
 import { Button } from "@/components/ui/button";
@@ -247,13 +247,6 @@ const XCODE_DARK_THEME_DATA = {
 
 // bg-[#292a30]
 
-// 规范化代码以进行比较（忽略空白字符）
-const isSameContent = (a: string, b: string) => {
-	if (a === b) return true;
-	const normalize = (s: string) => s.trim().replace(/\s/g, "");
-	return normalize(a) === normalize(b);
-};
-
 export function CodeEditor({
 	className,
 
@@ -271,7 +264,10 @@ export function CodeEditor({
 }: CodeEditorProps) {
 	const monacoLanguage = LANGUAGE_MAP[language.toLowerCase()] || "javascript";
 	const monacoRef = React.useRef<Monaco | null>(null);
-	const editorRef = React.useRef<any>(null);
+	const editorRef = React.useRef<
+		| Parameters<NonNullable<React.ComponentProps<typeof Editor>["onMount"]>>[0]
+		| null
+	>(null);
 
 	const [editorTheme, setEditorTheme] = React.useState("xcode-dark");
 	const [themeOptions, setThemeOptions] = React.useState<MonacoThemeOption[]>(
@@ -288,12 +284,12 @@ export function CodeEditor({
 	const handleFormat = React.useCallback(() => {
 		if (editorRef.current) {
 			editorRef.current.focus();
-			const action = editorRef.current.getAction("editor.action.formatDocument");
-			if (action) {
-				void action.run();
-			} else {
-				console.warn("Format action not available for this language");
-			}
+			// 使用更直接的 trigger 方式触发格式化，补充缺失的第三个参数以修复 TS2554
+			editorRef.current.trigger(
+				"anyString",
+				"editor.action.formatDocument",
+				null,
+			);
 		}
 	}, []);
 
@@ -517,88 +513,95 @@ export function CodeEditor({
 						</SelectContent>
 					</Select>
 				</div>
-				                <div className="flex items-center gap-2 px-2">
-				                    <TooltipProvider>
-				                        <div className="flex items-center gap-1">
-				                            <Tooltip>
-				                                <TooltipTrigger asChild>
-				                                    <Button
-				                                        variant="ghost"
-				                                        size="icon"
-				                                        className="h-7 w-7 text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50"
-				                                        onClick={handleFormat}
-				                                    >
-				                                        <AlignLeft className="h-3.5 w-3.5" />
-				                                    </Button>
-				                                </TooltipTrigger>
-				                                <TooltipContent className="bg-zinc-800 text-zinc-200 border-zinc-700">
-				                                    <p className="text-xs">Format Code (Ctrl+Alt+L)</p>
-				                                </TooltipContent>
-				                            </Tooltip>
-				
-				                            <Tooltip>
-				                                <TooltipTrigger asChild>
-				                                    <Button
-				                                        variant="ghost"
-				                                        size="icon"
-				                                        className="h-7 w-7 text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50"
-				                                        onClick={handleResetTemplate}
-				                                    >
-				                                        <RotateCcw className="h-3.5 w-3.5" />
-				                                    </Button>
-				                                </TooltipTrigger>
-				                                <TooltipContent className="bg-zinc-800 text-zinc-200 border-zinc-700">
-				                                    <p className="text-xs">Reset to default template</p>
-				                                </TooltipContent>
-				                            </Tooltip>
+				<div className="flex items-center gap-2 px-2">
+					<TooltipProvider>
+						<div className="flex items-center gap-1">
+							<Tooltip>
+								<TooltipTrigger asChild>
+									<Button
+										variant="ghost"
+										size="icon"
+										className="h-7 w-7 text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50"
+										onClick={handleFormat}
+									>
+										<AlignLeft className="h-3.5 w-3.5" />
+									</Button>
+								</TooltipTrigger>
+								<TooltipContent className="bg-zinc-800 text-zinc-200 border-zinc-700">
+									<p className="text-xs">Format Code (Ctrl+Alt+L)</p>
+								</TooltipContent>
+							</Tooltip>
 
-				                            {actions && <div className="flex items-center gap-1">{actions}</div>}
-				                        </div>
-				                    </TooltipProvider>
-				                </div>
-				            </div>
-				            <div className="flex-1 relative border-t  mt-px    overflow-hidden">
-				                <Editor
-				                    height="100%"
-				                    language={monacoLanguage}
-				                    theme={editorTheme}
-				                    value={value}
-				                    onChange={(val) => onChange?.(val || "")}
-				                    beforeMount={(monaco) => {
-				                        monacoRef.current = monaco;
-				                        // 注册自定义默认主题
-				                        monaco.editor.defineTheme("custom-dark", {
-				                            base: "vs-dark",
-				                            inherit: true,
-				                            rules: [],
-				                            colors: {
-				                                "editor.background": "#292b2c",
-				                                "editor.lineHighlightBackground": "#2f3133",
-				                            },
-				                        });
-				                        // 注册 Xcode Dark 主题
-				                        monaco.editor.defineTheme("xcode-dark", {
-				                            base: "vs-dark",
-				                            inherit: true,
-				                            rules: XCODE_DARK_THEME_DATA.rules,
-				                            colors: XCODE_DARK_THEME_DATA.colors,
-				                        });
-				                    }}
-				                    onMount={(editor, monaco) => {
-				                        editorRef.current = editor;
-				
-				                        // 注册快捷键 Ctrl+Alt+L
-				                        editor.addCommand(
-				                            monaco.KeyMod.CtrlCmd | monaco.KeyMod.Alt | monaco.KeyCode.KeyL,
-				                            () => {
-				                                handleFormat();
-				                            },
-				                        );
-				
-				                        if (editorTheme !== "custom-dark" && editorTheme !== "vs-dark" && editorTheme !== "xcode-dark") {
-				                            void applyTheme(editorTheme);
-				                        }
-				                    }}					options={{
+							<Tooltip>
+								<TooltipTrigger asChild>
+									<Button
+										variant="ghost"
+										size="icon"
+										className="h-7 w-7 text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50"
+										onClick={handleResetTemplate}
+									>
+										<RotateCcw className="h-3.5 w-3.5" />
+									</Button>
+								</TooltipTrigger>
+								<TooltipContent className="bg-zinc-800 text-zinc-200 border-zinc-700">
+									<p className="text-xs">Reset to default template</p>
+								</TooltipContent>
+							</Tooltip>
+
+							{actions && (
+								<div className="flex items-center gap-1">{actions}</div>
+							)}
+						</div>
+					</TooltipProvider>
+				</div>
+			</div>
+			<div className="flex-1 relative border-t  mt-px    overflow-hidden">
+				<Editor
+					height="100%"
+					language={monacoLanguage}
+					theme={editorTheme}
+					value={value}
+					onChange={(val) => onChange?.(val || "")}
+					beforeMount={(monaco) => {
+						monacoRef.current = monaco;
+						// 注册自定义默认主题
+						monaco.editor.defineTheme("custom-dark", {
+							base: "vs-dark",
+							inherit: true,
+							rules: [],
+							colors: {
+								"editor.background": "#292b2c",
+								"editor.lineHighlightBackground": "#2f3133",
+							},
+						});
+						// 注册 Xcode Dark 主题
+						monaco.editor.defineTheme("xcode-dark", {
+							base: "vs-dark",
+							inherit: true,
+							rules: XCODE_DARK_THEME_DATA.rules,
+							colors: XCODE_DARK_THEME_DATA.colors,
+						});
+					}}
+					onMount={(editor, monaco) => {
+						editorRef.current = editor;
+
+						// 注册快捷键 Ctrl+Alt+L
+						editor.addCommand(
+							monaco.KeyMod.CtrlCmd | monaco.KeyMod.Alt | monaco.KeyCode.KeyL,
+							() => {
+								handleFormat();
+							},
+						);
+
+						if (
+							editorTheme !== "custom-dark" &&
+							editorTheme !== "vs-dark" &&
+							editorTheme !== "xcode-dark"
+						) {
+							void applyTheme(editorTheme);
+						}
+					}}
+					options={{
 						minimap: { enabled: false },
 						fontSize: 14,
 						lineNumbers: "on",
@@ -608,6 +611,8 @@ export function CodeEditor({
 						fontFamily: "'Fira Code', 'Cascadia Code', Consolas, monospace",
 						fontLigatures: true,
 						readOnly: false,
+						formatOnType: true,
+						formatOnPaste: true,
 					}}
 					loading={
 						<div className="p-4 text-zinc-500 text-xs">Loading editor...</div>
