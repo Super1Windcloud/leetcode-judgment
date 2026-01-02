@@ -9,6 +9,7 @@ import {
 	Play,
 	Send,
 } from "lucide-react";
+import type React from "react";
 import { useEffect, useMemo, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";

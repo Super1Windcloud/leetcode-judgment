@@ -1,8 +1,11 @@
 "use client";
 
-import type { Monaco } from "@monaco-editor/react";
-import { Editor } from "@monaco-editor/react";
+import {Editor, type Monaco} from "@monaco-editor/react";
+
+import {AlignLeft, RotateCcw} from "lucide-react";
+
 import * as React from "react";
+import { Button } from "@/components/ui/button";
 import {
 	Select,
 	SelectContent,
@@ -10,6 +13,12 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipProvider,
+	TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
 interface CodeEditorProps
@@ -19,7 +28,9 @@ interface CodeEditorProps
 	onChange?: (value: string) => void;
 
 	language?: string;
+
 	onLanguageChange?: (language: string) => void;
+
 	actions?: React.ReactNode;
 }
 
@@ -47,6 +58,19 @@ const LANGUAGE_MAP: Record<string, string> = {
 	php: "php",
 	python: "python",
 	rust: "rust",
+};
+
+const LANGUAGE_TEMPLATES: Record<string, string> = {
+	cpp: `#include <iostream>\n#include <vector>\n#include <string>\n#include <algorithm>\n\nusing namespace std;\n\nclass Solution {\npublic:\n    void solve() {\n        \n    }\n};\n\nint main() {\n    Solution sol;\n    sol.solve();\n    return 0;\n}`,
+	c: `#include <stdio.h>\n#include <stdlib.h>\n#include <string.h>\n\nint main() {\n    \n    return 0;\n}`,
+	csharp: `using System;\nusing System.Collections.Generic;\n\npublic class Solution {\n    public void Solve() {\n        \n    }\n}\n\npublic class Program {\n    public static void Main() {\n        Solution sol = new Solution();\n        sol.Solve();\n    }\n}`,
+	go: `package main\n\nimport (\n    "fmt"\n)\n\nfunc main() {\n    \n}`,
+	java: `import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Solution sol = new Solution();\n    }\n}\n\nclass Solution {\n    public void solve() {\n        \n    }\n}`,
+	javascript: `/**\n * @return {void}\n */\nvar solve = function() {\n    \n};\n\n// solve();`,
+	typescript: `function solve(): void {\n    \n}\n\n// solve();`,
+	php: `<?php\n\nclass Solution {\n    /**\n     * @return void\n     */\n    function solve() {\n        \n    }\n}\n\n$sol = new Solution();\n$sol->solve();`,
+	python: `import collections\nimport heapq\nimport math\n\nclass Solution:\n    def solve(self):\n        pass\n\nif __name__ == "__main__":\n    sol = Solution()\n    sol.solve()`,
+	rust: `struct Solution;\n\nimpl Solution {\n    pub fn solve() {\n        \n    }\n}\n\nfn main() {\n    Solution::solve();\n}`,
 };
 
 type MonacoThemeOption = {
@@ -238,15 +262,58 @@ export function CodeEditor({
 
 	...props
 }: CodeEditorProps) {
-	const monacoLanguage = LANGUAGE_MAP[language.toLowerCase()] || "javascript";
+		const monacoLanguage = LANGUAGE_MAP[language.toLowerCase()] || "javascript";
+		const monacoRef = React.useRef<Monaco | null>(null);
+		const editorRef = React.useRef<any>(null);
+	
+		const [editorTheme, setEditorTheme] = React.useState("xcode-dark");
+		const [themeOptions, setThemeOptions] = React.useState<MonacoThemeOption[]>(
+			[],
+		);
+	
+		const lastTemplateRef = React.useRef("");
+		const valueRef = React.useRef(value);
+		const onChangeRef = React.useRef(onChange);
+	
+		// 格式化文档逻辑
+		const handleFormat = React.useCallback(() => {
+			if (editorRef.current) {
+				editorRef.current.getAction("editor.action.formatDocument").run();
+			}
+		}, []);
 
-	const monacoRef = React.useRef<Monaco | null>(null);
+	// 同步最新的 props 到 ref
+	React.useEffect(() => {
+		valueRef.current = value;
+		onChangeRef.current = onChange;
+	}, [value, onChange]);
 
-	const [editorTheme, setEditorTheme] = React.useState("xcode-dark");
+	// 当语言改变时，智能决定是否切换模版
+	React.useEffect(() => {
+		const currentTemplate = LANGUAGE_TEMPLATES[language.toLowerCase()];
+		if (!currentTemplate) return;
 
-	const [themeOptions, setThemeOptions] = React.useState<MonacoThemeOption[]>(
-		[],
-	);
+		const currentValue = valueRef.current;
+
+		// 如果满足以下任一条件，则切换：
+		// 1. 编辑器内容为空
+		// 2. 编辑器当前内容恰好是上一个语言的模板（说明用户还没动过代码）
+		if (
+			!currentValue ||
+			currentValue.trim() === "" ||
+			currentValue === lastTemplateRef.current
+		) {
+			lastTemplateRef.current = currentTemplate;
+			onChangeRef.current?.(currentTemplate);
+		}
+	}, [language]); // 现在依赖项只有 language，实现了真正的“只监听语言变化”
+	const handleResetTemplate = () => {
+		const template = LANGUAGE_TEMPLATES[language.toLowerCase()];
+		if (template) {
+			lastTemplateRef.current = template;
+			onChange?.(template);
+		}
+	};
 
 	React.useEffect(() => {
 		let active = true;
@@ -426,41 +493,88 @@ export function CodeEditor({
 						</SelectContent>
 					</Select>
 				</div>
-				{actions && <div className="flex items-center gap-2">{actions}</div>}
-			</div>
-			<div className="flex-1 relative border-t  mt-px    overflow-hidden">
-				<Editor
-					height="100%"
-					language={monacoLanguage}
-					theme={editorTheme}
-					value={value}
-					onChange={(val) => onChange?.(val || "")}
-					beforeMount={(monaco) => {
-						monacoRef.current = monaco;
-						// 注册自定义默认主题
-						monaco.editor.defineTheme("custom-dark", {
-							base: "vs-dark",
-							inherit: true,
-							rules: [],
-							colors: {
-								"editor.background": "#292b2c",
-								"editor.lineHighlightBackground": "#2f3133",
-							},
-						});
-						// 注册 Xcode Dark 主题
-						monaco.editor.defineTheme("xcode-dark", {
-							base: "vs-dark",
-							inherit: true,
-							rules: XCODE_DARK_THEME_DATA.rules,
-							colors: XCODE_DARK_THEME_DATA.colors,
-						});
-					}}
-					onMount={() => {
-						if (editorTheme !== "custom-dark") {
-							void applyTheme(editorTheme);
-						}
-					}}
-					options={{
+				                <div className="flex items-center gap-2 px-2">
+				                    <TooltipProvider>
+				                        <div className="flex items-center gap-1">
+				                            <Tooltip>
+				                                <TooltipTrigger asChild>
+				                                    <Button
+				                                        variant="ghost"
+				                                        size="icon"
+				                                        className="h-7 w-7 text-zinc-500 hover:text-zinc-200"
+				                                        onClick={handleFormat}
+				                                    >
+				                                        <AlignLeft className="h-3.5 w-3.5" />
+				                                    </Button>
+				                                </TooltipTrigger>
+				                                <TooltipContent>
+				                                    <p className="text-xs">Format Code (Ctrl+Alt+L)</p>
+				                                </TooltipContent>
+				                            </Tooltip>
+				
+				                            <Tooltip>
+				                                <TooltipTrigger asChild>
+				                                    <Button
+				                                        variant="ghost"
+				                                        size="icon"
+				                                        className="h-7 w-7 text-zinc-500 hover:text-zinc-200"
+				                                        onClick={handleResetTemplate}
+				                                    >
+				                                        <RotateCcw className="h-3.5 w-3.5" />
+				                                    </Button>
+				                                </TooltipTrigger>
+				                                <TooltipContent>
+				                                    <p className="text-xs">Reset to default template</p>
+				                                </TooltipContent>
+				                            </Tooltip>
+				                        </div>
+				                    </TooltipProvider>
+				
+				                    {actions && <div className="flex items-center gap-2">{actions}</div>}
+				                </div>
+				            </div>
+				            <div className="flex-1 relative border-t  mt-px    overflow-hidden">
+				                <Editor
+				                    height="100%"
+				                    language={monacoLanguage}
+				                    theme={editorTheme}
+				                    value={value}
+				                    onChange={(val) => onChange?.(val || "")}
+				                    beforeMount={(monaco) => {
+				                        monacoRef.current = monaco;
+				                        // 注册自定义默认主题
+				                        monaco.editor.defineTheme("custom-dark", {
+				                            base: "vs-dark",
+				                            inherit: true,
+				                            rules: [],
+				                            colors: {
+				                                "editor.background": "#292b2c",
+				                                "editor.lineHighlightBackground": "#2f3133",
+				                            },
+				                        });
+				                        // 注册 Xcode Dark 主题
+				                        monaco.editor.defineTheme("xcode-dark", {
+				                            base: "vs-dark",
+				                            inherit: true,
+				                            rules: XCODE_DARK_THEME_DATA.rules,
+				                            colors: XCODE_DARK_THEME_DATA.colors,
+				                        });
+				                    }}
+				                    onMount={(editor, monaco) => {
+				                        editorRef.current = editor;
+				
+				                        // 注册快捷键 Ctrl+Alt+L
+				                        editor.addCommand(
+				                            monaco.KeyMod.CtrlCmd | monaco.KeyMod.Alt | monaco.KeyCode.KeyL,
+				                            () => {
+				                                handleFormat();
+				                            },
+				                        );
+				
+				                        if (editorTheme !== "custom-dark" && editorTheme !== "vs-dark" && editorTheme !== "xcode-dark") {
+				                            void applyTheme(editorTheme);
+				                        }
+				                    }}					options={{
 						minimap: { enabled: false },
 						fontSize: 14,
 						lineNumbers: "on",
