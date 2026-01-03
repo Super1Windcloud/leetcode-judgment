@@ -284,12 +284,28 @@ export function CodeEditor({
 	const handleFormat = React.useCallback(() => {
 		if (editorRef.current) {
 			editorRef.current.focus();
-			// 使用更直接的 trigger 方式触发格式化，补充缺失的第三个参数以修复 TS2554
-			editorRef.current.trigger(
-				"anyString",
-				"editor.action.formatDocument",
-				null,
-			);
+			const editor = editorRef.current;
+			const formatAction = editor.getAction("editor.action.formatDocument");
+
+			if (formatAction) {
+				// 如果有内置格式化程序 (JS/TS/JSON/CSS)
+				void formatAction.run();
+			} else {
+				// 保底方案：对于 C++/Java/Python 等没有内置格式化器的语言
+				// 强制执行全量重新缩进 (Re-indent Lines)
+				const model = editor.getModel();
+				if (model) {
+					const currentSelection = editor.getSelection();
+					// 全选
+					editor.setSelection(model.getFullModelRange());
+					// 触发重新缩进
+					editor.trigger("anyString", "editor.action.reindentlines", null);
+					// 恢复之前的光标位置/选择范围
+					if (currentSelection) {
+						editor.setSelection(currentSelection);
+					}
+				}
+			}
 		}
 	}, []);
 
@@ -452,6 +468,7 @@ export function CodeEditor({
 							className="bg-[#292b2c]  border-zinc-700 text-zinc-100 min-w-[320px]"
 							position="popper"
 							side="bottom"
+							align={"start"}
 							sideOffset={4}
 						>
 							<div className="grid grid-cols-3 gap-1 p-1">
@@ -479,6 +496,7 @@ export function CodeEditor({
 							className="bg-[#292b2c] border-zinc-700 text-zinc-100 min-w-140 max-h-80"
 							position="popper"
 							side="bottom"
+							align={"start"}
 							sideOffset={4}
 						>
 							<div className="grid grid-cols-4 gap-1 p-1">
@@ -603,9 +621,11 @@ export function CodeEditor({
 					}}
 					options={{
 						minimap: { enabled: false },
-						fontSize: 14,
+						fontSize: 18,
 						lineNumbers: "on",
-						scrollBeyondLastLine: false,
+						allowVariableFonts: true,
+						unusualLineTerminators: "auto",
+						scrollBeyondLastLine: true,
 						automaticLayout: true,
 						padding: { top: 16, bottom: 16 },
 						fontFamily: "'Fira Code', 'Cascadia Code', Consolas, monospace",
@@ -613,6 +633,30 @@ export function CodeEditor({
 						readOnly: false,
 						formatOnType: true,
 						formatOnPaste: true,
+						autoIndent: "full",
+						mouseWheelZoom: true,
+						smoothScrolling: true,
+						cursorSmoothCaretAnimation: "on",
+						scrollOnMiddleClick: false,
+						cursorBlinking: "smooth",
+						showUnused: true,
+						showDeprecated: true,
+						inlayHints: {
+							enabled: 'on',
+							padding: true,
+						},
+						bracketPairColorization: {
+							enabled: true,
+						},
+						parameterHints: {
+							enabled: true,
+							cycle: true,
+						},
+						guides: {
+							indentation: true,
+							bracketPairs: false,
+							bracketPairsHorizontal: true,
+						},
 					}}
 					loading={
 						<div className="p-4 text-zinc-500 text-xs">Loading editor...</div>
