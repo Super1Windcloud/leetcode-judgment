@@ -28,12 +28,22 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+	Tabs,
+	TabsContent,
+	TabsList,
+	TabsTrigger,
+} from "@/components/ui/tabs";
 import {
 	Tooltip,
 	TooltipContent,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
+import {
+	ResizableHandle,
+	ResizablePanel,
+	ResizablePanelGroup,
+} from "@/components/ui/resizable";
 import { Link } from "@/i18n/routing";
 import type { ProblemDetail } from "@/lib/problems";
 import { cn } from "@/lib/utils";
@@ -169,239 +179,253 @@ export function ProblemClient({
 			</div>
 			{/* Main Content */}
 			<div className="flex-1 flex overflow-hidden">
-				{/* Left Panel: Description & Solution */}
-				<div className="w-1/2 border-r   border-zinc-200 dark:border-[#383a3c] flex flex-col bg-white dark:bg-[#292b2c]">
-					<Tabs
-						value={activeTab}
-						onValueChange={setActiveTab}
-						className="flex flex-col h-full "
-					>
-						<div className="px-4 border-b border-zinc-200 dark:border-[#383a3c] bg-[#f8f9fa] dark:bg-transparent  flex items-center justify-between shrink-0 h-10">
-							<TabsList className="bg-transparent cursor-pointer   border-none gap-0 h-full p-0">
-								<TabsTrigger
-									value="description"
-									className="cursor-pointer data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-primary border-b-2 border-transparent data-[state=active]:border-primary rounded-none h-full px-2 text-xs"
-								>
-									<BookOpen className="w-3.5 h-3.5 mr-1.5" />
-									{t.description}
-								</TabsTrigger>
-								<TabsTrigger
-									value="solution"
-									className="cursor-pointer  data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-primary border-b-2 border-transparent data-[state=active]:border-primary rounded-none h-full px-2 text-xs"
-								>
-									<Code2 className="w-3.5 h-3.5 mr-1.5" />
-									{t.solution}
-								</TabsTrigger>
-							</TabsList>
-						</div>
-
-						<div className="flex-1 overflow-hidden">
-							<TabsContent value="description" className="h-full m-0">
-								<ScrollArea className="h-full p-6">
-									<div className="prose prose-sm dark:prose-invert max-w-none">
-										<div className="flex items-center gap-2 mb-4">
-											<h1 className="text-2xl font-bold m-0 text-zinc-900 dark:text-zinc-100">
-												{problem.title}
-											</h1>
-											<Badge
-												style={{
-													marginBottom: 15,
-												}}
-												className={
-													problem.difficulty === "Easy"
-														? "bg-green-500 hover:bg-green-600"
-														: problem.difficulty === "Medium"
-															? "bg-yellow-500 hover:bg-yellow-600"
-															: problem.difficulty === "Hard"
-																? "bg-red-500 hover:bg-red-600"
-																: "bg-gray-500"
-												}
-											>
-												{problem.difficulty}
-											</Badge>
-										</div>
-
-										<div
-											style={{
-												scrollbarWidth: "none",
-											}}
-											className="flex gap-2 mb-6 flex-wrap"
-										>
-											{problem.tags?.map((tag) => (
-												<Badge
-													key={tag}
-													variant="outline"
-													className="text-xs border-zinc-200 dark:border-[#383a3c] bg-zinc-50 dark:bg-[#383a3c] text-zinc-600 dark:text-zinc-300"
-												>
-													{tag}
-												</Badge>
-											))}
-										</div>
-
-										<ReactMarkdown
-											remarkPlugins={[remarkGfm]}
-											rehypePlugins={[rehypeRaw, rehypeHighlight]}
-											components={{
-												pre: ({ node, ...props }) => (
-													<pre
-														className="rounded-md bg-zinc-100 dark:bg-[#292a30] p-4 overflow-x-auto border border-zinc-200 dark:border-[#383a3c] shadow-sm text-sm! font-mono"
-														{...props}
-													/>
-												),
-												code: ({ node, className, ...props }) => {
-													const match = /language-(\w+)/.exec(className || "");
-													return (
-														<code
-															className={cn(
-																className,
-																"text-sm! font-mono",
-																!match &&
-																	"bg-zinc-100 dark:bg-[#383a3c] px-1 py-0.5 rounded-sm text-zinc-900 dark:text-zinc-200",
-															)}
-															{...props}
-														/>
-													);
-												},
-											}}
-										>
-											{problem.description}
-										</ReactMarkdown>
-									</div>
-								</ScrollArea>
-							</TabsContent>
-
-							<TabsContent
-								value="solution"
-								className="h-full m-0 flex flex-col"
+				<ResizablePanelGroup direction="horizontal" className="h-full w-full">
+					{/* Left Panel: Description & Solution */}
+					<ResizablePanel defaultSize={50} minSize={20}>
+						<div className="h-full flex flex-col bg-white dark:bg-[#292b2c]">
+							<Tabs
+								value={activeTab}
+								onValueChange={setActiveTab}
+								className="flex flex-col h-full "
 							>
-								<ScrollArea className="flex-1 min-h-0 p-6">
-									<div className="prose prose-sm dark:prose-invert max-w-none">
-										{parsedSolution.preamble && (
-											<ReactMarkdown
-												remarkPlugins={[remarkGfm]}
-												rehypePlugins={[rehypeRaw, rehypeHighlight]}
-											>
-												{parsedSolution.preamble}
-											</ReactMarkdown>
-										)}
+								<div className="px-4 border-b border-zinc-200 dark:border-[#383a3c] bg-[#f8f9fa] dark:bg-transparent  flex items-center justify-between shrink-0 h-10">
+									<TabsList className="bg-transparent cursor-pointer   border-none gap-0 h-full p-0">
+										<TabsTrigger
+											value="description"
+											className="cursor-pointer data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-primary border-b-2 border-transparent data-[state=active]:border-primary rounded-none h-full px-2 text-xs"
+										>
+											<BookOpen className="w-3.5 h-3.5 mr-1.5" />
+											{t.description}
+										</TabsTrigger>
+										<TabsTrigger
+											value="solution"
+											className="cursor-pointer  data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-primary border-b-2 border-transparent data-[state=active]:border-primary rounded-none h-full px-2 text-xs"
+										>
+											<Code2 className="w-3.5 h-3.5 mr-1.5" />
+											{t.solution}
+										</TabsTrigger>
+									</TabsList>
+								</div>
 
-										{parsedSolution.solutions.length > 1 && (
-											<div
-												style={{
-													borderWidth: 0,
-												}}
-												className="border border-zinc-200
+								<div className="flex-1 overflow-hidden">
+									<TabsContent value="description" className="h-full m-0">
+										<ScrollArea className="h-full p-6">
+											<div className="prose prose-sm dark:prose-invert max-w-none">
+												<div className="flex items-center gap-2 mb-4">
+													<h1 className="text-2xl font-bold m-0 text-zinc-900 dark:text-zinc-100">
+														{problem.title}
+													</h1>
+													<Badge
+														style={{
+															marginBottom: 15,
+														}}
+														className={
+															problem.difficulty === "Easy"
+																? "bg-green-500 hover:bg-green-600"
+																: problem.difficulty === "Medium"
+																	? "bg-yellow-500 hover:bg-yellow-600"
+																	: problem.difficulty === "Hard"
+																		? "bg-red-500 hover:bg-red-600"
+																		: "bg-gray-500"
+														}
+													>
+														{problem.difficulty}
+													</Badge>
+												</div>
+
+												<div
+													style={{
+														scrollbarWidth: "none",
+													}}
+													className="flex gap-2 mb-6 flex-wrap"
+												>
+													{problem.tags?.map((tag) => (
+														<Badge
+															key={tag}
+															variant="outline"
+															className="text-xs border-zinc-200 dark:border-[#383a3c] bg-zinc-50 dark:bg-[#383a3c] text-zinc-600 dark:text-zinc-300"
+														>
+															{tag}
+														</Badge>
+													))}
+												</div>
+
+												<ReactMarkdown
+													remarkPlugins={[remarkGfm]}
+													rehypePlugins={[rehypeRaw, rehypeHighlight]}
+													components={{
+														pre: ({ node, ...props }) => (
+															<pre
+																className="rounded-md bg-zinc-100 dark:bg-[#292a30] p-4 overflow-x-auto border border-zinc-200 dark:border-[#383a3c] shadow-sm text-sm! font-mono"
+																{...props}
+															/>
+														),
+														code: ({ node, className, ...props }) => {
+															const match = /language-(\w+)/.exec(
+																className || "",
+															);
+															return (
+																<code
+																	className={cn(
+																		className,
+																		"text-sm! font-mono",
+																		!match &&
+																			"bg-zinc-100 dark:bg-[#383a3c] px-1 py-0.5 rounded-sm text-zinc-900 dark:text-zinc-200",
+																	)}
+																	{...props}
+																/>
+															);
+														},
+													}}
+												>
+													{problem.description}
+												</ReactMarkdown>
+											</div>
+										</ScrollArea>
+									</TabsContent>
+
+									<TabsContent
+										value="solution"
+										className="h-full m-0 flex flex-col"
+									>
+										<ScrollArea className="flex-1 min-h-0 p-6">
+											<div className="prose prose-sm dark:prose-invert max-w-none">
+												{parsedSolution.preamble && (
+													<ReactMarkdown
+														remarkPlugins={[remarkGfm]}
+														rehypePlugins={[rehypeRaw, rehypeHighlight]}
+													>
+														{parsedSolution.preamble}
+													</ReactMarkdown>
+												)}
+
+												{parsedSolution.solutions.length > 1 && (
+													<div
+														style={{
+															borderWidth: 0,
+														}}
+														className="border border-zinc-200
                                                  dark:border-[#383a3c]  bg-transparent  rounded-md flex items-center
                                                  justify-between shrink-0"
-											>
-												<Select
-													value={selectedSolutionIndex.toString()}
-													onValueChange={(val) =>
-														setSelectedSolutionIndex(Number.parseInt(val, 10))
-													}
+													>
+														<Select
+															value={selectedSolutionIndex.toString()}
+															onValueChange={(val) =>
+																setSelectedSolutionIndex(
+																	Number.parseInt(val, 10),
+																)
+															}
+														>
+															<SelectTrigger className="h-8 w-35 text-xs bg-zinc-100 dark:bg-[#383a3c] border-[#383a3c] text-zinc-700 dark:text-zinc-300">
+																<SelectValue />
+															</SelectTrigger>
+															<SelectContent className="dark:bg-[#292a30]   dark:border-[#383a3c]">
+																{parsedSolution.solutions.map((s, index) => (
+																	<SelectItem
+																		key={`${s.label}-${index}`}
+																		value={index.toString()}
+																		className="text-xs"
+																	>
+																		{s.label}
+																	</SelectItem>
+																))}
+															</SelectContent>
+														</Select>
+													</div>
+												)}
+
+												<ReactMarkdown
+													remarkPlugins={[remarkGfm]}
+													rehypePlugins={[rehypeRaw, rehypeHighlight]}
+													components={{
+														pre: ({ children, ...props }) => {
+															// 递归提取代码文本内容
+
+															const content = extractText(children);
+
+															return (
+																<div className="relative group">
+																	<pre
+																		className="rounded-md m-0 text-sm! p-0 font-mono bg-transparent overflow-x-auto border border-zinc-200 dark:border-[#383a3c] shadow-sm"
+																		{...props}
+																	>
+																		{children}
+																	</pre>
+
+																	<div className="absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity">
+																		<CopyButton content={content} />
+																	</div>
+																</div>
+															);
+														},
+
+														code: ({ node, className, ...props }) => {
+															const _match = /language-(\w+)/.exec(
+																className || "",
+															);
+															return (
+																<code
+																	className={cn(
+																		className,
+																		"text-sm! font-mono bg-transparent p-0 m-0 rounded-sm text-zinc-900 dark:text-zinc-200",
+																	)}
+																	{...props}
+																/>
+															);
+														},
+													}}
 												>
-													<SelectTrigger className="h-8 w-35 text-xs bg-zinc-100 dark:bg-[#383a3c] border-[#383a3c] text-zinc-700 dark:text-zinc-300">
-														<SelectValue />
-													</SelectTrigger>
-													<SelectContent className="dark:bg-[#292a30]   dark:border-[#383a3c]">
-														{parsedSolution.solutions.map((s, index) => (
-															<SelectItem
-																key={`${s.label}-${index}`}
-																value={index.toString()}
-																className="text-xs"
-															>
-																{s.label}
-															</SelectItem>
-														))}
-													</SelectContent>
-												</Select>
+													{solutionMarkdown}
+												</ReactMarkdown>
 											</div>
-										)}
-
-										<ReactMarkdown
-											remarkPlugins={[remarkGfm]}
-											rehypePlugins={[rehypeRaw, rehypeHighlight]}
-											components={{
-												pre: ({ children, ...props }) => {
-													// 递归提取代码文本内容
-
-													const content = extractText(children);
-
-													return (
-														<div className="relative group">
-															<pre
-																className="rounded-md m-0 text-sm! p-0 font-mono bg-transparent overflow-x-auto border border-zinc-200 dark:border-[#383a3c] shadow-sm"
-																{...props}
-															>
-																{children}
-															</pre>
-
-															<div className="absolute right-2 top-2 opacity-0 group-hover:opacity-100 transition-opacity">
-																<CopyButton content={content} />
-															</div>
-														</div>
-													);
-												},
-
-												code: ({ node, className, ...props }) => {
-													const _match = /language-(\w+)/.exec(className || "");
-													return (
-														<code
-															className={cn(
-																className,
-																"text-sm! font-mono bg-transparent p-0 m-0 rounded-sm text-zinc-900 dark:text-zinc-200",
-															)}
-															{...props}
-														/>
-													);
-												},
-											}}
-										>
-											{solutionMarkdown}
-										</ReactMarkdown>
-									</div>
-								</ScrollArea>
-							</TabsContent>
+										</ScrollArea>
+									</TabsContent>
+								</div>
+							</Tabs>
 						</div>
-					</Tabs>
-				</div>
+					</ResizablePanel>
 
-				{/* Right Panel: Code Editor */}
-				<div className="w-1/2 flex-none flex flex-col bg-white dark:bg-[#1e1f20] border-l border-zinc-200 dark:border-[#383a3c]">
-					<CodeEditor
-						language={editorLanguage}
-						onLanguageChange={setEditorLanguage}
-						value={editorCode}
-						onChange={setEditorCode}
-						className="border-none rounded-none "
-						actions={
-							<>
-								<Tooltip>
-									<TooltipTrigger asChild>
+					<ResizableHandle withHandle className="bg-zinc-200 dark:bg-[#383a3c]" />
+
+					{/* Right Panel: Code Editor */}
+					<ResizablePanel defaultSize={50} minSize={20}>
+						<div className="h-full flex flex-col bg-white dark:bg-[#1e1f20]">
+							<CodeEditor
+								language={editorLanguage}
+								onLanguageChange={setEditorLanguage}
+								value={editorCode}
+								onChange={setEditorCode}
+								className="border-none rounded-none "
+								actions={
+									<>
+										<Tooltip>
+											<TooltipTrigger asChild>
+												<Button
+													variant="ghost"
+													size="icon"
+													className="h-7  cursor-pointer w-7 text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50"
+												>
+													<Play className="h-3.5 w-3.5" />
+												</Button>
+											</TooltipTrigger>
+											<TooltipContent className="bg-zinc-800 text-zinc-200 border-zinc-700">
+												<p className="text-xs">Run Code (Ctrl+Enter)</p>
+											</TooltipContent>
+										</Tooltip>
 										<Button
-											variant="ghost"
-											size="icon"
-											className="h-7 w-7 text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50"
+											variant="default"
+											size="sm"
+											className="h-7 cursor-pointer  text-xs bg-emerald-600 hover:bg-emerald-700 text-white"
 										>
-											<Play className="h-3.5 w-3.5" />
+											<Send className="w-3 h-3 mr-1.5" />
+											Submit
 										</Button>
-									</TooltipTrigger>
-									<TooltipContent className="bg-zinc-800 text-zinc-200 border-zinc-700">
-										<p className="text-xs">Run Code (Ctrl+Enter)</p>
-									</TooltipContent>
-								</Tooltip>
-								<Button
-									variant="default"
-									size="sm"
-									className="h-7 text-xs bg-emerald-600 hover:bg-emerald-700 text-white"
-								>
-									<Send className="w-3 h-3 mr-1.5" />
-									Submit
-								</Button>
-							</>
-						}
-					/>
-				</div>
+									</>
+								}
+							/>
+						</div>
+					</ResizablePanel>
+				</ResizablePanelGroup>
 			</div>
 		</div>
 	);
