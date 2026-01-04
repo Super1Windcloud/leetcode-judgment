@@ -1,0 +1,19 @@
+# Attempt This Online
+Attempt This Online is an online sandbox for testing code in a variety of languages, particularly for code golf and
+related recreational programming. You can find it at [ato.pxeger.com](https://ato.pxeger.com).
+
+- [Installation](../judgment/docs/installation.md)
+- [API](../judgment/docs/api.md)
+- [Architecture](../judgment/docs/architecture.md)
+- [Contributing](../judgment/docs/contributing.md)
+- [Security Policy](../judgment/docs/security.md)
+
+It was originally a clone of [Try It Online!](https://github.com/TryItOnline/tryitonline), hence the slightly awkward
+name.
+
+## Licence
+© Patrick Reader 2021 - 2024. Attempt This Online is licensed under the GNU Affero General Public License 3.0 except where
+otherwise noted - see the [`LICENCE.txt`](./LICENCE.txt) file for more information.
+
+Note that if you use the official instance at [ato.pxeger.com](https://ato.pxeger.com), you must also abide by the
+[Terms of Use](https://ato.pxeger.com/legal#terms-of-use).

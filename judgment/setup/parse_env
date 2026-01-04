@@ -1,0 +1,7 @@
+#!/usr/bin/python
+# Put environment variables from `skopeo inspect` into a file for `sandbox` to apply to processes using this image
+import json
+import sys
+
+for string in json.load(sys.stdin)["Env"]:
+    sys.stdout.write(string + "\0")

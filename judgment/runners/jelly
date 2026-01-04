@@ -1,0 +1,8 @@
+#!/bin/sh
+
+mkdir /ATO/tmp
+export TMPPREFIX=/ATO/tmp
+
+cd /ATO/context
+
+/ATO/yargs % /ATO/arguments jelly fun /ATO/code % < /ATO/input

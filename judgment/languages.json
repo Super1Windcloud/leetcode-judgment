@@ -1,0 +1,881 @@
+{
+    "05ab1e": {
+        "name": "05AB1E",
+        "hello_world": {"code": "\"Hello, World!\"", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/05ab1e:latest",
+        "version": "Latest",
+        "url": "https://github.com/Adriandmen/05AB1E",
+        "sbcs": true,
+        "se_class": ""
+    },
+    "alphuck": {
+        "name": "Alphuck",
+        "hello_world": {"code": "eeeeeeeepaeeeepaeeaeeeaeeeaeccccisaea\neaiaaepcscisaajaiiijeeeeeeejjeeejaajcijcjeeej\niiiiiijiiiiiiiijaaejaeej", "output": "Hello World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/tio_brainfuck:latest",
+        "version": "Unknown",
+        "url": "https://github.com/TryItOnline/brainfuck",
+        "sbcs": false
+    },
+    "aheui_rpaheui": {
+        "name": "Aheui (rpaheui)",
+        "hello_world": {"code": "밤밣따빠밣밟따뿌\n빠맣파빨받밤뚜뭏\n돋밬탕빠맣붏두붇\n볻뫃박발뚷투뭏붖\n뫃도뫃희멓뭏뭏붘\n뫃봌토범더벌뿌뚜\n뽑뽀멓멓더벓뻐뚠\n뽀덩벐멓뻐덕더벅", "output": "Hello, world!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/rpaheui:latest",
+        "version": "Latest",
+        "url": "https://github.com/aheui/rpaheui",
+        "sbcs": false
+    },
+    "apl_dzaima": {
+        "name": "APL (dzaima/APL)",
+        "hello_world": {"code": "⎕←'Hello, World!'", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/dzaima_apl:latest",
+        "version": "Latest",
+        "url": "https://github.com/dzaima/APL",
+        "sbcs": true
+    },
+    "awk": {
+        "name": "AWK",
+        "hello_world": {"code": "BEGIN{print \"Hello, World!\"}", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/base:latest",
+        "version": "Latest",
+        "url": "https://www.gnu.org/software/gawk/",
+        "sbcs": false
+    },
+    "backhand": {
+        "name": "Backhand",
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/backhand:latest",
+        "version": "Latest",
+        "url": "https://github.com/GrayJoKing/Backhand",
+        "sbcs": false
+    },
+    "bash": {
+        "name": "Bash",
+        "hello_world": {"code": "echo \"Hello, World!\"", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/base:latest",
+        "version": "Latest",
+        "url": "https://www.gnu.org/software/bash/",
+        "sbcs": false,
+        "se_class": "bash"
+    },
+    "bc": {
+        "name": "bc",
+        "hello_world": {"code": "print \"Hello, World!\";\n", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/bc:latest",
+        "version": "Latest",
+        "url": "https://www.gnu.org/software/bc/",
+        "sbcs": false
+    },
+    "bqn": {
+        "name": "BQN (CBQN)",
+        "hello_world": {"code": "•Out \"Hello, World!\"", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/cbqn:latest",
+        "version": "Latest",
+        "url": "https://mlochbaum.github.io/BQN/",
+        "sbcs": false
+    },
+    "bracmat": {
+        "name": "Bracmat",
+        "hello_world": {"code": "put$\"Hello, World!\"", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/bracmat:latest",
+        "version": "Latest",
+        "url": "http://jongejan.dk/bracmat.html",
+        "sbcs": false
+    },
+    "brainbool": {
+        "name": "Brainbool",
+        "hello_world": {"code": ".+.+..+.+....+..+..+.+.+.+.+..+.+..+...+..+.+..+...+..+.+....+..+.+.+..+....+.+......+.+.+.+.+...+.+..+.+....+.+...+..+.+..+..+.+..+...+..+..+.+....+.+....+.", "options": ["-B"], "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/tio_brainfuck:latest",
+        "version": "Unknown",
+        "url": "https://github.com/TryItOnline/brainfuck",
+        "sbcs": false
+    },
+    "brainflak": {
+        "name": "Brain-Flak",
+        "hello_world": {"code": "(((((((((((()()()()){}){}){}()))){}{}())[][][][])[][])[[]]())[[][][][][]]())([([]([])[][]{})]()()()([[]](([()()()]([([][][])](((({}()){}))){}{})))))", "options": ["-A"], "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/brain-flak:latest",
+        "version": "Latest",
+        "url": "https://github.com/DJMcMayhem/Brain-Flak",
+        "sbcs": false
+    },
+    "brainfuck": {
+        "name": "Brainfuck",
+        "hello_world": {"code": "--->->->>+>+>>+[++++[>+++[>++++>-->+++<<<-]<-]<+++]>>>.>-->-.>..+>++++>+++.+>-->[>-.<<]", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/tio_brainfuck:latest",
+        "version": "the only version",
+        "url": "https://github.com/TryItOnline/brainfuck",
+        "sbcs": false
+    },
+    "brainlove": {
+        "name": "Brainlove",
+        "hello_world": {"code": "--<-<<+[+[<+>--->->->-<<<]>]<<--.<++++++.<<-..<<.<+.>>.>>.<<<.+++.>>.>>-.<<<+.", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/tio_brainfuck:latest",
+        "version": "Unknown",
+        "url": "https://github.com/TryItOnline/brainfuck",
+        "sbcs": false
+    },
+    "c_gcc": {
+        "name": "C (GCC)",
+        "hello_world": {"code": "#include <stdio.h>\nint main(void) { puts(\"Hello, World!\"); }", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/base:latest",
+        "version": "11",
+        "url": "https://gcc.gnu.org",
+        "sbcs": false,
+        "se_class": "c"
+    },
+    "chapel": {
+        "name": "Chapel",
+        "hello_world": {"code": "write(\"Hello, World!\");", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/chapel:latest",
+        "version": "1.28.0",
+        "url": "https://chapel-lang.org",
+        "sbcs": false
+    },
+    "charcoal": {
+        "name": "Charcoal",
+        "hello_world": {"code": "Hello, World!", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/charcoal:latest",
+        "version": "Latest",
+        "url": "https://github.com/somebody1234/Charcoal",
+        "sbcs": true
+    },
+    "clang": {
+        "name": "C (clang)",
+        "hello_world": {"code": "#include <stdio.h>\nint main(void) { puts(\"Hello, World!\"); }", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/clang:latest",
+        "version": "Latest",
+        "url": "https://clang.llvm.org",
+        "sbcs": false,
+        "se_class": "c"
+    },
+    "cognate": {
+        "name": "Cognate",
+        "hello_world": {"code": "Print \"Hello, World!\"", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/cognate:latest",
+        "version": "Latest",
+        "url": "https://cognate-lang.github.io",
+        "sbcs": false
+    },
+    "cplusplus_gcc": {
+        "name": "C++ (GCC)",
+        "hello_world": {"code": "#include <stdio.h>\nint main(void) { puts(\"Hello, World!\"); }", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/gcc:latest",
+        "version": "11",
+        "url": "https://gcc.gnu.org",
+        "sbcs": false,
+        "se_class": "cpp"
+    },
+    "crystal": {
+        "name": "Crystal",
+        "hello_world": {"code": "puts \"Hello, World!\"", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/crystal:latest",
+        "version": "Latest",
+        "url": "https://crystal-lang.org/",
+        "sbcs": false
+    },
+    "curry_kics2": {
+        "name": "Curry (KiCS2)",
+        "hello_world": {"code": "main = putStr \"Hello, World!\"", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/curry_kics2:latest",
+        "version": "Latest",
+        "url": "https://www-ps.informatik.uni-kiel.de/kics2/index.html",
+        "sbcs": false
+    },
+    "curry_pakcs": {
+        "name": "Curry (PAKCS)",
+        "hello_world": {"code": "main = putStr \"Hello, World!\"", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/curry_pakcs:latest",
+        "version": "Latest",
+        "url": "https://www.informatik.uni-kiel.de/~pakcs/index.html",
+        "sbcs": false
+    },
+    "dc": {
+        "name": "dc",
+        "hello_world": {"code": "[Hello, World!]P", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/bc:latest",
+        "version": "Latest",
+        "url": "https://www.gnu.org/software/bc/",
+        "sbcs": false
+    },
+    "deno": {
+        "name": "TypeScript (Deno)",
+        "hello_world": {"code": "console.log('Hello, World!')", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/deno:latest",
+        "version": "Latest",
+        "url": "https://deno.land",
+        "sbcs": false,
+        "se_class": "typescript"
+    },
+    "dirac": {
+        "name": "dirac",
+        "hello_world": {"code": "[[#0C!][I,]F#10I,]puts;\n\"Hello, World!\"puts:!", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/dirac:latest",
+        "version": "Latest",
+        "url": "https://esolangs.org/wiki/Dirac",
+        "sbcs": false
+    },
+    "dyalog_apl": {
+        "name": "APL (Dyalog APL)",
+        "hello_world": {"code": "⎕←'Hello, World!'", "output": "Hello, World!\r"},
+        "image": "docker.io/dyalog/dyalog:latest",
+        "version": "Latest",
+        "url": "https://www.dyalog.com/products.htm",
+        "sbcs": false
+    },
+    "elixir": {
+        "name": "Elixir",
+        "hello_world": {"code": "IO.puts \"Hello, World!\"", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/elixir:latest",
+        "version": "Latest",
+        "url": "https://elixir-lang.org",
+        "sbcs": false
+    },
+    "elm": {
+        "name": "Elm",
+        "hello_world": {"code": "main : Program () () ()\nmain = Platform.worker {init = \\_ -> ((), Interact.put \"hello\"), update = \\() () -> ((), Cmd.none), subscriptions = \\() -> Sub.none}", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/elm:latest",
+        "version": "Latest",
+        "url": "https://elm-lang.org/",
+        "sbcs": false
+    },
+    "erlang": {
+        "name": "Erlang",
+        "hello_world": {"code": "\nmain([])->\nio:fwrite(\"Hello, World!\").", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/erlang:latest",
+        "version": "Latest",
+        "url": "https://www.erlang.org",
+        "sbcs": false,
+        "se_class": "erlang"
+    },
+    "exceptionally": {
+        "name": "Exceptionally",
+        "hello_world": {"code": "P\"Hello, World!\"/", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/exceptionally:latest",
+        "version": "Latest",
+        "url": "https://github.com/dloscutoff/Esolangs/tree/master/Exceptionally",
+        "sbcs": false
+    },
+    "extended_brainfuck_type_I": {
+        "name": "Extended Brainfuck Type I",
+        "hello_world": {"code": "--<-<<+[+[<+>--->->->-<<<]>]<<--.<++++++.<<-..<<.<+.>>.>>.<<<.+++.>>.>>-.<<<+.", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/tio_brainfuck:latest",
+        "version": "Unknown",
+        "url": "https://github.com/TryItOnline/brainfuck",
+        "sbcs": false
+    },
+    "factor": {
+        "name": "Factor",
+        "hello_world": {"code": "USE: io \"Hello, World!\" print", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/factor:latest",
+        "version": "Latest",
+        "url": "https://factorcode.org",
+        "sbcs": false
+    },
+    "flax": {
+        "name": "flax",
+        "hello_world": {"code": "\"Hello, World!", "options": ["c"], "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/flax:latest",
+        "version": "Latest",
+        "url": "https://github.com/PyGamer0/flax",
+        "sbcs": true
+    },
+    "flip": {
+        "name": "Flip",
+        "hello_world": {"code": "\" H e l l o ,   W o r l d ! \" o #", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/flip:latest",
+        "version": "Latest",
+        "url": "https://github.com/jfioasd/Flip",
+        "sbcs": false
+    },
+    "funky2": {
+        "name": "Funky2",
+        "hello_world": {"code": "print(\"Hello, World!\")", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/funky2:latest",
+        "version": "Latest",
+        "url": "https://funky2.a-ta.co/",
+        "sbcs": false
+    },
+    "gdc": {
+        "name": "D (GDC)",
+        "hello_world": {"code": "import std.stdio; void main() { write(\"Hello, World!\"); }", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/gcc:latest",
+        "version": "11",
+        "url": "https://gdcproject.org",
+        "sbcs": false
+    },
+    "gfortran": {
+        "name": "Fortran (GFortran)",
+        "hello_world": {"code": "print'(\"Hello, World!\")'\nend", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/gcc:latest",
+        "version": "11",
+        "url": "https://gcc.gnu.org/fortran",
+        "sbcs": false
+    },
+    "gnat": {
+        "name": "Ada (GNAT)",
+        "hello_world": {"code": "with Ada.Text_IO;\nuse Ada.Text_IO;\n\nprocedure Main is\nbegin\n  Put_Line (\"Hello, World!\");\nend Main;", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/gcc:latest",
+        "version": "11",
+        "url": "https://en.wikipedia.org/wiki/GNAT",
+        "sbcs": false
+    },
+    "go": {
+        "name": "Go",
+        "hello_world": {"code": "package main\nimport \"fmt\"\nfunc main() {\n\tfmt.Print(\"Hello, World!\")\n}", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/go:latest",
+        "version": "Latest",
+        "url": "https://go.dev",
+        "sbcs": false,
+        "se_class": "go"
+    },
+    "go_gcc": {
+        "name": "Go (GCC)",
+        "hello_world": {"code": "package main\nimport \"fmt\"\nfunc main() {\n\tfmt.Print(\"Hello, World!\")\n}", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/gcc:latest",
+        "version": "11",
+        "url": "https://gcc.gnu.org",
+        "sbcs": false,
+        "se_class": "go"
+    },
+    "goal": {
+        "name": "Goal",
+        "hello_world": {"code": "say\"Hello, World!\"", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/goal:latest",
+        "version": "Latest",
+        "url": "https://codeberg.org/anaseto/goal",
+        "sbcs": false
+    },
+    "guile": {
+        "name": "Guile",
+        "hello_world": {"code": "(display \"Hello, World!\")", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/base:latest",
+        "version": "Latest",
+        "url": "https://www.gnu.org/software/guile/",
+        "sbcs": false,
+        "se_class": "lisp"
+    },
+    "haskell": {
+        "name": "Haskell",
+        "hello_world": {"code": "main = putStr \"Hello, World!\"", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/haskell:latest",
+        "version": "Latest",
+        "url": "https://www.haskell.org",
+        "sbcs": false,
+        "se_class": "haskell"
+    },
+    "hops": {
+        "name": "HOPS",
+        "hello_world": {"code": "f=1+(x+x^2)*f", "output": "{\"hops\":\"f=1+(x+x^2)*f\",\"seq\":[1,1,2,3,5,8,13,21,34,55,89,144,233,377,610]}\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/hops:latest",
+        "version": "Latest",
+        "url": "https://akc.is/hops/",
+        "sbcs": false
+    },
+    "husk": {
+        "name": "Husk",
+        "hello_world": {"code": "¨H◄⁰,ω]!", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/husk:latest",
+        "version": "Latest",
+        "url": "https://github.com/barbuz/Husk",
+        "sbcs": true
+    },
+    "j": {
+        "name": "J",
+        "hello_world": {"code": "echo 'Hello, World!'", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/j_but_longer:latest",
+        "version": "Latest",
+        "url": "https://www.jsoftware.com",
+        "sbcs": false
+    },
+    "j_uby": {
+        "name": "J-uby",
+        "hello_world": {"code": "put = :puts & $>\nput ^ \"Hello, World!\"", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/j_uby:latest",
+        "version": "Latest",
+        "url": "https://github.com/cyoce/J-uby",
+        "sbcs": false,
+        "se_class": "ruby"
+    },
+    "java": {
+        "name": "Java",
+        "hello_world": {"code": "public class Main {\n\tpublic static void main(String[] args) {\n\t\tSystem.out.print(\"Hello, World!\");\n\t}\n}", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/java:latest",
+        "version": "Latest",
+        "url": "https://en.wikipedia.org/wiki/Java_(programming_language)",
+        "sbcs": false,
+        "se_class": "java"
+    },
+    "jelly": {
+        "name": "Jelly",
+        "hello_world": {"code": "“3ḅaė;œ»", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/jelly:latest",
+        "version": "70c9fd93",
+        "url": "https://github.com/DennisMitchell/jellylanguage",
+        "sbcs": true
+    },
+    "jq": {
+        "name": "jq",
+        "hello_world": {"code": "\"Hello, World!\"", "options": ["-nr"], "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/jq:latest",
+        "version": "Latest",
+        "url": "https://stedolan.github.io/jq/",
+        "sbcs": false
+    },
+    "julia": {
+        "name": "Julia",
+        "hello_world": {"code": "print(\"Hello, World!\")", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/julia:latest",
+        "version": "Latest",
+        "url": "https://julialang.org",
+        "sbcs": false
+    },
+    "kamilalisp": {
+        "name": "Kamilalisp",
+        "hello_world": {"code": "(io:writeln \"Hello, World!\")", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/kamilalisp:latest",
+        "version": "Latest",
+        "url": "https://github.com/kspalaiologos/kamilalisp",
+        "sbcs": false
+    },
+    "k_ktye": {
+        "name": "K (ktye/i)",
+        "hello_world": {"code": "`0:\"Hello, World!\"", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/ktye_k:latest",
+        "version": "Latest",
+        "url": "https://github.com/ktye/i",
+        "sbcs": false
+    },
+    "k_ngn": {
+        "name": "K (ngn/k)",
+        "hello_world": {"code": "`0:\"Hello, World!\"", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/ngn_k:latest",
+        "version": "Latest",
+        "url": "https://codeberg.org/ngn/k",
+        "sbcs": false
+    },
+    "k_ok": {
+        "name": "K (oK)",
+        "hello_world": {"code": "{}`0:\"Hello, World!\"", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/ok:latest",
+        "version": "Latest",
+        "url": "https://github.com/JohnEarnest/ok",
+        "sbcs": false
+    },
+    "knight": {
+        "name": "Knight",
+        "hello_world": {"code": "O\"Hello, World!\"", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/knight:latest",
+        "version": "Latest",
+        "url": "https://github.com/knight-lang/knight-lang",
+        "sbcs": false
+    },
+    "kotlin": {
+        "name": "Kotlin",
+        "hello_world": {"code": "print(\"Hello, World!\")", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/kotlin:latest",
+        "version": "Latest",
+        "url": "https://kotlinlang.org",
+        "sbcs": false,
+        "se_class": "kotlin"
+    },
+    "koka": {
+        "name": "Koka",
+        "hello_world": {"code": "fun main()print(\"Hello, World!\")", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/koka:latest",
+        "version": "Latest",
+        "url": "https://koka-lang.github.io",
+        "sbcs": false
+    },
+    "labyrinth": {
+        "name": "Labyrinth",
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/labyrinth:latest",
+        "version": "Latest",
+        "url": "https://github.com/m-ender/labyrinth",
+        "sbcs": false
+    },
+    "lolcode": {
+        "name": "LOLCODE",
+        "hello_world": {"code": "HAI 1.2\nVISIBLE \"Hello, World!\"\nKTHXBYE", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/lolcode:latest",
+        "version": "Latest",
+        "url": "https://github.com/justinmeza/lci",
+        "sbcs": false
+    },
+    "lua": {
+        "name": "Lua",
+        "hello_world": {"code": "print \"Hello, World!\"", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/lua:latest",
+        "version": "Latest",
+        "url": "https://www.lua.org",
+        "sbcs": false,
+        "se_class": "lua"
+    },
+    "minigolf": {
+        "name": "minigolf",
+        "hello_world": {"code": "[Hello, World!]", "options": ["-c"], "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/minigolf:latest",
+        "version": "Latest",
+        "url": "https://github.com/jfioasd/minigolf/",
+        "sbcs": false
+    },
+    "neko": {
+        "name": "Neko",
+        "hello_world": {"code": "$print(\"Hello, World!\");", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/neko:latest",
+        "version": "Latest",
+        "url": "https://nekovm.org/",
+        "sbcs": false
+    },
+    "nekomata": {
+        "name": "Nekomata",
+        "hello_world": {"code": "\"Hello, World!\"", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/nekomata:latest",
+        "version": "Latest",
+        "url": "https://github.com/AlephAlpha/Nekomata",
+        "sbcs": true
+    },
+    "nibbles": {
+        "name": "Nibbles",
+        "hello_world": {"code": "\"Hello, World!\"", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/nibbles:latest",
+        "version": "Latest",
+        "url": "http://golfscript.com/nibbles/index.html",
+        "sbcs": false
+    },
+    "nim": {
+        "name": "Nim",
+        "hello_world": {"code": "echo \"Hello, World!\"", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/nim:latest",
+        "version": "Latest",
+        "url": "https://nim-lang.org/",
+        "sbcs": false
+    },
+    "node": {
+        "name": "JavaScript (Node.js)",
+        "hello_world": {"code": "console.log(\"Hello, World!\")", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/node:latest",
+        "version": "Latest",
+        "url": "https://nodejs.org",
+        "sbcs": false,
+        "se_class": "javascript"
+    },
+    "objective_c_gcc": {
+        "name": "Objective-C (GCC)",
+        "hello_world": {"code": "#include <stdio.h>\nint main(void) { puts(\"Hello, World!\"); }", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/gcc:latest",
+        "version": "11",
+        "url": "https://gcc.gnu.org",
+        "sbcs": false,
+        "se_class": "objectivec"
+    },
+    "objective_cplusplus_gcc": {
+        "name": "Objective-C++ (GCC)",
+        "hello_world": {"code": "#include <stdio.h>\nint main(void) { puts(\"Hello, World!\"); }", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/gcc:latest",
+        "version": "11",
+        "url": "https://gcc.gnu.org",
+        "sbcs": false,
+        "se_class": "objectivec"
+    },
+    "ocaml": {
+        "name": "OCaml",
+        "hello_world": {"code": "print_string \"Hello, World!\"", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/ocaml:latest",
+        "version": "Latest",
+        "url": "https://ocaml.org",
+        "sbcs": false
+    },
+    "ooocode": {
+        "name": "oOo CODE",
+        "hello_world": {"code": "OooOoooooOooooooooOoOoOoOoOoOooooOoOooOOooOooOooooOOooooOOooooOOooooooooooooOOooOoOOooooooOooOooOOooooOoOOoOOoOOoOOoOOoOOOoooooooOooOOoOOoooooooOOooooOoOOOoooOooOOOoooOooOOOooooooooooOOoOoOOoOOoOOOoooOooOOOoooOooOOooOOooooooooooOoOOOo", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/tio_brainfuck:latest",
+        "version": "Unknown",
+        "url": "https://github.com/TryItOnline/brainfuck",
+        "sbcs": false
+    },
+    "pari_gp": {
+        "name": "PARI/GP",
+        "hello_world": {"code": "print1(\"Hello, World!\")", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/pari_gp:latest",
+        "version": "Latest",
+        "url": "https://pari.math.u-bordeaux.fr",
+        "sbcs": false
+    },
+    "perl": {
+        "name": "Perl",
+        "hello_world": {"code": "print \"Hello, World!\";", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/perl:latest",
+        "version": "Latest",
+        "url": "https://www.perl.org",
+        "sbcs": false,
+        "se_class": "perl"
+    },
+    "php": {
+        "name": "PHP",
+        "hello_world": {"code": "<?php\necho \"Hello, World!\";\n?>", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/php:latest",
+        "version": "Latest",
+        "url": "https://www.php.net",
+        "sbcs": false,
+        "se_class": "php"
+    },
+    "picat": {
+        "name": "Picat",
+        "hello_world": {"code": "main => printf(\"Hello, World!\").", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/picat:latest",
+        "version": "Latest",
+        "url": "http://picat-lang.org",
+        "sbcs": false
+    },
+    "pip": {
+        "name": "Pip",
+        "hello_world": {"code": "\"Hello, World!\"", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/pip:latest",
+        "version": "Latest",
+        "url": "https://github.com/dloscutoff/pip",
+        "sbcs": false
+    },
+    "powershell": {
+        "name": "PowerShell",
+        "hello_world": {"code": "'Hello, World!'", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/powershell:latest",
+        "version": "Latest",
+        "url": "https://github.com/PowerShell/PowerShell",
+        "sbcs": false,
+        "se_class":"lang-powershell"
+    },
+    "prolog_swi": {
+        "name": "Prolog (SWI)",
+        "hello_world": {"code": "?-write('Hello, World!').", "output": "Hello, World!\n\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/swi_prolog:latest",
+        "version": "Latest",
+        "url": "https://www.swi-prolog.org/",
+        "sbcs": false
+    },
+    "pyth": {
+        "name": "Pyth",
+        "hello_world": {"code": "\"Hello, World!", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/pyth:latest",
+        "version": "Latest",
+        "url": "https://github.com/isaacg1/pyth",
+        "sbcs": false
+    },
+    "python": {
+        "name": "Python",
+        "hello_world": {"code": "print(\"Hello, World!\")", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/python_with_common_libraries:latest",
+        "version": "Latest",
+        "url": "https://www.python.org",
+        "sbcs": false,
+        "se_class": "python"
+    },
+    "python2": {
+        "name": "Python 2",
+        "hello_world": {"code": "print \"Hello, World!\"", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/python2:latest",
+        "version": "2",
+        "url": "https://docs.python.org/2/",
+        "sbcs": false,
+        "se_class": "python2"
+    },
+    "quipu": {
+        "name": "Quipu",
+        "hello_world": {"code": "' 'H[]\n'W'e/\\\n'o'l\n'r'l\n'l'o\n'd',\n'!/\\", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/quipu:latest",
+        "version": "Latest",
+        "url": "https://github.com/cgccuser/quipu",
+        "sbcs": false
+    },
+    "r": {
+        "name": "R",
+        "hello_world": {"code": "cat(\"Hello, World!\")", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/r_but_longer:latest",
+        "version": "Latest",
+        "url": "https://www.r-project.org",
+        "sbcs": false,
+        "se_class": "r"
+    },
+    "raku": {
+        "name": "Raku (Perl 6) (rakudo)",
+        "hello_world": {"code": "print \"Hello, World!\"", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/raku:latest",
+        "version": "Latest",
+        "url": "https://raku.org",
+        "sbcs": false,
+        "se_class": "perl"
+    },
+    "random_brainfuck": {
+        "name": "Random Brainfuck",
+        "hello_world": {"code": "+[?]--<-<<+[+[<+>--->->->-<<<]>]<<--.<++++++.<<-..<<.<+.>>.>>.<<<.+++.>>.>>-.<<<+.", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/tio_brainfuck:latest",
+        "version": "Unknown",
+        "url": "https://github.com/TryItOnline/brainfuck",
+        "sbcs": false
+    },
+    "regenerate": {
+        "name": "Regenerate",
+        "hello_world": {"code": "Hello, World\\!", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/regenerate:latest",
+        "version": "Latest",
+        "url": "https://github.com/dloscutoff/Esolangs/tree/master/Regenerate",
+        "sbcs": false
+    },
+    "retina": {
+        "name": "Retina",
+        "hello_world": {"code": "\nHello, World!", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/retina:latest",
+        "version": "Latest",
+        "url": "https://github.com/m-ender/retina",
+        "sbcs": true
+    },
+    "ruby": {
+        "name": "Ruby",
+        "hello_world": {"code": "puts \"Hello, World!\"", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/ruby:latest",
+        "version": "Latest",
+        "url": "https://www.ruby-lang.org/",
+        "sbcs": false,
+        "se_class": "ruby"
+    },
+    "rust": {
+        "name": "Rust",
+        "hello_world": {"code": "fn main() { print!(\"Hello, World!\") }", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/rust:latest",
+        "version": "Latest",
+        "url": "https://www.rust-lang.org",
+        "sbcs": false,
+        "se_class": "rust"
+    },
+    "sbcl": {
+        "name": "Common Lisp (SBCL)",
+        "hello_world": {"code": "(princ\"Hello, World!\")", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/sbcl:latest",
+        "version": "Latest",
+        "url": "http://www.sbcl.org",
+        "sbcs": false,
+        "se_class": "lisp"
+    },
+    "scala2": {
+        "name": "Scala 2",
+        "hello_world": {"code": "print(\"Hello, World!\")", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/scala2:latest",
+        "version": "2",
+        "url": "https://www.scala-lang.org/",
+        "sbcs": false,
+        "se_class": "scala"
+    },
+    "scala3": {
+        "name": "Scala 3",
+        "hello_world": {"code": "@main\ndef main = print(\"Hello, World!\")", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/scala3:latest",
+        "version": "3",
+        "url": "https://www.scala-lang.org/",
+        "sbcs": false,
+        "se_class": "scala"
+    },
+    "sed": {
+        "name": "sed",
+        "hello_world": {"code": "cHello, World!", "input": "x", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/base:latest",
+        "version": "Latest",
+        "url": "https://www.gnu.org/software/sed/",
+        "sbcs": false
+    },
+    "slashes": {
+        "name": "///",
+        "hello_world": {"code": "Hello, World!", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/slashes:latest",
+        "version": "Latest",
+        "url": "https://esolangs.org/wiki////",
+        "sbcs": false
+    },
+    "tcl": {
+        "name": "Tcl",
+        "hello_world": {"code": "puts \"Hello, World!\"", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/tcl:latest",
+        "version": "Latest",
+        "url": "http://tcl.sourceforge.net",
+        "sbcs": false
+    },
+    "tex": {
+        "name": "TeX",
+        "hello_world": {"code": "Hello, World!\\end", "output": "Hello, World!\n                                            1\n\n\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/texlive:latest",
+        "version": "Latest",
+        "url": "https://tug.org/texlive/doc.html",
+        "sbcs": false,
+        "se_class": "tex"
+    },
+    "thunno": {
+        "name": "Thunno",
+        "hello_world": {"code": "\"Hello, World!", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/thunno:latest",
+        "version": "Latest",
+        "url": "https://github.com/Thunno/Thunno",
+        "sbcs": false
+    },
+    "thunno2": {
+        "name": "Thunno 2",
+        "hello_world": {"code": "kH", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/thunno2:latest",
+        "version": "Latest",
+        "url": "https://github.com/Thunno/Thunno2",
+        "sbcs": true
+    },
+    "tinybf": {
+        "name": "TinyBF",
+        "hello_world": {"code": "=++>+>>=+|+|=>+=>+++>+>+>+=>>>|=>=|>>++==>=++++++===>>+====>>==>=+==>>==>>===>>>===+++==>>==>>=+==>>>=+==", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/tio_brainfuck:latest",
+        "version": "Unknown",
+        "url": "https://github.com/TryItOnline/brainfuck",
+        "sbcs": false
+    },
+    "vyxal": {
+        "name": "Vyxal",
+        "hello_world": {"code": "kH", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/vyxal:latest",
+        "version": "2",
+        "url": "https://github.com/Vyxal/Vyxal",
+        "sbcs": true
+    },
+    "whitespace": {
+        "name": "Whitespace",
+        "hello_world": {"code": "   \n  \t\t  \t \t \n  \t\t\t\t\n   \t\n   \t\t\t\n   \t  \n  \t\t \t  \n  \t\t  \t \t\t\n  \t\t\t\t\t\t\t\n   \t  \n   \t\n \n   \t\t\t \n  \t\t   \t\t\n\n  \n \n \n\t \t\n   \t\t \t \t\t\n\t   \t\n  \n \n\n\n  \t\n\n\n\n", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/whitespace:latest",
+        "version": "Latest",
+        "url": "https://web.archive.org/web/20150618184706/http://compsoc.dur.ac.uk/whitespace/tutorial.php",
+        "sbcs": false
+    },
+    "whython": {
+        "name": "Whython",
+        "hello_world": {"code": "print(\"Hello, World!\")", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/whython:latest",
+        "version": "Latest",
+        "url": "https://github.com/pxeger/whython",
+        "sbcs": false,
+        "se_class": "python"
+    },
+    "yq": {
+        "name": "yq",
+        "hello_world": {"code": "\"Hello, World!\"", "options": ["-rn"], "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/jq:latest",
+        "version": "Latest",
+        "url": "https://kislyuk.github.io/yq/",
+        "sbcs": false
+    },
+    "zig": {
+        "name": "Zig",
+        "hello_world": {"code": "pub fn main() !void { _ = try @import(\"std\").io.getStdOut().writer().write(\"Hello, World!\"); }", "output": "Hello, World!"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/zig:latest",
+        "version": "Latest",
+        "url": "https://ziglang.org/",
+        "sbcs": false
+    },
+    "zsh": {
+        "name": "Zsh",
+        "hello_world": {"code": "echo \"Hello, World!\"", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/zsh:latest",
+        "version": "5",
+        "url": "https://www.zsh.org/",
+        "sbcs": false,
+        "se_class": "bash"
+    }
+}
