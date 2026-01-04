@@ -28,8 +28,8 @@ RUN pacman -Syu --noconfirm base-devel go rustup && rustup install nightly
 COPY yargs.c /tmp/
 RUN gcc -Wall -Werror -static /tmp/yargs.c -o /yargs
 COPY languages.json Cargo.toml Cargo.lock /tmp/
-COPY src /tmp/src
-COPY ../judgment/.cargo /tmp/.cargo
+COPY src/src /tmp/src
+COPY .cargo /tmp/.cargo
 ARG CARGO_FLAGS=--release
 RUN cargo build $CARGO_FLAGS && mv target/x86_64-unknown-linux-gnu/*/attempt-this-online /
 
@@ -110,7 +110,7 @@ EOF
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
-COPY ../judgment/runners/ /usr/local/share/ATO/runners/
+COPY runners /usr/local/share/ATO/runners/
 RUN chmod -R a+rx /usr/local/share/ATO/runners
 COPY languages.json /
 COPY --from=build /yargs /usr/local/lib/ATO/yargs

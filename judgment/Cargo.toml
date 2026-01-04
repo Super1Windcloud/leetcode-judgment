@@ -4,3 +4,31 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+tungstenite = "0.18.0"
+rmp = "0.8.11"
+serde = { version = "1.0.149", features = ["derive"] }
+serde_bytes = "0.11.7"
+serde_json = "1.0.89"
+rmp-serde = "1.1.1"
+lazy_static = "1.4.0"
+nix = "0.26.1"
+rand = "0.8.5"
+hex = "0.4.3"
+clone3 = "0.2.3"
+close_fds = "0.3.2"
+capctl = "0.2.2"
+neli = "0.6.3"
+netdevice = "0.1.1"
+
+
+
+[profile.dev]
+debug = 0
+
+#最快编译时间
+[profile.release]
+lto = false
+codegen-units = 256
+panic = "abort"
+debug = 0
+

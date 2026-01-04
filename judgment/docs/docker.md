@@ -43,7 +43,7 @@ sudo docker run -d --name ato -p 127.0.0.1:8500:8500 --privileged --cgroupns pri
 
 Note that this container must be run in privileged mode,
 which means using a Docker container provides **no additional security** compared to the
-[standard installation method](./installation.md).
+[standard installation method](installation.md).
 
 If someone is able to escape the ATO sandbox, there is no Docker sandbox to contain them,
 so they will be able to gain full access to the host system.

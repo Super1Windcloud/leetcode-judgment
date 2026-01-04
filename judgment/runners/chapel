@@ -1,7 +1,0 @@
-#!/bin/sh
-
-cd /ATO/context
-
-ln -s /ATO/code /ATO/code.chpl
-/ATO/yargs % /ATO/options chpl % /ATO/code.chpl -o /ATO/exe
-/ATO/yargs % /ATO/arguments /ATO/exe % < /ATO/input

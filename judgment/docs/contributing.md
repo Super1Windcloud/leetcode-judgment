@@ -113,13 +113,13 @@ The backend is written in Rust. You'll need the nightly Rust compiler, with the 
 - `src/main.rs` is the main entrypoint to the service and contains the websocket server handling code
 - `src/sandbox.rs` contains the core sandbox and execution wrapper
 
-See [Architecture](./architecture.md) for more details on how the overall system works.
+See [Architecture](architecture.md) for more details on how the overall system works.
 
 A development environment is provided using Docker, with the `docker-compose.yml` file.
 You'll still do all your development outside the container, but the server itself will run in one.
 
 You'll need [Docker](https://docs.docker.com) and [Docker Compose](https://docs.docker.com/compose/).
-Make sure your system also meets the [system requirements](./docker.md#system-requirements) for the Docker container.
+Make sure your system also meets the [system requirements](docker.md#system-requirements) for the Docker container.
 
 By default, the docker-compose file will download the image for every language ATO supports.
 If you're just working on the sandbox, you probably don't want this, to save disk space and startup time.

@@ -1,19 +1,24 @@
-# Attempt This Online
-Attempt This Online is an online sandbox for testing code in a variety of languages, particularly for code golf and
-related recreational programming. You can find it at [ato.pxeger.com](https://ato.pxeger.com).
+# Judgment System
 
-- [Installation](../judgment/docs/installation.md)
-- [API](../judgment/docs/api.md)
-- [Architecture](../judgment/docs/architecture.md)
-- [Contributing](../judgment/docs/contributing.md)
-- [Security Policy](../judgment/docs/security.md)
+This directory contains the code judgment system used for executing and validating user-submitted code in various programming languages.
 
-It was originally a clone of [Try It Online!](https://github.com/TryItOnline/tryitonline), hence the slightly awkward
-name.
+## Supported Languages
 
-## Licence
-© Patrick Reader 2021 - 2024. Attempt This Online is licensed under the GNU Affero General Public License 3.0 except where
-otherwise noted - see the [`LICENCE.txt`](./LICENCE.txt) file for more information.
+The system currently supports the following languages:
 
-Note that if you use the official instance at [ato.pxeger.com](https://ato.pxeger.com), you must also abide by the
-[Terms of Use](https://ato.pxeger.com/legal#terms-of-use).
+- **C** (GCC, Clang)
+- **C++** (GCC)
+- **Go** (Native, GCC)
+- **Java**
+- **JavaScript** (Node.js)
+- **PHP**
+- **Python** (v2, v3 with common libraries)
+- **Rust**
+- **TypeScript** (Deno)
+
+## Structure
+
+- `runners/`: Shell scripts for executing code in different environments.
+- `src/`: Core logic for the sandbox and judgment engine (Rust).
+- `languages.json`: Configuration for supported languages, including Docker images and "Hello World" examples.
+- `Dockerfile`: Docker configuration for the judgment environment.
