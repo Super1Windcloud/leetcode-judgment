@@ -10,8 +10,10 @@ developer experience.
 - **🎨 Stunning Visuals**
     - **ElectricBorder**: Dynamic, animated borders that react to user interaction.
     - **ASCIIText**: Unique retro-style animated text for headers.
-    - **Glassmorphism**: High-quality `GlassSurface` components with SVG filters.
     - **Eye-Comfort Dark Mode**: Custom-tuned `#292b2d` dark gray theme designed for long coding sessions.
+- **🗂️ Resizable Workspace** - Draggable vertical divider to perfectly balance problem description and code editor.
+- **🖥️ Pro Code Editor** - Monaco-powered with **per-language code caching**, smart template switching, and auto-formatting.
+- **⚖️ Integrated Judgment** - Rust-based sandbox system supporting C, C++, Java, Python, Go, Rust, and more.
 - **🔍 Advanced Problem Filtering** - Blazing fast search and multi-dimensional filtering by **Difficulty** and **Tags**.
 - **📝 Problem Creation System** - Full-featured interface to contribute problems, including Markdown descriptions,
   dynamic test cases, and reference solutions.
@@ -38,6 +40,7 @@ developer experience.
 
 - Node.js 20+
 - pnpm (recommended)
+- Rust (for building the judgment sandbox)
 
 ### Installation
 
@@ -84,8 +87,11 @@ Access the app at `http://localhost:33333`.
 ├── components/                 
 │   ├── ui/                     # shadcn/ui primitives
 │   ├── ElectricBorder.tsx      # Hover animation component
-│   ├── GlassSurface.tsx        # SVG-filtered glass component
+│   ├── CodeEditor.tsx          # Monaco editor with multi-lang support
 │   └── NavbarActions.tsx       # Reusable user/theme/lang actions
+├── judgment/                   # Rust-based code execution sandbox
+│   ├── src/                    # Sandbox core logic
+│   └── runners/                # Language-specific execution scripts
 ├── i18n/                       # i18n routing & request config
 ├── messages/                   # Translation JSON files
 ├── lib/                        # Problem fetching & Supabase logic
