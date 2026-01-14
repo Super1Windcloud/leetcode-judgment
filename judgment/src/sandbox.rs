@@ -510,9 +510,13 @@ fn run_child(
     eprintln!("ATO internal error: error running execve: {e}")
 }
 
+fn get_base_path(env_var: &str, default: &str) -> String {
+    std::env::var(env_var).unwrap_or_else(|_| default.to_string())
+}
+
 fn load_env(language: &Language) -> Result<Vec<CString>, Error> {
-    const ENV_BASE_PATH: &str = "/usr/local/lib/ATO/env/";
-    let path = String::from(ENV_BASE_PATH) + &language.image.replace("/", "+").replace(":", "+");
+    let env_base_path = get_base_path("ATO_ENV_PATH", "/usr/local/lib/ATO/env/");
+    let path = env_base_path + &language.image.replace("/", "+").replace(":", "+");
     
     let content = match std::fs::read(path) {
         Ok(c) => c,
@@ -598,13 +602,13 @@ macro_rules! mount {
 }
 
 fn get_rootfs(language: &Language) -> String {
-    const IMAGE_BASE_PATH: &str = "/usr/local/lib/ATO/rootfs/";
-    String::from(IMAGE_BASE_PATH) + &language.image.replace("/", "+").replace(":", "+")
+    let image_base_path = get_base_path("ATO_ROOTFS_PATH", "/usr/local/lib/ATO/rootfs/");
+    image_base_path + &language.image.replace("/", "+").replace(":", "+")
 }
 
 fn get_default_runner(language_id: &String) -> String {
-    const LANGUAGE_BASE_PATH: &str = "/usr/local/share/ATO/runners/";
-    String::from(LANGUAGE_BASE_PATH) + language_id
+    let language_base_path = get_base_path("ATO_RUNNERS_PATH", "/usr/local/share/ATO/runners/");
+    language_base_path + language_id
 }
 
 fn setup_filesystem(request: &Request, language: &Language) -> Result<(), Error> {
@@ -773,9 +777,12 @@ fn setup_special_files(language_id: &String) -> Result<(), Error> {
         "error creating /dev/ptmx: {}"
     );
 
+    let bash_path = get_base_path("ATO_BASH_PATH", "/usr/local/lib/ATO/bash");
+    let yargs_path = get_base_path("ATO_YARGS_PATH", "/usr/local/lib/ATO/yargs");
+
     for (src, dest) in [
-        ("/usr/local/lib/ATO/bash", "./ATO/bash"),
-        ("/usr/local/lib/ATO/yargs", "./ATO/yargs"),
+        (&bash_path, "./ATO/bash"),
+        (&yargs_path, "./ATO/yargs"),
         (&get_default_runner(&language_id), "./ATO/default_runner"),
     ] {
         drop(check!(
@@ -783,7 +790,7 @@ fn setup_special_files(language_id: &String) -> Result<(), Error> {
             "error creating mount point for {}: {}",
             dest
         ));
-        mount!(&src, &dest, , MS_NOSUID | MS_BIND | MS_RDONLY);
+        mount!(src.as_str(), dest, , MS_NOSUID | MS_BIND | MS_RDONLY);
     }
 
     Ok(())

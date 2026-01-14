@@ -23,6 +23,24 @@ The system currently supports the following languages:
 - `languages.json`: Configuration for supported languages, including Docker images and "Hello World" examples.
 - `Dockerfile`: Docker configuration for the judgment environment.
 
+## Development
+
+### Using Docker (Recommended for Consistency)
+```bash
+docker compose up --build
+```
+Access the test console at http://localhost:8500/test
+
+### Native Development (Faster iteration)
+If you want to run the Rust backend natively on your Linux host:
+1. Ensure you have `gcc` and `cargo` installed.
+2. Run the dev script:
+   ```bash
+   chmod +x dev.sh
+   ./dev.sh
+   ```
+Note: Native development still requires `sudo` because the sandbox uses Linux namespaces and mounting.
+
 
 
 
