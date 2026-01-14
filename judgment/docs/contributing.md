@@ -193,7 +193,7 @@ To rerun the tests automatically as well:
 ```bash
 export URL='ws://localhost:8500/api/v1/ws/execute'
 # export FAST=1
-ls target/debug/attempt-this-online test/test.py | entr -c test/run
+ls target/debug/judgment test/test.py | entr -c test/run
 ```
 
 ## Frontend developer instructions
