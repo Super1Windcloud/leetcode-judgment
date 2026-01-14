@@ -1,6 +1,6 @@
 {
-    "c_gcc": {
-        "name": "C (GCC)",
+    "c": {
+        "name": "C",
         "hello_world": {"code": "#include <stdio.h>\nint main(void) { puts(\"Hello, World!\"); }", "output": "Hello, World!\n"},
         "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/base:latest",
         "version": "11",
@@ -8,17 +8,8 @@
         "sbcs": false,
         "se_class": "c"
     },
-    "clang": {
-        "name": "C (clang)",
-        "hello_world": {"code": "#include <stdio.h>\nint main(void) { puts(\"Hello, World!\"); }", "output": "Hello, World!\n"},
-        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/clang:latest",
-        "version": "Latest",
-        "url": "https://clang.llvm.org",
-        "sbcs": false,
-        "se_class": "c"
-    },
-    "cplusplus_gcc": {
-        "name": "C++ (GCC)",
+    "cpp": {
+        "name": "C++",
         "hello_world": {"code": "#include <stdio.h>\nint main(void) { puts(\"Hello, World!\"); }", "output": "Hello, World!\n"},
         "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/gcc:latest",
         "version": "11",
@@ -26,8 +17,17 @@
         "sbcs": false,
         "se_class": "cpp"
     },
-    "deno": {
-        "name": "TypeScript (Deno)",
+    "csharp": {
+        "name": "C#",
+        "hello_world": {"code": "using System;\npublic class HelloWorld {\n    public static void Main(string[] args) {\n        Console.WriteLine(\"Hello, World!\");\n    }\n}", "output": "Hello, World!\n"},
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/mono:latest",
+        "version": "Latest",
+        "url": "https://www.mono-project.com/",
+        "sbcs": false,
+        "se_class": "csharp"
+    },
+    "typescript": {
+        "name": "TypeScript",
         "hello_world": {"code": "console.log('Hello, World!')", "output": "Hello, World!\n"},
         "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/deno:latest",
         "version": "Latest",
@@ -44,15 +44,6 @@
         "sbcs": false,
         "se_class": "go"
     },
-    "go_gcc": {
-        "name": "Go (GCC)",
-        "hello_world": {"code": "package main\nimport \"fmt\"\nfunc main() {\n\tfmt.Print(\"Hello, World!\")\n}", "output": "Hello, World!"},
-        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/gcc:latest",
-        "version": "11",
-        "url": "https://gcc.gnu.org",
-        "sbcs": false,
-        "se_class": "go"
-    },
     "java": {
         "name": "Java",
         "hello_world": {"code": "public class Main {\n\tpublic static void main(String[] args) {\n\t\tSystem.out.print(\"Hello, World!\");\n\t}\n}", "output": "Hello, World!"},
@@ -62,8 +53,8 @@
         "sbcs": false,
         "se_class": "java"
     },
-    "node": {
-        "name": "JavaScript (Node.js)",
+    "javascript": {
+        "name": "JavaScript",
         "hello_world": {"code": "console.log(\"Hello, World!\")", "output": "Hello, World!\n"},
         "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/node:latest",
         "version": "Latest",
@@ -88,15 +79,6 @@
         "url": "https://www.python.org",
         "sbcs": false,
         "se_class": "python"
-    },
-    "python2": {
-        "name": "Python 2",
-        "hello_world": {"code": "print \"Hello, World!\"", "output": "Hello, World!\n"},
-        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/python2:latest",
-        "version": "2",
-        "url": "https://docs.python.org/2/",
-        "sbcs": false,
-        "se_class": "python2"
     },
     "rust": {
         "name": "Rust",

@@ -1,4 +1,0 @@
-websockets
-msgpack
-pytest
-pytest-asyncio
