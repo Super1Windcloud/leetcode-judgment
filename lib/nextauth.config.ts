@@ -1,4 +1,4 @@
-import type { Account, Session } from "next-auth";
+import type { Account, AuthOptions, Session } from "next-auth";
 import type { JWT } from "next-auth/jwt";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
@@ -15,7 +15,7 @@ declare module "next-auth" {
 	}
 }
 
-export const NextAuthConfig = {
+export const NextAuthConfig: AuthOptions = {
 	providers: [
 		GitHubProvider({
 			clientId: process.env.AUTH_GITHUB_ID ?? "",
@@ -41,4 +41,8 @@ export const NextAuthConfig = {
 		},
 	},
 	secret: process.env.AUTH_SECRET,
+	session: {
+		strategy: "jwt",
+		maxAge: 7 * 24 * 60 * 60,
+	},
 };
