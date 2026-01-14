@@ -149,6 +149,8 @@
                         <option value="c">C (GCC)</option>
                         <option value="go">Go</option>
                         <option value="java">Java</option>
+                        <option value="csharp">C# (Mono)</option>
+                        <option value="php">PHP</option>
                         <option value="typescript">TypeScript (Deno)</option>
                     </select>
                 </div>
@@ -189,7 +191,9 @@
         python: 'print("Hello, World!")',
         javascript: 'console.log("Hello from Node.js")',
         rust: 'fn main() {\n    println!("Hello from Rust!");\n}',
-        cpp: '#include <iostream>\nint main() {\n    std::cout << "Hello C++" << std::endl;\n    return 0;\n}'
+        cpp: '#include <iostream>\nint main() {\n    std::cout << "Hello C++" << std::endl;\n    return 0;\n}',
+        csharp: 'using System;\npublic class HelloWorld {\n    public static void Main(string[] args) {\n        Console.WriteLine("Hello from C#!");\n    }\n}',
+        php: '<?php\necho "Hello from PHP!";\n?>'
     };
 
     document.getElementById('languageSelect').onchange = (e) => {
