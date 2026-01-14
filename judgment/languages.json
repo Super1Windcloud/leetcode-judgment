@@ -5,8 +5,8 @@
             "code": "#include <stdio.h>\nint main(void) { puts(\"Hello, World!\"); }",
             "output": "Hello, World!\n"
         },
-        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/base:latest",
-        "version": "11",
+        "image": "gcc:13",
+        "version": "GCC 13",
         "url": "https://gcc.gnu.org",
         "sbcs": false,
         "se_class": "c"
@@ -14,11 +14,11 @@
     "cpp": {
         "name": "C++",
         "hello_world": {
-            "code": "#include <stdio.h>\nint main(void) { puts(\"Hello, World!\"); }",
+            "code": "#include <iostream>\nint main() { std::cout << \"Hello, World!\" << std::endl; }",
             "output": "Hello, World!\n"
         },
-        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/gcc:latest",
-        "version": "11",
+        "image": "gcc:13",
+        "version": "GCC 13",
         "url": "https://gcc.gnu.org",
         "sbcs": false,
         "se_class": "cpp"
@@ -29,23 +29,11 @@
             "code": "using System;\npublic class HelloWorld {\n    public static void Main(string[] args) {\n        Console.WriteLine(\"Hello, World!\");\n    }\n}",
             "output": "Hello, World!\n"
         },
-        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/mono:latest",
-        "version": "Latest",
+        "image": "mono:6.12",
+        "version": "Mono 6.12",
         "url": "https://www.mono-project.com/",
         "sbcs": false,
         "se_class": "csharp"
-    },
-    "typescript": {
-        "name": "TypeScript",
-        "hello_world": {
-            "code": "console.log('Hello, World!')",
-            "output": "Hello, World!\n"
-        },
-        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/deno:latest",
-        "version": "Latest",
-        "url": "https://deno.land",
-        "sbcs": false,
-        "se_class": "typescript"
     },
     "go": {
         "name": "Go",
@@ -53,8 +41,8 @@
             "code": "package main\nimport \"fmt\"\nfunc main() {\n\tfmt.Print(\"Hello, World!\")\n}",
             "output": "Hello, World!"
         },
-        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/go:latest",
-        "version": "Latest",
+        "image": "golang:1.22-alpine",
+        "version": "1.22",
         "url": "https://go.dev",
         "sbcs": false,
         "se_class": "go"
@@ -65,9 +53,9 @@
             "code": "public class Main {\n\tpublic static void main(String[] args) {\n\t\tSystem.out.print(\"Hello, World!\");\n\t}\n}",
             "output": "Hello, World!"
         },
-        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/java:latest",
-        "version": "Latest",
-        "url": "https://en.wikipedia.org/wiki/Java_(programming_language)",
+        "image": "eclipse-temurin:21-jdk",
+        "version": "JDK 21",
+        "url": "https://openjdk.org",
         "sbcs": false,
         "se_class": "java"
     },
@@ -77,8 +65,8 @@
             "code": "console.log(\"Hello, World!\")",
             "output": "Hello, World!\n"
         },
-        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/node:latest",
-        "version": "Latest",
+        "image": "node:20-slim",
+        "version": "Node.js 20",
         "url": "https://nodejs.org",
         "sbcs": false,
         "se_class": "javascript"
@@ -89,8 +77,8 @@
             "code": "<?php\necho \"Hello, World!\";\n?>",
             "output": "Hello, World!"
         },
-        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/php:latest",
-        "version": "Latest",
+        "image": "php:8.3-cli-alpine",
+        "version": "PHP 8.3",
         "url": "https://www.php.net",
         "sbcs": false,
         "se_class": "php"
@@ -102,7 +90,7 @@
             "output": "Hello, World!\n"
         },
         "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/python_with_common_libraries:latest",
-        "version": "Latest",
+        "version": "Latest (with libs)",
         "url": "https://www.python.org",
         "sbcs": false,
         "se_class": "python"
@@ -118,5 +106,17 @@
         "url": "https://www.rust-lang.org",
         "sbcs": false,
         "se_class": "rust"
+    },
+    "typescript": {
+        "name": "TypeScript",
+        "hello_world": {
+            "code": "console.log('Hello, World!')",
+            "output": "Hello, World!\n"
+        },
+        "image": "denoland/deno:alpine",
+        "version": "Deno Latest",
+        "url": "https://deno.land",
+        "sbcs": false,
+        "se_class": "typescript"
     }
 }

@@ -64,13 +64,40 @@ fn main() {
     }
 }
 
-fn handle_ws(connection: TcpStream) {
+fn handle_ws(mut connection: TcpStream) {
     // tell the kernel that we now *do* care about our child processes
     // see waitpid(2) § NOTES
     // this is safe because there was no previous signal handler function
     unsafe { signal(Signal::SIGCHLD, SigHandler::SigDfl) }.unwrap();
 
-    // get raw fd so we can poll on it later
+    // 尝试读取请求头以区分普通的 HTTP 请求和 WebSocket 请求
+    let mut buffer = [0; 1024];
+    let n = match connection.peek(&mut buffer) {
+        Ok(n) => n,
+        Err(_) => return,
+    };
+    let request_str = String::from_utf8_lossy(&buffer[..n]);
+
+    // 如果是访问 /test 的普通 GET 请求
+    if request_str.starts_with("GET /test ") {
+        use std::io::Write;
+        let html = include_str!("test-console.html");
+        let response = format!(
+            "HTTP/1.1 200 OK\r\n\
+             Content-Type: text/html; charset=utf-8\r\n\
+             Content-Length: {}\r\n\
+             Connection: close\r\n\
+             \r\n\
+             {}",
+            html.len(),
+            html
+        );
+        let _ = connection.write_all(response.as_bytes());
+        let _ = connection.flush();
+        return;
+    }
+
+    // 否则，交给 tungstenite 处理 WebSocket 握手
     use std::os::fd::AsRawFd;
     let connection_fd = connection.as_raw_fd();
     let mut config = WebSocketConfig::default();
@@ -78,10 +105,10 @@ fn handle_ws(connection: TcpStream) {
     let websocket =
         match tungstenite::accept_hdr_with_config(connection, handle_headers, Some(config)) {
             Ok(ws) => ws,
-            Err(tungstenite::HandshakeError::Failure(e)) => match e {
-                _ => todo!("send 400 bad request error or something"),
-            },
-            Err(e) => panic!("{}", e),
+            Err(e) => {
+                eprintln!("WebSocket handshake failed: {e}");
+                return;
+            }
         };
     let mut connection = Connection(websocket);
 

@@ -513,7 +513,17 @@ fn run_child(
 fn load_env(language: &Language) -> Result<Vec<CString>, Error> {
     const ENV_BASE_PATH: &str = "/usr/local/lib/ATO/env/";
     let path = String::from(ENV_BASE_PATH) + &language.image.replace("/", "+").replace(":", "+");
-    check!(std::fs::read(path), "error reading image env file: {}")
+    
+    let content = match std::fs::read(path) {
+        Ok(c) => c,
+        Err(e) if e.kind() == std::io::ErrorKind::NotFound => {
+            eprintln!("Warning: environment file not found for {}, using empty env", language.image);
+            return Ok(vec![CString::new("PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin").unwrap()]);
+        }
+        Err(e) => return Err(Error::InternalError(format!("error reading image env file: {e}"))),
+    };
+
+    content
         .split_inclusive(|b| *b == 0) // split after null bytes, and include them in the results
         .map(|s| CString::from_vec_with_nul(s.to_vec()))
         .collect::<Result<Vec<_>, _>>() // collects errors too
