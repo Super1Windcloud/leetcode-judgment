@@ -13,13 +13,6 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
     "vitest": "^4.0.17",
-    "ws": "^8.19.0",
-    "@msgpack/msgpack": "^3.0.0",
-    "@types/node": "^20.0.0",
-    "@types/ws": "^8.5.0",
-    "ts-node": "^10.9.0",
-    "typescript": "^5.0.0",
-    "vitest": "^1.0.0",
-    "ws": "^8.16.0"
+    "ws": "^8.19.0"
   }
 }

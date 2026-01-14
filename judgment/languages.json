@@ -1,7 +1,10 @@
 {
     "c": {
         "name": "C",
-        "hello_world": {"code": "#include <stdio.h>\nint main(void) { puts(\"Hello, World!\"); }", "output": "Hello, World!\n"},
+        "hello_world": {
+            "code": "#include <stdio.h>\nint main(void) { puts(\"Hello, World!\"); }",
+            "output": "Hello, World!\n"
+        },
         "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/base:latest",
         "version": "11",
         "url": "https://gcc.gnu.org",
@@ -10,7 +13,10 @@
     },
     "cpp": {
         "name": "C++",
-        "hello_world": {"code": "#include <stdio.h>\nint main(void) { puts(\"Hello, World!\"); }", "output": "Hello, World!\n"},
+        "hello_world": {
+            "code": "#include <stdio.h>\nint main(void) { puts(\"Hello, World!\"); }",
+            "output": "Hello, World!\n"
+        },
         "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/gcc:latest",
         "version": "11",
         "url": "https://gcc.gnu.org",
@@ -19,7 +25,10 @@
     },
     "csharp": {
         "name": "C#",
-        "hello_world": {"code": "using System;\npublic class HelloWorld {\n    public static void Main(string[] args) {\n        Console.WriteLine(\"Hello, World!\");\n    }\n}", "output": "Hello, World!\n"},
+        "hello_world": {
+            "code": "using System;\npublic class HelloWorld {\n    public static void Main(string[] args) {\n        Console.WriteLine(\"Hello, World!\");\n    }\n}",
+            "output": "Hello, World!\n"
+        },
         "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/mono:latest",
         "version": "Latest",
         "url": "https://www.mono-project.com/",
@@ -28,7 +37,10 @@
     },
     "typescript": {
         "name": "TypeScript",
-        "hello_world": {"code": "console.log('Hello, World!')", "output": "Hello, World!\n"},
+        "hello_world": {
+            "code": "console.log('Hello, World!')",
+            "output": "Hello, World!\n"
+        },
         "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/deno:latest",
         "version": "Latest",
         "url": "https://deno.land",
@@ -37,7 +49,10 @@
     },
     "go": {
         "name": "Go",
-        "hello_world": {"code": "package main\nimport \"fmt\"\nfunc main() {\n\tfmt.Print(\"Hello, World!\")\n}", "output": "Hello, World!"},
+        "hello_world": {
+            "code": "package main\nimport \"fmt\"\nfunc main() {\n\tfmt.Print(\"Hello, World!\")\n}",
+            "output": "Hello, World!"
+        },
         "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/go:latest",
         "version": "Latest",
         "url": "https://go.dev",
@@ -46,7 +61,10 @@
     },
     "java": {
         "name": "Java",
-        "hello_world": {"code": "public class Main {\n\tpublic static void main(String[] args) {\n\t\tSystem.out.print(\"Hello, World!\");\n\t}\n}", "output": "Hello, World!"},
+        "hello_world": {
+            "code": "public class Main {\n\tpublic static void main(String[] args) {\n\t\tSystem.out.print(\"Hello, World!\");\n\t}\n}",
+            "output": "Hello, World!"
+        },
         "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/java:latest",
         "version": "Latest",
         "url": "https://en.wikipedia.org/wiki/Java_(programming_language)",
@@ -55,7 +73,10 @@
     },
     "javascript": {
         "name": "JavaScript",
-        "hello_world": {"code": "console.log(\"Hello, World!\")", "output": "Hello, World!\n"},
+        "hello_world": {
+            "code": "console.log(\"Hello, World!\")",
+            "output": "Hello, World!\n"
+        },
         "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/node:latest",
         "version": "Latest",
         "url": "https://nodejs.org",
@@ -64,7 +85,10 @@
     },
     "php": {
         "name": "PHP",
-        "hello_world": {"code": "<?php\necho \"Hello, World!\";\n?>", "output": "Hello, World!"},
+        "hello_world": {
+            "code": "<?php\necho \"Hello, World!\";\n?>",
+            "output": "Hello, World!"
+        },
         "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/php:latest",
         "version": "Latest",
         "url": "https://www.php.net",
@@ -73,7 +97,10 @@
     },
     "python": {
         "name": "Python",
-        "hello_world": {"code": "print(\"Hello, World!\")", "output": "Hello, World!\n"},
+        "hello_world": {
+            "code": "print(\"Hello, World!\")",
+            "output": "Hello, World!\n"
+        },
         "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/python_with_common_libraries:latest",
         "version": "Latest",
         "url": "https://www.python.org",
@@ -82,7 +109,10 @@
     },
     "rust": {
         "name": "Rust",
-        "hello_world": {"code": "fn main() { print!(\"Hello, World!\") }", "output": "Hello, World!"},
+        "hello_world": {
+            "code": "fn main() { print!(\"Hello, World!\") }",
+            "output": "Hello, World!"
+        },
         "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/rust:latest",
         "version": "Latest",
         "url": "https://www.rust-lang.org",

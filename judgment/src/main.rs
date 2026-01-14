@@ -27,7 +27,7 @@ fn get_bind_address() -> SocketAddr {
         if let std::env::VarError::NotUnicode(_) = e {
             panic!("$ATO_BIND is invalid Unicode")
         }
-        "127.0.0.1:8500".to_string()
+        "0.0.0.0:8500".to_string()
     }))
     .expect("$ATO_BIND is not a valid address")
 }
@@ -148,11 +148,19 @@ fn handle_headers(
     request: &http::Request,
     response: http::Response,
 ) -> Result<http::Response, http::ErrorResponse> {
-    if request.uri() != "/api/v1/ws/execute" {
+    if request.uri() == "/test" {
+        let response = http::Response::builder()
+            .status(StatusCode::OK)
+            .header("Content-Type", "text/html; charset=utf-8")
+            .body(Some(include_str!("test-console.html").to_string()))
+            .unwrap();
+        Err(response)
+    } else if request.uri() != "/api/v1/ws/execute" {
         let response = http::Response::builder()
             .status(StatusCode::NOT_FOUND)
             .body(Some(
-                "the only supported API URL is /api/v1/ws/execute".to_string(),
+                "the only supported API URL is /api/v1/ws/execute, or try /test for the console"
+                    .to_string(),
             ))
             .unwrap();
         Err(response)

@@ -53,6 +53,7 @@ mkdir -p /usr/local/share/ATO/runners
 ln -s /mnt/rootfs /usr/local/lib/ATO/rootfs
 ln -s /mnt/env /usr/local/lib/ATO/env
 useradd -U ato
+mkdir -p /mnt && touch /mnt/done
 EOF
 
 COPY <<"EOF" /entrypoint.sh

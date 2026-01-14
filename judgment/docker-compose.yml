@@ -16,7 +16,7 @@ services:
     volumes:
       - images:/mnt
     ports:
-      - 127.0.0.1:8500:8500
+      - 8500:8500
     privileged: true
     cgroup: private
     command: setpriv --reuid ato --regid ato --init-groups /usr/local/lib/ATO/server
