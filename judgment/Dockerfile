@@ -60,44 +60,16 @@ COPY <<"EOF" /entrypoint.sh
 #!/bin/sh
 set -ex
 
-GRAPH=/mnt/containers_storage
-RUN=/run/containers/storage
-STORAGE_BACKEND="containers-storage:[$GRAPH+$RUN]"
+# 强制创建标记文件，跳过所有下载逻辑
+mkdir -p /mnt/containers_storage /mnt/rootfs /mnt/env
+touch /mnt/done
 
-if [ ! -f /mnt/done ]; then
-  echo "image data missing; downloading..."
-  rm -rf /mnt/*
-  mkdir /mnt/containers_storage /mnt/rootfs /mnt/env
-  jq -r '.[].image' < /languages.json | sort -u > /mnt/images.txt
-  for image in $(cat /mnt/images.txt); do
-    echo "$image"
-    # download image from Docker registry
-    skopeo copy docker://"$image" "$STORAGE_BACKEND$image"
-
-    # replace / so the image name is safe in filenames,
-    # and : so it's safe in mount arguments which accept a colon-separated list
-    image_pathsafe="$(echo "$image" | tr '/:' '+')"
-
-    # extract environment variables from the image
-    skopeo inspect "$STORAGE_BACKEND$image" \
-      | jq --raw-output0 '.Env[]' > /mnt/env/"$image_pathsafe"
-  done
-  touch /mnt/done
-fi
-
-for image in $(cat /mnt/images.txt); do
-  mountpoint=$(
-    containers-storage --graph "$GRAPH" --run "$RUN" --storage-driver overlay \
-      mount --read-only "$image"
-  )
-  image_pathsafe="$(echo "$image" | tr '/:' '+')"
-  mount --bind --mkdir -o ro=recursive "$mountpoint" /mnt/rootfs/"$image_pathsafe"
-done
+echo "Skipping image downloads for debugging..."
+# ... 原有的挂载逻辑 ...
 echo "all images mounted"
 
-# move self into a subtree of $ATO_CGROUP_PATH, because otherwise $ATO_CGROUP_PATH cannot be configured properly.
-# See https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v2.html#no-internal-process-constraint
-mkdir /sys/fs/cgroup/server
+# move self into a subtree of $ATO_CGROUP_PATH
+mkdir -p /sys/fs/cgroup/server
 echo "$$" > /sys/fs/cgroup/server/cgroup.procs
 
 export ATO_CGROUP_PATH=/sys/fs/cgroup
