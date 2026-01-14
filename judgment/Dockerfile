@@ -28,10 +28,10 @@ RUN pacman -Syu --noconfirm base-devel go rustup && rustup install nightly
 COPY yargs.c /tmp/
 RUN gcc -Wall -Werror -static /tmp/yargs.c -o /yargs
 COPY languages.json Cargo.toml Cargo.lock /tmp/
-COPY src/src /tmp/src
+COPY src /tmp/src
 COPY .cargo /tmp/.cargo
 ARG CARGO_FLAGS=--release
-RUN cargo build $CARGO_FLAGS && mv target/x86_64-unknown-linux-gnu/*/attempt-this-online /
+RUN cargo build $CARGO_FLAGS && mv target/x86_64-unknown-linux-gnu/*/judgment /
 
 FROM pin_skopeo
 
@@ -114,7 +114,7 @@ COPY runners /usr/local/share/ATO/runners/
 RUN chmod -R a+rx /usr/local/share/ATO/runners
 COPY languages.json /
 COPY --from=build /yargs /usr/local/lib/ATO/yargs
-COPY --from=build /attempt-this-online /usr/local/lib/ATO/server
+COPY --from=build /judgment /usr/local/lib/ATO/server
 
 ENV ATO_BIND=0.0.0.0:8500
 EXPOSE 8500
