@@ -63,47 +63,58 @@ GRAPH=/mnt/containers_storage
 RUN=/run/containers/storage
 STORAGE_BACKEND="containers-storage:[$GRAPH+$RUN]"
 
-if [ ! -f /mnt/done ]; then
-  echo "image data missing; downloading..."
-  rm -rf /mnt/*
-  mkdir /mnt/containers_storage /mnt/rootfs /mnt/env
-  jq -r '.[].image' < /languages.json | sort -u > /mnt/images.txt
-  for image in $(cat /mnt/images.txt); do
-    echo "Downloading $image..."
-    # download image from Docker registry
-    skopeo copy docker://"$image" "$STORAGE_BACKEND$image"
+# 初始化目录（不删除已有内容）
+mkdir -p /mnt/containers_storage /mnt/rootfs /mnt/env
 
-    # replace / so the image name is safe in filenames,
-    # and : so it's safe in mount arguments which accept a colon-separated list
+echo "Checking for missing images..."
+jq -r '.[].image' < /languages.json | sort -u > /tmp/required_images.txt
+
+while read -r image; do
     image_pathsafe="$(echo "$image" | tr '/:' '+')"
+    
+    # 检查该镜像是否已经下载并生成了环境文件
+    if [ -f "/mnt/env/$image_pathsafe" ]; then
+        echo "Image $image already exists, skipping download."
+    else
+        echo "Downloading $image..."
+        # skopeo copy 本身支持跳过已存在的层
+        if skopeo copy --retry-times 3 docker://"$image" "$STORAGE_BACKEND$image"; then
+            # 提取环境变量并作为“下载成功”的标志
+            skopeo inspect "$STORAGE_BACKEND$image" \
+              | jq --raw-output0 '.Env[]' > "/mnt/env/$image_pathsafe"
+            echo "Successfully prepared $image"
+        else
+            echo "Failed to download $image, will retry on next start."
+        fi
+    fi
+done < /tmp/required_images.txt
 
-    # extract environment variables from the image
-    skopeo inspect "$STORAGE_BACKEND$image" \
-      | jq --raw-output0 '.Env[]' > /mnt/env/"$image_pathsafe"
-  done
-  touch /mnt/done
-fi
-
-for image in $(cat /mnt/images.txt); do
-  mountpoint=$(
-    containers-storage --graph "$GRAPH" --run "$RUN" --storage-driver overlay \
-      mount --read-only "$image"
-  )
-  image_pathsafe="$(echo "$image" | tr '/:' '+')"
-  mount --bind --mkdir -o ro=recursive "$mountpoint" /mnt/rootfs/"$image_pathsafe"
+# 挂载逻辑
+for image in $(cat /tmp/required_images.txt); do
+    image_pathsafe="$(echo "$image" | tr '/:' '+')"
+    # 只有下载成功的镜像才尝试挂载
+    if [ -f "/mnt/env/$image_pathsafe" ]; then
+        mountpoint=$(
+            containers-storage --graph "$GRAPH" --run "$RUN" --storage-driver overlay \
+              mount --read-only "$image"
+        )
+        mount --bind --mkdir -o ro=recursive "$mountpoint" /mnt/rootfs/"$image_pathsafe"
+    fi
 done
-echo "all images mounted"
 
-# move self into a subtree of $ATO_CGROUP_PATH
+echo "all available images mounted"
+
+# 确保 ato 用户有权访问数据
+chown -R ato:ato /mnt
+
+# 资源控制配置
 mkdir -p /sys/fs/cgroup/server
 echo "$$" > /sys/fs/cgroup/server/cgroup.procs
-
 export ATO_CGROUP_PATH=/sys/fs/cgroup
 echo +memory > "$ATO_CGROUP_PATH/cgroup.subtree_control"
 chown -R ato:ato "$ATO_CGROUP_PATH"
 
 mkdir -p /run/ATO
-
 exec tini -- "$@"
 EOF
 RUN chmod +x /entrypoint.sh

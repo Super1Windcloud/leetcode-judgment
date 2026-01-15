@@ -1,10 +1,3 @@
-#![feature(
-    io_error_more,
-    exitcode_exit_method,
-    anonymous_lifetime_in_impl_trait,
-    cursor_split
-)]
-
 mod constants;
 mod languages;
 mod network;
@@ -15,7 +8,6 @@ use nix::sys::signal::{SigHandler, Signal, signal};
 use serde::{Deserialize, Serialize, de::DeserializeOwned};
 use serde_bytes::ByteBuf;
 use std::net::{SocketAddr, TcpListener, TcpStream};
-use std::process::Termination;
 use tungstenite as ws;
 use tungstenite::handshake::server as http;
 use tungstenite::http::StatusCode;
@@ -27,25 +19,24 @@ fn get_bind_address() -> SocketAddr {
         if let std::env::VarError::NotUnicode(_) = e {
             panic!("$ATO_BIND is invalid Unicode")
         }
-        "0.0.0.0:8500".to_string()
+        "[::]:8500".to_string()
     }))
     .expect("$ATO_BIND is not a valid address")
 }
 
 /// analogous to std::thread::spawn but forks a full new process instead of a thread
-fn fork_spawn<F, T>(f: F)
+fn fork_spawn<F>(f: F)
 where
-    F: FnOnce() -> T,
+    F: FnOnce(),
     F: 'static,
-    T: Termination,
 {
     use nix::unistd::{ForkResult, fork};
     // this is safe as long as the program only has one thread so far
     match unsafe { fork() }.unwrap() {
         ForkResult::Parent { .. } => {}
         ForkResult::Child => {
-            let termination = f();
-            termination.report().exit_process();
+            f();
+            std::process::exit(0);
         }
     }
 }
@@ -57,24 +48,30 @@ fn main() {
     unsafe { signal(Signal::SIGCHLD, SigHandler::SigIgn) }.unwrap();
 
     let addr = get_bind_address();
-    eprintln!("starting ATO server on {addr}");
+    eprintln!("Starting ATO server on {addr}...");
     let server = TcpListener::bind(addr).unwrap();
     for connection in server.incoming() {
-        fork_spawn(move || handle_ws(connection.unwrap()));
+        if let Ok(conn) = connection {
+            fork_spawn(move || handle_ws(conn));
+        }
     }
 }
 
 fn handle_ws(mut connection: TcpStream) {
+    // 立即设置超时，防止恶意连接或慢速连接卡住进程
+    let _ = connection.set_read_timeout(Some(std::time::Duration::from_secs(5)));
+    
     // tell the kernel that we now *do* care about our child processes
-    // see waitpid(2) § NOTES
-    // this is safe because there was no previous signal handler function
     unsafe { signal(Signal::SIGCHLD, SigHandler::SigDfl) }.unwrap();
 
     // 尝试读取请求头以区分普通的 HTTP 请求和 WebSocket 请求
     let mut buffer = [0; 1024];
     let n = match connection.peek(&mut buffer) {
         Ok(n) => n,
-        Err(_) => return,
+        Err(e) => {
+            eprintln!("Peek failed or timed out: {e}");
+            return;
+        }
     };
     let request_str = String::from_utf8_lossy(&buffer[..n]);
 
@@ -97,6 +94,19 @@ fn handle_ws(mut connection: TcpStream) {
         return;
     }
 
+    // 对于其他非 WebSocket 升级的普通 HTTP 请求，返回 404
+    if request_str.starts_with("GET ") && !request_str.contains("Upgrade: websocket") {
+        use std::io::Write;
+        let response = "HTTP/1.1 404 Not Found\r\n\
+                        Content-Type: text/plain\r\n\
+                        Connection: close\r\n\
+                        \r\n\
+                        Not Found. Visit /test for the console.";
+        let _ = connection.write_all(response.as_bytes());
+        let _ = connection.flush();
+        return;
+    }
+
     // 否则，交给 tungstenite 处理 WebSocket 握手
     use std::os::fd::AsRawFd;
     let connection_fd = connection.as_raw_fd();
@@ -106,7 +116,10 @@ fn handle_ws(mut connection: TcpStream) {
         match tungstenite::accept_hdr_with_config(connection, handle_headers, Some(config)) {
             Ok(ws) => ws,
             Err(e) => {
-                eprintln!("WebSocket handshake failed: {e}");
+                // 如果是 favicon 或随机探测，不打印错误以保持日志整洁
+                if !request_str.contains("favicon") {
+                    eprintln!("WebSocket handshake failed: {e}");
+                }
                 return;
             }
         };
@@ -116,10 +129,10 @@ fn handle_ws(mut connection: TcpStream) {
         use std::borrow::Cow;
         use tungstenite::protocol::frame::{CloseFrame, coding::CloseCode};
 
-        fn close(
+        fn close<'a>(
             connection: &mut Connection,
             code: CloseCode,
-            reason: impl Into<Cow<'_, str>>,
+            reason: impl Into<Cow<'a, str>>,
         ) -> Result<(), ws::Error> {
             let frame = CloseFrame {
                 code,
@@ -316,7 +329,8 @@ impl Connection {
         let mut de = rmp_serde::Deserializer::new(cursor);
         match <T as Deserialize>::deserialize(&mut de) {
             Ok(r) => {
-                if !de.get_ref().split().1.is_empty() {
+                let read_pos = de.get_ref().position() as usize;
+                if read_pos != message.len() {
                     Err(Error::PolicyViolation("found extra data".to_string()))
                 } else {
                     Ok(r)
