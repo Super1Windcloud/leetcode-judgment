@@ -57,57 +57,57 @@ EOF
 
 COPY <<"EOF" /entrypoint.sh
 #!/bin/sh
-set -ex
+set -e
 
 GRAPH=/mnt/containers_storage
 RUN=/run/containers/storage
+# 显式指定存储配置，确保一致性
+CS_OPTS="--graph $GRAPH --run $RUN --storage-driver overlay"
 STORAGE_BACKEND="containers-storage:[$GRAPH+$RUN]"
 
-# 初始化目录（不删除已有内容）
-mkdir -p /mnt/containers_storage /mnt/rootfs /mnt/env
+mkdir -p "$GRAPH" "$RUN" /mnt/rootfs /mnt/env
 
-echo "Checking for missing images..."
-jq -r '.[].image' < /languages.json | sort -u > /tmp/required_images.txt
+echo "Synchronizing languages and images..."
+jq -r '.[].image' < /languages.json | sort -u > /tmp/images.txt
 
 while read -r image; do
     image_pathsafe="$(echo "$image" | tr '/:' '+')"
     
-    # 检查该镜像是否已经下载并生成了环境文件
-    if [ -f "/mnt/env/$image_pathsafe" ]; then
-        echo "Image $image already exists, skipping download."
+    # 首先检查 containers-storage 是否已经知道这个镜像
+    # 这比 skopeo 检查快得多，因为它不联网
+    if containers-storage $CS_OPTS exists "$image" >/dev/null 2>&1 && [ -f "/mnt/env/$image_pathsafe" ]; then
+        echo "Cache hit: $image is already in local storage."
     else
-        echo "Downloading $image..."
-        # skopeo copy 本身支持跳过已存在的层
+        echo "Cache miss: $image. Pulling from registry..."
+        # skopeo 会自动利用已有的层（Blobs），实现断点续传
         if skopeo copy --retry-times 3 docker://"$image" "$STORAGE_BACKEND$image"; then
-            # 提取环境变量并作为“下载成功”的标志
-            skopeo inspect "$STORAGE_BACKEND$image" \
-              | jq --raw-output0 '.Env[]' > "/mnt/env/$image_pathsafe"
-            echo "Successfully prepared $image"
+            skopeo inspect "$STORAGE_BACKEND$image" | jq --raw-output0 '.Env[]' > "/mnt/env/$image_pathsafe"
+            echo "Successfully pulled $image"
         else
-            echo "Failed to download $image, will retry on next start."
+            echo "Failed to pull $image, will retry later."
+            continue
         fi
     fi
-done < /tmp/required_images.txt
+done < /tmp/images.txt
 
+echo "Images synchronized. Setting permissions..."
+# 在挂载之前修改权限，确保 ato 用户可以读写这些基础文件
+chown -R ato:ato /mnt
+chmod -R 777 /mnt
+
+echo "Mounting images..."
 # 挂载逻辑
-for image in $(cat /tmp/required_images.txt); do
+for image in $(cat /tmp/images.txt); do
     image_pathsafe="$(echo "$image" | tr '/:' '+')"
-    # 只有下载成功的镜像才尝试挂载
-    if [ -f "/mnt/env/$image_pathsafe" ]; then
-        mountpoint=$(
-            containers-storage --graph "$GRAPH" --run "$RUN" --storage-driver overlay \
-              mount --read-only "$image"
-        )
-        mount --bind --mkdir -o ro=recursive "$mountpoint" /mnt/rootfs/"$image_pathsafe"
-    fi
+    mountpoint=$(containers-storage $CS_OPTS mount --read-only "$image")
+    mount --bind --mkdir -o ro=recursive "$mountpoint" /mnt/rootfs/"$image_pathsafe"
 done
 
-echo "all available images mounted"
+echo "All available images are mounted and ready."
 
-# 确保 ato 用户有权访问数据
-chown -R ato:ato /mnt
+# 仅对挂载点目录本身进行非递归所有权修改
+chown ato:ato /mnt /mnt/rootfs /mnt/containers_storage /mnt/env
 
-# 资源控制配置
 mkdir -p /sys/fs/cgroup/server
 echo "$$" > /sys/fs/cgroup/server/cgroup.procs
 export ATO_CGROUP_PATH=/sys/fs/cgroup

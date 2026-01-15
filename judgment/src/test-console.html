@@ -135,7 +135,12 @@
     <div class="card">
         <div class="card-header">
             <span class="card-title">配置与代码</span>
-            <button id="runBtn" class="btn">运行代码</button>
+            <div style="display: flex; gap: 8px;">
+                <button id="resetBtn" title="重置为模板" style="background:none; border:none; color:var(--secondary); cursor:pointer;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M3 21v-5h5"></path></svg>
+                </button>
+                <button id="runBtn" class="btn">运行代码</button>
+            </div>
         </div>
         <div class="editor-container">
             <div class="controls">
@@ -193,14 +198,37 @@
         rust: 'fn main() {\n    println!("Hello from Rust!");\n}',
         cpp: '#include <iostream>\nint main() {\n    std::cout << "Hello C++" << std::endl;\n    return 0;\n}',
         csharp: 'using System;\npublic class HelloWorld {\n    public static void Main(string[] args) {\n        Console.WriteLine("Hello from C#!");\n    }\n}',
-        php: '<?php\necho "Hello from PHP!";\n?>'
+        php: '<?php\necho "Hello from PHP!";\n?>',
+        java: 'public class Main {\n    public static void main(String[] args) {\n        System.out.println("Hello from Java!");\n    }\n}',
+        go: 'package main\nimport "fmt"\nfunc main() {\n    fmt.Println("Hello from Go!")\n}',
+        c: '#include <stdio.h>\nint main() {\n    printf("Hello from C!\\n");\n    return 0;\n}',
+        typescript: 'console.log("Hello from TypeScript!")'
     };
 
-    document.getElementById('languageSelect').onchange = (e) => {
-        if (samples[e.target.value]) {
-            document.getElementById('codeInput').value = samples[e.target.value];
+    const languageSelect = document.getElementById('languageSelect');
+    const codeInput = document.getElementById('codeInput');
+    const resetBtn = document.getElementById('resetBtn');
+
+    const updateEditor = () => {
+        const lang = languageSelect.value;
+        if (samples[lang]) {
+            codeInput.value = samples[lang];
+            console.log(`[Editor] Switched to ${lang}`);
         }
     };
+
+    // 监听切换事件
+    languageSelect.addEventListener('change', updateEditor);
+    
+    // 监听重置按钮
+    resetBtn.addEventListener('click', () => {
+        if (confirm('确定要重置当前代码为模板吗？')) {
+            updateEditor();
+        }
+    });
+
+    // 初始化：确保首屏代码与选择框同步
+    updateEditor();
 
     function connect() {
         // 自动使用当前页面的主机和端口
@@ -241,7 +269,7 @@
         } else if (data.Done) {
             logSystem(`\n--- 执行结束 ---`);
             logSystem(`状态: ${data.Done.status_type} (${data.Done.status_value})`);
-            logSystem(`耗时: ${data.Done.real / 1000}ms | 内存: ${Math.round(data.Done.max_mem / 1024)}KB`);
+            logSystem(`耗时: ${data.Done.real / 1000000}ms | 内存: ${Math.round(data.Done.max_mem / 1024)}KB`);
             runBtn.disabled = false;
         }
     }

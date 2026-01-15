@@ -148,6 +148,9 @@ pub fn invoke(
     let (stdout_r, stdout_w) = check!(pipe(), "error creating stdout pipe: {}");
     let (stderr_r, stderr_w) = check!(pipe(), "error creating stderr pipe: {}");
 
+    // 在进入隔离命名空间之前先加载环境变量，避免权限和路径问题
+    let env = load_env(&language)?;
+
     let uid = Uid::current();
     let gid = Gid::current();
 
@@ -172,11 +175,10 @@ pub fn invoke(
         std::mem::forget(cgroup_cleanup);
 
         // close unused pipe ends to ensure proper synchronisation
-        // TODO: do we need to explicitly close these read pipe ends, given the close_range call below?
         check_continue!(close(stdout_r), "error closing stdout read end: {}");
         check_continue!(close(stderr_r), "error closing stderr read end: {}");
 
-        run_child(&request, &language, stdout_w, stderr_w, uid, gid);
+        run_child(&request, &language, stdout_w, stderr_w, uid, gid, env);
         // run_child should never return if successful, so we exit assuming failure
         std::process::exit(2);
     } else {
@@ -449,6 +451,7 @@ fn run_child(
     stderr_w: i32,
     outside_uid: Uid,
     outside_gid: Gid,
+    env: Vec<CString>,
 ) -> () {
     // to have reliable error reporting, the state of stdout and stderr must be managed carefully:
 
@@ -470,17 +473,7 @@ fn run_child(
         }
     }
 
-    // TODO: simplify this, because load_env and setup_child only ever return InternalError
-
-    let env = match load_env(&language) {
-        Ok(r) => r,
-        Err(e) => {
-            if let Error::InternalError(e) = e {
-                log_error!("{e}");
-            }
-            return;
-        }
-    };
+    // TODO: simplify this, because setup_child only ever return InternalError
 
     if let Err(e) = setup_child(&request, &language, outside_uid, outside_gid) {
         if let Error::InternalError(e) = e {
@@ -518,20 +511,29 @@ fn load_env(language: &Language) -> Result<Vec<CString>, Error> {
     let env_base_path = get_base_path("ATO_ENV_PATH", "/usr/local/lib/ATO/env/");
     let path = env_base_path + &language.image.replace("/", "+").replace(":", "+");
     
-    let content = match std::fs::read(path) {
+    let content = match std::fs::read(&path) {
         Ok(c) => c,
         Err(e) if e.kind() == std::io::ErrorKind::NotFound => {
-            eprintln!("Warning: environment file not found for {}, using empty env", language.image);
-            return Ok(vec![CString::new("PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin").unwrap()]);
+            eprintln!("Warning: environment file not found for {}, using empty env (Path: {})", language.image, path);
+            return Ok(vec![
+                CString::new("PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin").unwrap(),
+                CString::new("LANG=C.UTF-8").unwrap(),
+            ]);
         }
-        Err(e) => return Err(Error::InternalError(format!("error reading image env file: {e}"))),
+        Err(e) => return Err(Error::InternalError(format!("error reading image env file ({}): {}", path, e))),
     };
 
-    content
+    let mut env = content
         .split_inclusive(|b| *b == 0) // split after null bytes, and include them in the results
         .map(|s| CString::from_vec_with_nul(s.to_vec()))
         .collect::<Result<Vec<_>, _>>() // collects errors too
-        .map_err(|e| Error::InternalError(format!("error building env string: {e}")))
+        .map_err(|e| Error::InternalError(format!("error building env string: {e}")))?;
+
+    // 确保 LANG 被设置，以支持中文等字符
+    if !env.iter().any(|s| s.to_string_lossy().starts_with("LANG=")) {
+        env.push(CString::new("LANG=C.UTF-8").unwrap());
+    }
+    Ok(env)
 }
 
 fn setup_child(
@@ -625,6 +627,13 @@ fn setup_filesystem(request: &Request, language: &Language) -> Result<(), Error>
         "error setting / to MS_PRIVATE: {}"
     );
 
+    // 确保挂载点目录存在
+    if let Err(e) = mkdir("/run/ATO", Mode::S_IRWXU) {
+        if e != nix::errno::Errno::EEXIST {
+            return Err(Error::InternalError(format!("error creating /run/ATO directory: {e}")));
+        }
+    }
+
     // mount a tmpfs to contain the data written to the container's root filesystem
     // (which will be discarded when the container exits)
     mount!("/run/ATO", "tmpfs", MS_NOSUID, "mode=755,size=655350k");
@@ -645,17 +654,19 @@ fn setup_filesystem(request: &Request, language: &Language) -> Result<(), Error>
 
     // mount writeable upper layer on top of rootfs using overlayfs
     // also, the kernel now considers it a mount point, which is required for pivot_root to work
+    let overlay_upper_path = get_base_path("ATO_OVERLAY_UPPER_PATH", "/usr/local/share/ATO/overlayfs_upper");
+    let mount_options = format!(
+        "upperdir=/run/ATO/upper,lowerdir={overlay_upper_path}:{rootfs},workdir=/run/ATO/work,index=off"
+    );
     check!(
         mount::<str, str, str, str>(
             None,
             "/run/ATO/merged",
             Some("overlay"),
             MsFlags::empty(),
-            Some(&format!(
-                "upperdir=/run/ATO/upper,lowerdir=/usr/local/share/ATO/overlayfs_upper:{rootfs},workdir=/run/ATO/work"
-            )),
+            Some(&mount_options),
         ),
-        "error mounting new rootfs: {}"
+        "error mounting new rootfs with options ({}): {}", mount_options
     );
 
     check!(

@@ -2,5 +2,5 @@
 
 cd /ATO/context
 ln -s /ATO/code /ATO/code.cs
-/ATO/yargs % /ATO/options mcs /ATO/code.cs -out:/ATO/exe
+/ATO/yargs % /ATO/options mcs % /ATO/code.cs -out:/ATO/exe
 /ATO/yargs % /ATO/arguments mono /ATO/exe % < /ATO/input

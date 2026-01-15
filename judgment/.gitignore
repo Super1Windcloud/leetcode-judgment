@@ -1,3 +1,6 @@
 target
 node_modules
 yargs_local
+dev_env/
+dev_rootfs/
+dev_overlay_upper
