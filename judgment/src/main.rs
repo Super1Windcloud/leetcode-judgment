@@ -130,6 +130,9 @@ fn handle_ws(mut connection: TcpStream) {
         };
     let mut connection = Connection(websocket);
 
+    // 握手成功后，将读取超时设置为更长的时间（例如 1 小时），允许用户在界面停留
+    let _ = connection.0.get_ref().set_read_timeout(Some(std::time::Duration::from_secs(3600)));
+
     loop {
         use std::borrow::Cow;
         use tungstenite::protocol::frame::{CloseFrame, coding::CloseCode};
