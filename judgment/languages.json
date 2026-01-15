@@ -41,7 +41,7 @@
             "code": "package main\nimport \"fmt\"\nfunc main() {\n\tfmt.Print(\"Hello, World!\")\n}",
             "output": "Hello, World!"
         },
-        "image": "docker.io/library/golang:1.22-alpine",
+        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/go:latest",
         "version": "1.22",
         "url": "https://go.dev",
         "sbcs": false,
