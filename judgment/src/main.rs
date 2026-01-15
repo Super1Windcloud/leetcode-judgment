@@ -65,7 +65,7 @@ fn handle_ws(mut connection: TcpStream) {
     unsafe { signal(Signal::SIGCHLD, SigHandler::SigDfl) }.unwrap();
 
     // 尝试读取请求头以区分普通的 HTTP 请求和 WebSocket 请求
-    let mut buffer = [0; 1024];
+    let mut buffer = [0; 4096];
     let n = match connection.peek(&mut buffer) {
         Ok(n) => n,
         Err(e) => {
@@ -74,6 +74,11 @@ fn handle_ws(mut connection: TcpStream) {
         }
     };
     let request_str = String::from_utf8_lossy(&buffer[..n]);
+    let request_lower = request_str.to_lowercase();
+    
+    if let Some(first_line) = request_str.lines().next() {
+        eprintln!("Incoming request: {}", first_line);
+    }
 
     // 如果是访问 /test 的普通 GET 请求
     if request_str.starts_with("GET /test ") {
@@ -95,7 +100,7 @@ fn handle_ws(mut connection: TcpStream) {
     }
 
     // 对于其他非 WebSocket 升级的普通 HTTP 请求，返回 404
-    if request_str.starts_with("GET ") && !request_str.contains("Upgrade: websocket") {
+    if request_str.starts_with("GET ") && !request_lower.contains("upgrade: websocket") {
         use std::io::Write;
         let response = "HTTP/1.1 404 Not Found\r\n\
                         Content-Type: text/plain\r\n\
