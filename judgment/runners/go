@@ -1,15 +1,19 @@
 #!/ATO/bash
 
 cd /ATO/context
-if [ -f /opt/go.mod ]; then
-    cp /opt/go.mod /opt/go.sum /ATO/
-else
-    echo "module ato" > /ATO/go.mod
-    echo "go 1.22" >> /ATO/go.mod
-    touch /ATO/go.sum
-fi
-ln -s /ATO/code /ATO/code.go
-mkdir /ATO/tmp
-export TMPDIR=/ATO/tmp GOCACHE=/ATO/tmp
-export CGO_ENABLED=0 GOPROXY=off GOSUMDB=off GOTOOLCHAIN=local
-/ATO/yargs %1 /ATO/options /ATO/yargs %2 /ATO/arguments go run %1 /ATO/code.go %2 < /ATO/input
+# 使用简单的源文件模式，尽量避免复杂的模块检查
+echo "module solution" > go.mod
+ln -s /ATO/code main.go
+
+mkdir -p /ATO/tmp
+export TMPDIR=/ATO/tmp 
+export GOCACHE=/ATO/tmp
+export GOMODCACHE=/ATO/tmp
+export CGO_ENABLED=0 
+export GOPROXY=off 
+export GOSUMDB=off
+
+# 强制使用本地工具链，避免 go 指令尝试联网
+export GOTOOLCHAIN=local
+
+/ATO/yargs %1 /ATO/options /ATO/yargs %2 /ATO/arguments go run main.go %1 %2 < /ATO/input
