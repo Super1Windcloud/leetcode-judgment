@@ -18,7 +18,8 @@
     "settings": "设置"
   },
   "Common": {
-    "logo": "LeetCode Judgment"
+    "logo": "LeetCode Judgment",
+    "submit": "提交"
   },
   "About": {
     "title": "关于 - LeetCode Judgment",
@@ -53,5 +54,16 @@
     "submit": "创建题目",
     "success": "题目创建成功！",
     "error": "创建题目失败。"
+  },
+  "CodeEditor": {
+    "language": "语言",
+    "selectLanguage": "选择语言",
+    "theme": "主题",
+    "selectTheme": "选择主题",
+    "defaultTheme": "默认",
+    "formatCode": "格式化代码 (Ctrl+Alt+L)",
+    "resetTemplate": "重置为默认模板",
+    "loading": "编辑器加载中...",
+    "runResult": "运行结果"
   }
 }

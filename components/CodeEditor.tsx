@@ -2,10 +2,17 @@
 
 import { Editor, type Monaco } from "@monaco-editor/react";
 
-import { AlignLeft, RotateCcw } from "lucide-react";
+import { AlignLeft, RotateCcw, Terminal } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 import * as React from "react";
 import { Button } from "@/components/ui/button";
+import {
+	ResizableHandle,
+	ResizablePanel,
+	ResizablePanelGroup,
+} from "@/components/ui/resizable";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
 	Select,
 	SelectContent,
@@ -32,6 +39,12 @@ interface CodeEditorProps
 	onLanguageChange?: (language: string) => void;
 
 	actions?: React.ReactNode;
+
+	output?: {
+		id: string;
+		type: "stdout" | "stderr" | "system";
+		content: string;
+	}[];
 }
 
 const SUPPORTED_LANGUAGES = [
@@ -260,8 +273,11 @@ export function CodeEditor({
 
 	actions,
 
+	output,
+
 	...props
 }: CodeEditorProps) {
+	const t = useTranslations("CodeEditor");
 	const monacoLanguage = LANGUAGE_MAP[language.toLowerCase()] || "javascript";
 	const monacoRef = React.useRef<Monaco | null>(null);
 	const editorRef = React.useRef<
@@ -470,8 +486,8 @@ export function CodeEditor({
 				<div className="flex items-center gap-0">
 					<Select value={language} onValueChange={onLanguageChange}>
 						<SelectTrigger className="w-35  pl-3  h-9.5 px-0! py-0! m-0 rounded-none bg-[#292b2c] border-none! text-zinc-100 text-xs leading-tight  shadow-none! focus:ring-0">
-							<span className="text-zinc-500 mr-2">Lang:</span>
-							<SelectValue placeholder="Select Language" />
+							<span className="text-zinc-500 mr-2">{t("language")}:</span>
+							<SelectValue placeholder={t("selectLanguage")} />
 						</SelectTrigger>
 						<SelectContent
 							className="bg-[#292b2c]  border-zinc-700 text-zinc-100 min-w-[320px]"
@@ -498,8 +514,8 @@ export function CodeEditor({
 
 					<Select value={editorTheme} onValueChange={handleThemeChange}>
 						<SelectTrigger className="w-52  pl-3  h-9.5 px-0! py-0! m-0 rounded-none bg-[#292b2c] border-none! text-zinc-100 text-xs leading-tight  shadow-none! focus:ring-0">
-							<span className="text-zinc-500 mr-2">Theme:</span>
-							<SelectValue placeholder="Select Theme" />
+							<span className="text-zinc-500 mr-2">{t("theme")}:</span>
+							<SelectValue placeholder={t("selectTheme")} />
 						</SelectTrigger>
 						<SelectContent
 							className="bg-[#292b2c] border-zinc-700 text-zinc-100 min-w-140 max-h-80"
@@ -513,7 +529,7 @@ export function CodeEditor({
 									value="custom-dark"
 									className="text-xs hover:bg-[#2a2d2e] focus:bg-[#094771]"
 								>
-									Default
+									{t("defaultTheme")}
 								</SelectItem>
 								<SelectItem
 									value="xcode-dark"
@@ -555,7 +571,7 @@ export function CodeEditor({
 									</Button>
 								</TooltipTrigger>
 								<TooltipContent className="bg-zinc-800 text-zinc-200 border-zinc-700">
-									<p className="text-xs">Format Code (Ctrl+Alt+L)</p>
+									<p className="text-xs">{t("formatCode")}</p>
 								</TooltipContent>
 							</Tooltip>
 
@@ -571,7 +587,7 @@ export function CodeEditor({
 									</Button>
 								</TooltipTrigger>
 								<TooltipContent className="bg-zinc-800 text-zinc-200 border-zinc-700">
-									<p className="text-xs">Reset to default template</p>
+									<p className="text-xs">{t("resetTemplate")}</p>
 								</TooltipContent>
 							</Tooltip>
 							{actions && (
@@ -582,94 +598,137 @@ export function CodeEditor({
 				</div>
 			</div>
 			<div className="flex-1 relative border-t  mt-px    overflow-hidden">
-				<Editor
-					height="100%"
-					language={monacoLanguage}
-					theme={editorTheme}
-					value={value}
-					onChange={(val) => onChange?.(val || "")}
-					beforeMount={(monaco) => {
-						monacoRef.current = monaco;
-						// 注册自定义默认主题
-						monaco.editor.defineTheme("custom-dark", {
-							base: "vs-dark",
-							inherit: true,
-							rules: [],
-							colors: {
-								"editor.background": "#292b2c",
-								"editor.lineHighlightBackground": "#2f3133",
-							},
-						});
-						// 注册 Xcode Dark 主题
-						monaco.editor.defineTheme("xcode-dark", {
-							base: "vs-dark",
-							inherit: true,
-							rules: XCODE_DARK_THEME_DATA.rules,
-							colors: XCODE_DARK_THEME_DATA.colors,
-						});
-					}}
-					onMount={(editor, monaco) => {
-						editorRef.current = editor;
+				<ResizablePanelGroup direction="vertical">
+					<ResizablePanel
+						defaultSize={output && output.length > 0 ? 75 : 100}
+						minSize={20}
+					>
+						<Editor
+							height="100%"
+							language={monacoLanguage}
+							theme={editorTheme}
+							value={value}
+							onChange={(val) => onChange?.(val || "")}
+							beforeMount={(monaco) => {
+								monacoRef.current = monaco;
+								// 注册自定义默认主题
+								monaco.editor.defineTheme("custom-dark", {
+									base: "vs-dark",
+									inherit: true,
+									rules: [],
+									colors: {
+										"editor.background": "#292b2c",
+										"editor.lineHighlightBackground": "#2f3133",
+									},
+								});
+								// 注册 Xcode Dark 主题
+								monaco.editor.defineTheme("xcode-dark", {
+									base: "vs-dark",
+									inherit: true,
+									rules: XCODE_DARK_THEME_DATA.rules,
+									colors: XCODE_DARK_THEME_DATA.colors,
+								});
+							}}
+							onMount={(editor, monaco) => {
+								editorRef.current = editor;
 
-						// 注册快捷键 Ctrl+Alt+L
-						editor.addCommand(
-							monaco.KeyMod.CtrlCmd | monaco.KeyMod.Alt | monaco.KeyCode.KeyL,
-							() => {
-								handleFormat();
-							},
-						);
+								// 注册快捷键 Ctrl+Alt+L
+								editor.addCommand(
+									monaco.KeyMod.CtrlCmd |
+										monaco.KeyMod.Alt |
+										monaco.KeyCode.KeyL,
+									() => {
+										handleFormat();
+									},
+								);
 
-						if (
-							editorTheme !== "custom-dark" &&
-							editorTheme !== "vs-dark" &&
-							editorTheme !== "xcode-dark"
-						) {
-							void applyTheme(editorTheme);
-						}
-					}}
-					options={{
-						minimap: { enabled: false },
-						fontSize: 18,
-						lineNumbers: "on",
-						allowVariableFonts: true,
-						unusualLineTerminators: "auto",
-						scrollBeyondLastLine: true,
-						automaticLayout: true,
-						padding: { top: 16, bottom: 16 },
-						fontFamily: "'Fira Code', 'Cascadia Code', Consolas, monospace",
-						fontLigatures: true,
-						readOnly: false,
-						formatOnType: true,
-						formatOnPaste: true,
-						autoIndent: "full",
-						mouseWheelZoom: true,
-						smoothScrolling: true,
-						cursorSmoothCaretAnimation: "on",
-						scrollOnMiddleClick: false,
-						cursorBlinking: "smooth",
-						showUnused: true,
-						showDeprecated: true,
-						inlayHints: {
-							enabled: "on",
-							padding: true,
-						},
-						bracketPairColorization: {
-							enabled: true,
-						},
-						parameterHints: {
-							enabled: true,
-							cycle: true,
-						},
-						guides: {
-							indentation: true,
-							bracketPairs: false,
-							bracketPairsHorizontal: true,
-						},
-					}}
-					loading={
-						<div className="p-4 text-zinc-500 text-xs">Loading editor...</div>
-					}
-				/>
+								if (
+									editorTheme !== "custom-dark" &&
+									editorTheme !== "vs-dark" &&
+									editorTheme !== "xcode-dark"
+								) {
+									void applyTheme(editorTheme);
+								}
+							}}
+							options={{
+								minimap: { enabled: false },
+								fontSize: 18,
+								lineNumbers: "on",
+								allowVariableFonts: true,
+								unusualLineTerminators: "auto",
+								scrollBeyondLastLine: true,
+								automaticLayout: true,
+								padding: { top: 16, bottom: 16 },
+								fontFamily: "'Fira Code', 'Cascadia Code', Consolas, monospace",
+								fontLigatures: true,
+								readOnly: false,
+								formatOnType: true,
+								formatOnPaste: true,
+								autoIndent: "full",
+								mouseWheelZoom: true,
+								smoothScrolling: true,
+								cursorSmoothCaretAnimation: "on",
+								scrollOnMiddleClick: false,
+								cursorBlinking: "smooth",
+								showUnused: true,
+								showDeprecated: true,
+								inlayHints: {
+									enabled: "on",
+									padding: true,
+								},
+								bracketPairColorization: {
+									enabled: true,
+								},
+								parameterHints: {
+									enabled: true,
+									cycle: true,
+								},
+								guides: {
+									indentation: true,
+									bracketPairs: false,
+									bracketPairsHorizontal: true,
+								},
+							}}
+							loading={
+								<div className="p-4 text-zinc-500 text-xs">{t("loading")}</div>
+							}
+						/>
+					</ResizablePanel>
+
+					{output && output.length > 0 && (
+						<>
+							<ResizableHandle
+								withHandle
+								className="bg-zinc-800 border-zinc-700"
+							/>
+							<ResizablePanel defaultSize={25} minSize={10}>
+								<div className="h-full flex flex-col bg-[#1e1e1e] border-t border-zinc-800">
+									<div className="flex items-center gap-2 px-3 h-8 bg-[#252526] text-zinc-400 text-[10px] uppercase tracking-wider font-bold shrink-0">
+										<Terminal className="w-3 h-3" />
+										{t("runResult")}
+									</div>
+									<ScrollArea className="flex-1 font-mono text-xs">
+										<div className="p-3">
+											{output.map((line) => (
+												<div
+													key={line.id}
+													className={cn(
+														"whitespace-pre-wrap mb-1",
+														line.type === "stdout" && "text-zinc-100",
+														line.type === "stderr" && "text-red-400",
+														line.type === "system" && "text-blue-400 italic",
+													)}
+												>
+													{line.content}
+												</div>
+											))}
+										</div>
+									</ScrollArea>
+								</div>
+							</ResizablePanel>
+						</>
+					)}
+				</ResizablePanelGroup>
 			</div>
 		</div>
 	);

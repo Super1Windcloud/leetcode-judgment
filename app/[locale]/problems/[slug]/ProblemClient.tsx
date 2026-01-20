@@ -9,6 +9,7 @@ import {
 	Play,
 	Send,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 import type React from "react";
 import { useEffect, useMemo, useState } from "react";
 import ReactMarkdown from "react-markdown";
@@ -193,6 +194,8 @@ export function ProblemClient({
 	const handleSubmit = () => {
 		toast.success("Submission logic will be implemented here.");
 	};
+
+	const common = useTranslations("Common");
 
 	return (
 		<div className="h-screen w-full overflow-hidden bg-[#f5f5f5] dark:bg-[#292b2c] text-foreground flex flex-col">
@@ -502,7 +505,7 @@ export function ProblemClient({
 											disabled={isRunning}
 										>
 											<Send className="w-3 h-3 mr-1.5" />
-											Submit
+											{common("submit")}
 										</Button>
 									</>
 								}
