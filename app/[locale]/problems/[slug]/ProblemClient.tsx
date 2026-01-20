@@ -1,20 +1,6 @@
 "use client";
 
-import {
-	BookOpen,
-	Check,
-	ChevronLeft,
-	Code2,
-	Copy,
-	Play,
-	Send,
-} from "lucide-react";
-import type React from "react";
-import { useEffect, useMemo, useState } from "react";
-import ReactMarkdown from "react-markdown";
-import rehypeHighlight from "rehype-highlight";
-import rehypeRaw from "rehype-raw";
-import remarkGfm from "remark-gfm";
+import { toast } from "sonner";
 import { CodeEditor } from "@/components/CodeEditor";
 import GradientText from "@/components/GradientText";
 import { NavbarActions } from "@/components/NavbarActions";
@@ -40,50 +26,37 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Link } from "@/i18n/routing";
+import { JudgmentClient, type JudgmentResponse } from "@/lib/judgment";
 import type { ProblemDetail } from "@/lib/problems";
 import { cn } from "@/lib/utils";
 
 interface ProblemClientProps {
 	problem: ProblemDetail;
-
 	t: {
 		allProblems: string;
-
 		solution: string;
-
 		description: string;
 	};
-
 	parsedSolution: ParsedSolution;
 }
 
 interface ParsedSolution {
 	preamble: string;
-
 	solutions: {
 		label: string;
-
 		language: string;
-
 		code: string;
 	}[];
 }
 
 // 递归提取 React 节点中的纯文本
-
 function extractText(node: React.ReactNode): string {
 	if (!node) return "";
-
 	if (typeof node === "string") return node;
-
 	if (typeof node === "number") return String(node);
-
 	if (Array.isArray(node)) return node.map(extractText).join("");
-
 	// @ts-expect-error
-
 	if (node.props?.children) return extractText(node.props.children);
-
 	return "";
 }
 
@@ -122,15 +95,15 @@ export function ProblemClient({
 	parsedSolution,
 }: ProblemClientProps) {
 	const [activeTab, setActiveTab] = useState("description");
-
 	const [editorCode, setEditorCode] = useState("");
-
 	const [editorLanguage, setEditorLanguage] = useState("java");
-
 	const [selectedSolutionIndex, setSelectedSolutionIndex] = useState(0);
+	const [isRunning, setIsRunning] = useState(false);
+	const [output, setOutput] = useState<
+		{ id: string; type: "stdout" | "stderr" | "system"; content: string }[]
+	>([]);
 
 	// Reset selection when problem changes
-
 	useEffect(() => {
 		setSelectedSolutionIndex(0);
 	}, []);
@@ -141,11 +114,70 @@ export function ProblemClient({
 
 	const solutionMarkdown = useMemo(() => {
 		if (!currentSolution) return "";
-
 		if (currentSolution.language === "markdown") return currentSolution.code;
-
 		return `\`\`\`${currentSolution.language}\n${currentSolution.code}\n\`\`\``;
 	}, [currentSolution]);
+
+	const handleRun = async () => {
+		if (isRunning) return;
+		setIsRunning(true);
+		setOutput([
+			{ id: crypto.randomUUID(), type: "system", content: "Executing code..." },
+		]);
+		setActiveTab("output"); // We'll add an output tab
+
+		const client = new JudgmentClient();
+		try {
+			await client.execute(
+				{
+					language: editorLanguage,
+					code: editorCode,
+					timeout: 10,
+				},
+				(msg: JudgmentResponse) => {
+					if ("Stdout" in msg) {
+						const text = new TextDecoder().decode(msg.Stdout);
+						setOutput((prev) => [
+							...prev,
+							{ id: crypto.randomUUID(), type: "stdout", content: text },
+						]);
+					} else if ("Stderr" in msg) {
+						const text = new TextDecoder().decode(msg.Stderr);
+						setOutput((prev) => [
+							...prev,
+							{ id: crypto.randomUUID(), type: "stderr", content: text },
+						]);
+					} else if ("Done" in msg) {
+						const { status_type, status_value, real, max_mem } = msg.Done;
+						setOutput((prev) => [
+							...prev,
+							{
+								id: crypto.randomUUID(),
+								type: "system",
+								content: `\n--- Execution Finished ---\nStatus: ${status_type} (${status_value})\nTime: ${(real / 1e9).toFixed(3)}s\nMemory: ${(max_mem / 1024).toFixed(2)} MB`,
+							},
+						]);
+					}
+				},
+			);
+		} catch (error) {
+			console.error("Execution failed:", error);
+			setOutput((prev) => [
+				...prev,
+				{
+					id: crypto.randomUUID(),
+					type: "stderr",
+					content: `Connection error: ${error instanceof Error ? error.message : String(error)}`,
+				},
+			]);
+		} finally {
+			setIsRunning(false);
+		}
+	};
+
+	const handleSubmit = () => {
+		toast.success("Submission logic will be implemented here.");
+	};
 
 	return (
 		<div className="h-screen w-full overflow-hidden bg-[#f5f5f5] dark:bg-[#292b2c] text-foreground flex flex-col">
@@ -199,6 +231,15 @@ export function ProblemClient({
 											<Code2 className="w-3.5 h-3.5 mr-1.5" />
 											{t.solution}
 										</TabsTrigger>
+										{output.length > 0 && (
+											<TabsTrigger
+												value="output"
+												className="cursor-pointer  data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-primary border-b-2 border-transparent data-[state=active]:border-primary rounded-none h-full px-2 text-xs"
+											>
+												<Play className="w-3.5 h-3.5 mr-1.5" />
+												Output
+											</TabsTrigger>
+										)}
 									</TabsList>
 								</div>
 
@@ -335,7 +376,6 @@ export function ProblemClient({
 													components={{
 														pre: ({ children, ...props }) => {
 															// 递归提取代码文本内容
-
 															const content = extractText(children);
 
 															return (
@@ -353,7 +393,6 @@ export function ProblemClient({
 																</div>
 															);
 														},
-
 														code: ({ node, className, ...props }) => {
 															const _match = /language-(\w+)/.exec(
 																className || "",
@@ -373,6 +412,29 @@ export function ProblemClient({
 													{solutionMarkdown}
 												</ReactMarkdown>
 											</div>
+										</ScrollArea>
+									</TabsContent>
+
+									<TabsContent value="output" className="h-full m-0">
+										<ScrollArea className="h-full bg-zinc-950 p-4 font-mono text-sm">
+											{output.map((line) => (
+												<div
+													key={line.id}
+													className={cn(
+														"whitespace-pre-wrap",
+														line.type === "stdout" && "text-zinc-100",
+														line.type === "stderr" && "text-red-400",
+														line.type === "system" && "text-blue-400 italic",
+													)}
+												>
+													{line.content}
+												</div>
+											))}
+											{output.length === 0 && (
+												<div className="text-zinc-500 italic">
+													No output yet. Run your code!
+												</div>
+											)}
 										</ScrollArea>
 									</TabsContent>
 								</div>
@@ -402,8 +464,15 @@ export function ProblemClient({
 													variant="ghost"
 													size="icon"
 													className="h-7  cursor-pointer w-7 text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/50"
+													onClick={handleRun}
+													disabled={isRunning}
 												>
-													<Play className="h-3.5 w-3.5" />
+													<Play
+														className={cn(
+															"h-3.5 w-3.5",
+															isRunning && "animate-pulse",
+														)}
+													/>
 												</Button>
 											</TooltipTrigger>
 											<TooltipContent className="bg-zinc-800 text-zinc-200 border-zinc-700">
@@ -414,6 +483,8 @@ export function ProblemClient({
 											variant="default"
 											size="sm"
 											className="h-7 cursor-pointer  text-xs bg-emerald-600 hover:bg-emerald-700 text-white"
+											onClick={handleSubmit}
+											disabled={isRunning}
 										>
 											<Send className="w-3 h-3 mr-1.5" />
 											Submit
