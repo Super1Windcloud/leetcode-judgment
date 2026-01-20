@@ -1,5 +1,20 @@
 "use client";
 
+import {
+	BookOpen,
+	Check,
+	ChevronLeft,
+	Code2,
+	Copy,
+	Play,
+	Send,
+} from "lucide-react";
+import type React from "react";
+import { useEffect, useMemo, useState } from "react";
+import ReactMarkdown from "react-markdown";
+import rehypeHighlight from "rehype-highlight";
+import rehypeRaw from "rehype-raw";
+import remarkGfm from "remark-gfm";
 import { toast } from "sonner";
 import { CodeEditor } from "@/components/CodeEditor";
 import GradientText from "@/components/GradientText";
