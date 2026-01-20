@@ -690,6 +690,30 @@ fn setup_filesystem(request: &Request, language: &Language) -> Result<(), Error>
     Ok(())
 }
 
+fn mkdir_recursive(path: &str) -> Result<(), Error> {
+    let mut current = String::new();
+    for part in path.split('/') {
+        if part.is_empty() {
+            if path.starts_with('/') {
+                current.push('/');
+            }
+            continue;
+        }
+        if !current.is_empty() && !current.ends_with('/') {
+            current.push('/');
+        }
+        current.push_str(part);
+        if let Err(e) = mkdir(current.as_str(), Mode::S_IRWXU) {
+            if e != nix::errno::Errno::EEXIST {
+                return Err(Error::InternalError(format!(
+                    "error creating directory {current}: {e}"
+                )));
+            }
+        }
+    }
+    Ok(())
+}
+
 fn setup_special_files(language_id: &String) -> Result<(), Error> {
     mount!(
         "./tmp",
@@ -793,10 +817,10 @@ fn setup_special_files(language_id: &String) -> Result<(), Error> {
 
     // 仅在本地开发模式下绑定挂载宿主机的系统路径
     if std::env::var("ATO_USE_HOST_LIBS").is_ok() {
-        for sys_dir in ["/bin", "/usr", "/lib", "/lib64"] {
+        for sys_dir in ["/bin", "/usr", "/lib", "/lib64", "/etc", "/opt", "/var/lib"] {
             if std::path::Path::new(sys_dir).exists() {
                 let dest = ".".to_owned() + sys_dir;
-                mkdir(dest.as_str(), Mode::S_IRWXU).ok(); // 忽略已存在的错误
+                mkdir_recursive(&dest)?;
                 mount!(sys_dir, dest.as_str(), , MS_NOSUID | MS_BIND | MS_RDONLY | MS_REC);
             }
         }
