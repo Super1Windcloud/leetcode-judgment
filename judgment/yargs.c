@@ -8,85 +8,106 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#define ARGS_BUFFER_SIZE 64
-#define FILE_BUFFER_SIZE 4096
+#define INITIAL_ARGS_CAPACITY 64
+#define READ_BUFFER_SIZE 4096
 
-#define APPEND(ptr) do { \
-    if (args_length >= args_buffer_size) { \
-        args_buffer_size += ARGS_BUFFER_SIZE; \
-        args_buffer = realloc(args_buffer, args_buffer_size * sizeof(char *)); \
-        if (args_buffer == NULL) { \
-            perror("realloc"); \
-            return 1; \
-        }; \
-    }; \
-    args_buffer[args_length] = (ptr); \
-    args_length++; \
-} while (0)
-
-int main(int argc, char * argv []) {
+int main(int argc, char *argv[]) {
     if (argc < 4) {
-        fprintf(stderr, "%s\n", "yargs: too few arguments");
+        fprintf(stderr, "Usage: %s <replace_str> <file_path> <program> [args...]\n", argv[0]);
         return 1;
-    };
-    char * replace_string = argv[1];
-    char * file_name = argv[2];
-    char * program = argv[3];
-    int fd = openat(AT_FDCWD, file_name, O_CLOEXEC);
+    }
+
+    const char *replace_string = argv[1];
+    const char *file_name = argv[2];
+    const char *program = argv[3];
+
+    // 1. 读取配置文件内容
+    int fd = open(file_name, O_RDONLY);
     if (fd < 0) {
-        perror("yargs: openat");
+        perror("yargs: open");
         return 1;
-    };
-    char * file_buf = NULL;
+    }
+
+    char *file_buf = NULL;
     size_t file_size = 0;
-    while (true) {
-        file_buf = realloc(file_buf, file_size + FILE_BUFFER_SIZE);
-        if (file_buf == NULL) {
-            perror("yargs: malloc");
-            return 1;
-        };
-        ssize_t n = read(fd, file_buf, FILE_BUFFER_SIZE);
-        if (n == 0) {
-            // EOF
-            break;
-        } else if (n < 0) {
+    size_t file_capacity = 0;
+
+    while (1) {
+        if (file_size + READ_BUFFER_SIZE > file_capacity) {
+            file_capacity += READ_BUFFER_SIZE * 4;
+            char *new_buf = realloc(file_buf, file_capacity);
+            if (!new_buf) {
+                perror("yargs: realloc file_buf");
+                free(file_buf);
+                close(fd);
+                return 1;
+            }
+            file_buf = new_buf;
+        }
+
+        ssize_t n = read(fd, file_buf + file_size, READ_BUFFER_SIZE);
+        if (n < 0) {
             perror("yargs: read");
+            free(file_buf);
+            close(fd);
             return 1;
-        } else {
-            file_size += n;
-        };
-    };
-    char * * args_buffer = NULL;
-    size_t args_buffer_size = 0;
-    size_t args_length = 0;
+        }
+        if (n == 0) break;
+        file_size += n;
+    }
+    close(fd);
+
+    // 2. 准备执行参数数组
+    size_t args_capacity = INITIAL_ARGS_CAPACITY + argc;
+    char **args = malloc(args_capacity * sizeof(char *));
+    if (!args) {
+        perror("yargs: malloc args");
+        return 1;
+    }
+
+    size_t args_count = 0;
+    args[args_count++] = (char *)program;
+
     bool replaced = false;
-    APPEND(program);
-    for (size_t i = 4; i < argc; i++) {
+    for (int i = 4; i < argc; i++) {
         if (!replaced && strcmp(argv[i], replace_string) == 0) {
             replaced = true;
-            size_t arg = 0;
-            size_t j;
-            for (j = 0; j < file_size; j++) {
-                if (file_buf[j] == 0) {
-                    // null-termination = end of string
-                    APPEND(file_buf + arg);
-                    arg = j + 1;
-                };
-            };
-            if (file_size != 0 && file_buf[j] != 0) {
-                fprintf(stderr, "%s\n", "yargs: string was not null-terminated!");
-            };
+            // 将文件内容拆分为多个参数（按 \0 分隔）
+            size_t start = 0;
+            for (size_t j = 0; j < file_size; j++) {
+                if (file_buf[j] == '\0') {
+                    // 确保数组够大
+                    if (args_count + 2 >= args_capacity) {
+                        args_capacity *= 2;
+                        args = realloc(args, args_capacity * sizeof(char *));
+                        if (!args) {
+                            perror("yargs: realloc args");
+                            return 1;
+                        }
+                    }
+                    args[args_count++] = &file_buf[start];
+                    start = j + 1;
+                }
+            }
         } else {
-            APPEND(argv[i]);
-        };
-    };
-    if (!replaced) {
-        fprintf(stderr, "%s\n", "yargs: warning: no replacement string was found");
-    };
-    // execv requires a null pointer to terminate the argument array
-    APPEND(NULL);
-    execvp(program, args_buffer);
-    // shouldn't reach this point if execvp succeeds
+            if (args_count + 2 >= args_capacity) {
+                args_capacity *= 2;
+                args = realloc(args, args_capacity * sizeof(char *));
+                if (!args) {
+                    perror("yargs: realloc args");
+                    return 1;
+                }
+            }
+            args[args_count++] = argv[i];
+        }
+    }
+
+    args[args_count] = NULL; // 结尾必须是 NULL
+
+    // 3. 执行程序
+    execvp(program, args);
+    
+    // 如果执行到这里，说明失败了
     perror("yargs: execvp");
     return 1;
-};
+}

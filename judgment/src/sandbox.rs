@@ -791,6 +791,17 @@ fn setup_special_files(language_id: &String) -> Result<(), Error> {
     let bash_path = get_base_path("ATO_BASH_PATH", "/usr/local/lib/ATO/bash");
     let yargs_path = get_base_path("ATO_YARGS_PATH", "/usr/local/lib/ATO/yargs");
 
+    // 仅在本地开发模式下绑定挂载宿主机的系统路径
+    if std::env::var("ATO_USE_HOST_LIBS").is_ok() {
+        for sys_dir in ["/bin", "/usr", "/lib", "/lib64"] {
+            if std::path::Path::new(sys_dir).exists() {
+                let dest = ".".to_owned() + sys_dir;
+                mkdir(dest.as_str(), Mode::S_IRWXU).ok(); // 忽略已存在的错误
+                mount!(sys_dir, dest.as_str(), , MS_NOSUID | MS_BIND | MS_RDONLY | MS_REC);
+            }
+        }
+    }
+
     for (src, dest) in [
         (&bash_path, "./ATO/bash"),
         (&yargs_path, "./ATO/yargs"),

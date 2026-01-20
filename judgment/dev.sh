@@ -59,32 +59,37 @@ while [ "$CURRENT_DIR" != "/" ]; do
 done
 
 # 设置开发环境路径
-if [ -f "setup/bash" ]; then
-    export ATO_BASH_PATH=$(pwd)/setup/bash
-else
-    export ATO_BASH_PATH=/bin/bash
-fi
-
+export ATO_BASH_PATH=/bin/bash
 export ATO_YARGS_PATH=$(pwd)/yargs_local
 export ATO_RUNNERS_PATH=$(pwd)/runners/
 export ATO_ROOTFS_PATH=$(pwd)/dev_rootfs/
 export ATO_ENV_PATH=$(pwd)/dev_env/
 export ATO_OVERLAY_UPPER_PATH=$(pwd)/dev_overlay_upper/
+export ATO_USE_HOST_LIBS=1
 # 使用双栈绑定，解决 localhost 访问慢的问题
+# 提示: 如果使用系统 bash，沙箱内部需要访问 /lib 和 /lib64。
+# 我们通过环境变量告诉后端，但在本地开发模式下，后端会自动处理基础映射。
+# 如果执行仍然报错，请确保宿主机的 /bin/bash 对 ato 用户可执行。
+
 export ATO_BIND=[::]:8500
 export ATO_CGROUP_PATH=/sys/fs/cgroup
 
 # 强制修复所有关键二进制文件和脚本的执行权限
 echo "正在修复文件权限..."
 chmod +x ./yargs_local 2>/dev/null || true
-[ -f "setup/bash" ] && chmod +x setup/bash
 chmod +x runners/* 2>/dev/null || true
 
+# 自动创建 rootfs 中 bash 依赖的挂载点（防止后端挂载失败）
+# 注意：后端逻辑会把宿主机的 /lib 等挂载进去
+for lang_dir in dev_rootfs/*; do
+    if [ -d "$lang_dir" ]; then
+        mkdir -p "$lang_dir/lib" "$lang_dir/lib64" "$lang_dir/usr/lib" "$lang_dir/bin"
+    fi
+done
+
 echo "--- 准备本地开发环境 ---"
-echo "提示: 判题系统涉及 mount/unshare 等内核操作，必须使用 sudo 运行。"
-echo "注意: 自动创建的 dev_rootfs 目录是空的。虽然这可以解决挂载错误，但执行代码时会因找不到编译器/解释器而失败。"
+echo "使用系统 Bash (/bin/bash) 代替静态 Bash 以提高兼容性。"
 echo "正在启动 Rust 后端 (使用 Stable)..."
 
 # 使用 sudo 运行，并保留当前环境变量
-echo "正在启动 Rust 后端 (使用 Stable)..."
 sudo -E cargo run
