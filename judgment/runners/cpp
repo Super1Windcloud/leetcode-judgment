@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/ATO/bash
 
 cd /ATO/context
 ln -s /ATO/code /ATO/code.cc

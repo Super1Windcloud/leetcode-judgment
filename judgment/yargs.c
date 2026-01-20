@@ -8,15 +8,15 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#define ARGS_BUFFER_SIZE 10
+#define ARGS_BUFFER_SIZE 64
 #define FILE_BUFFER_SIZE 4096
 
 #define APPEND(ptr) do { \
-    if (args_length >= args_buffer_size) { /* needs realloc */ \
-        args_buffer_size += ARGS_BUFFER_SIZE * sizeof ptr; \
-        args_buffer = realloc(args_buffer, args_buffer_size); \
+    if (args_length >= args_buffer_size) { \
+        args_buffer_size += ARGS_BUFFER_SIZE; \
+        args_buffer = realloc(args_buffer, args_buffer_size * sizeof(char *)); \
         if (args_buffer == NULL) { \
-            perror("malloc"); \
+            perror("realloc"); \
             return 1; \
         }; \
     }; \

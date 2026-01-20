@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/ATO/bash
 
 cd /ATO/context
 if [ -f /opt/go.mod ]; then

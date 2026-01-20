@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/ATO/bash
 
 cd /ATO/context
 mkdir /ATO/deno

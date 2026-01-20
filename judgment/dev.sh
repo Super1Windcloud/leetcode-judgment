@@ -86,4 +86,5 @@ echo "注意: 自动创建的 dev_rootfs 目录是空的。虽然这可以解决
 echo "正在启动 Rust 后端 (使用 Stable)..."
 
 # 使用 sudo 运行，并保留当前环境变量
+echo "正在启动 Rust 后端 (使用 Stable)..."
 sudo -E cargo run
