@@ -74,6 +74,12 @@ export ATO_OVERLAY_UPPER_PATH=$(pwd)/dev_overlay_upper/
 export ATO_BIND=[::]:8500
 export ATO_CGROUP_PATH=/sys/fs/cgroup
 
+# 强制修复所有关键二进制文件和脚本的执行权限
+echo "正在修复文件权限..."
+chmod +x ./yargs_local 2>/dev/null || true
+[ -f "setup/bash" ] && chmod +x setup/bash
+chmod +x runners/* 2>/dev/null || true
+
 echo "--- 准备本地开发环境 ---"
 echo "提示: 判题系统涉及 mount/unshare 等内核操作，必须使用 sudo 运行。"
 echo "注意: 自动创建的 dev_rootfs 目录是空的。虽然这可以解决挂载错误，但执行代码时会因找不到编译器/解释器而失败。"
