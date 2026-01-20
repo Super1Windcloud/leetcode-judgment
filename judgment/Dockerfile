@@ -41,18 +41,18 @@ set -ex
 pacman -Syu --noconfirm jq entr strace
 curl -Lo /usr/local/bin/tini "https://github.com/krallin/tini/releases/download/v0.19.0/tini-amd64"
 chmod +x /usr/local/bin/tini
-mkdir /usr/local/lib/ATO
+mkdir /usr/local/lib/JD
 EOF
-COPY --from=build_deps /bash-static /usr/local/lib/ATO/bash
+COPY --from=build_deps /bash-static /usr/local/lib/JD/bash
 COPY --from=build_deps /containers-storage /usr/local/bin/
 
 # configure system
 RUN <<"EOF"
-mkdir -p /usr/local/share/ATO/overlayfs_upper/{ATO,proc,dev}
-mkdir -p /usr/local/share/ATO/runners
-ln -s /mnt/rootfs /usr/local/lib/ATO/rootfs
-ln -s /mnt/env /usr/local/lib/ATO/env
-useradd -U ato
+mkdir -p /usr/local/share/JD/overlayfs_upper/{JD,proc,dev}
+mkdir -p /usr/local/share/JD/runners
+ln -s /mnt/rootfs /usr/local/lib/JD/rootfs
+ln -s /mnt/env /usr/local/lib/JD/env
+useradd -U jd
 EOF
 
 COPY <<"EOF" /entrypoint.sh
@@ -91,8 +91,8 @@ while read -r image; do
 done < /tmp/images.txt
 
 echo "Images synchronized. Setting permissions..."
-# 在挂载之前修改权限，确保 ato 用户可以读写这些基础文件
-chown -R ato:ato /mnt
+# 在挂载之前修改权限，确保 jd 用户可以读写这些基础文件
+chown -R jd:jd /mnt
 chmod -R 777 /mnt
 
 echo "Mounting images..."
@@ -106,26 +106,26 @@ done
 echo "All available images are mounted and ready."
 
 # 仅对挂载点目录本身进行非递归所有权修改
-chown ato:ato /mnt /mnt/rootfs /mnt/containers_storage /mnt/env
+chown jd:jd /mnt /mnt/rootfs /mnt/containers_storage /mnt/env
 
 mkdir -p /sys/fs/cgroup/server
 echo "$$" > /sys/fs/cgroup/server/cgroup.procs
-export ATO_CGROUP_PATH=/sys/fs/cgroup
-echo +memory > "$ATO_CGROUP_PATH/cgroup.subtree_control"
-chown -R ato:ato "$ATO_CGROUP_PATH"
+export JD_CGROUP_PATH=/sys/fs/cgroup
+echo +memory > "$JD_CGROUP_PATH/cgroup.subtree_control"
+chown -R jd:jd "$JD_CGROUP_PATH"
 
-mkdir -p /run/ATO
+mkdir -p /run/JD
 exec tini -- "$@"
 EOF
 RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
-COPY runners /usr/local/share/ATO/runners/
-RUN chmod -R a+rx /usr/local/share/ATO/runners
+COPY runners /usr/local/share/JD/runners/
+RUN chmod -R a+rx /usr/local/share/JD/runners
 COPY languages.json /
-COPY --from=build /yargs /usr/local/lib/ATO/yargs
-COPY --from=build /judgment /usr/local/lib/ATO/server
+COPY --from=build /yargs /usr/local/lib/JD/yargs
+COPY --from=build /judgment /usr/local/lib/JD/server
 
-ENV ATO_BIND=0.0.0.0:8500
+ENV JD_BIND=0.0.0.0:8500
 EXPOSE 8500
-CMD setpriv --reuid ato --regid ato --init-groups /usr/local/lib/ATO/server
+CMD setpriv --reuid jd --regid jd --init-groups /usr/local/lib/JD/server

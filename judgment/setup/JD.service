@@ -2,9 +2,9 @@
 Description=Attempt This Online, a clone of Try It Online
 
 [Service]
-User=ato
-# the + means the start script is run as root, even though the main service runs as the user ato
-ExecStart=+/usr/local/bin/ATO
+User=jd
+# the + means the start script is run as root, even though the main service runs as the user jd
+ExecStart=+/usr/local/bin/JD
 Restart=on-failure
 StartLimitBurst=3
 StartLimitInterval=60s

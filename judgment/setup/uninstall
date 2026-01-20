@@ -1,17 +1,17 @@
 #!/bin/sh
 
-systemctl disable --now ATO.service nginx.service
+systemctl disable --now JD.service nginx.service
 sed -i '/systemctl stop nginx && certbot renew && systemctl start nginx/d' /var/spool/cron/root
-umount /usr/local/lib/ATO/rootfs/*
-containers-storage wipe --graph /usr/local/lib/ATO/containers --run /run/ATO/containers
-userdel ato
-umount /usr/local/lib/ATO/containers/overlay
+umount /usr/local/lib/JD/rootfs/*
+containers-storage wipe --graph /usr/local/lib/JD/containers --run /run/JD/containers
+userdel jd
+umount /usr/local/lib/JD/containers/overlay
 rm -rf \
-    /run/ATO \
-    /var/cache/ATO \
-    /var/lib/ATO_home \
-    /usr/local/bin/ATO \
-    /usr/local/lib/ATO \
-    /usr/local/share/ATO \
-    /usr/local/lib/systemd/system/ATO.service \
-    /usr/local/lib/systemd/system/ATO.socket
+    /run/JD \
+    /var/cache/JD \
+    /var/lib/JD_home \
+    /usr/local/bin/JD \
+    /usr/local/lib/JD \
+    /usr/local/share/JD \
+    /usr/local/lib/systemd/system/JD.service \
+    /usr/local/lib/systemd/system/JD.socket

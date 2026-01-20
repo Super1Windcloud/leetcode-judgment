@@ -15,13 +15,13 @@ use tungstenite::protocol::WebSocketConfig;
 
 fn get_bind_address() -> SocketAddr {
     use std::str::FromStr;
-    SocketAddr::from_str(&std::env::var("ATO_BIND").unwrap_or_else(|e| {
+    SocketAddr::from_str(&std::env::var("JD_BIND").unwrap_or_else(|e| {
         if let std::env::VarError::NotUnicode(_) = e {
-            panic!("$ATO_BIND is invalid Unicode")
+            panic!("$JD_BIND is invalid Unicode")
         }
         "[::]:8500".to_string()
     }))
-    .expect("$ATO_BIND is not a valid address")
+    .expect("$JD_BIND is not a valid address")
 }
 
 /// analogous to std::thread::spawn but forks a full new process instead of a thread
@@ -48,7 +48,7 @@ fn main() {
     unsafe { signal(Signal::SIGCHLD, SigHandler::SigIgn) }.unwrap();
 
     let addr = get_bind_address();
-    eprintln!("Starting ATO server on {addr}...");
+    eprintln!("Starting JD server on {addr}...");
     let server = TcpListener::bind(addr).unwrap();
     for connection in server.incoming() {
         if let Ok(conn) = connection {

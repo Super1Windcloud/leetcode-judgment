@@ -9,14 +9,14 @@ services:
       watch:
         - path: ./target/x86_64-unknown-linux-gnu/debug/judgment
           action: sync+restart
-          target: /usr/local/lib/ATO/server
+          target: /usr/local/lib/JD/server
         - path: runners
           action: sync
-          target: /usr/local/share/ATO/runners
+          target: /usr/local/share/JD/runners
     volumes:
       - images:/mnt
     ports:
       - 8500:8500
     privileged: true
     cgroup: private
-    command: setpriv --reuid ato --regid ato --init-groups /usr/local/lib/ATO/server
+    command: setpriv --reuid jd --regid jd --init-groups /usr/local/lib/JD/server

@@ -1,4 +1,4 @@
-#!/ATO/bash
+#!/JD/bash
 
-cd /ATO/context
-/ATO/yargs %1 /ATO/options /ATO/yargs %2 /ATO/arguments php %1 /ATO/code %2 < /ATO/input
+cd /JD/context
+/JD/yargs %1 /JD/options /JD/yargs %2 /JD/arguments php %1 /JD/code %2 < /JD/input

@@ -1,10 +1,10 @@
-#!/ATO/bash
+#!/JD/bash
 
-cd /ATO/context
+cd /JD/context
 
-mkdir /ATO/tmp
-export TMPDIR=/ATO/tmp
-export CARGO_HOME=/ATO/tmp
+mkdir /JD/tmp
+export TMPDIR=/JD/tmp
+export CARGO_HOME=/JD/tmp
 
-/ATO/yargs % /ATO/options rustc % /ATO/code -o /ATO/exe
-/ATO/yargs % /ATO/arguments /ATO/exe % < /ATO/input
+/JD/yargs % /JD/options rustc % /JD/code -o /JD/exe
+/JD/yargs % /JD/arguments /JD/exe % < /JD/input

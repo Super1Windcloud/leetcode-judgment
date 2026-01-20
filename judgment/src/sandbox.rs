@@ -95,11 +95,11 @@ impl Drop for Cgroup<'_> {
 
 fn create_cgroup() -> Result<PathBuf, Error> {
     use std::env::VarError::*;
-    let cgroup_path = std::env::var("ATO_CGROUP_PATH").map_err(|e| {
+    let cgroup_path = std::env::var("JD_CGROUP_PATH").map_err(|e| {
         Error::InternalError(
             match e {
-                NotPresent => "error creating cgroup: $ATO_CGROUP_PATH not provided",
-                NotUnicode(_) => "error creating cgroup: $ATO_CGROUP_PATH is invalid Unicode",
+                NotPresent => "error creating cgroup: $JD_CGROUP_PATH not provided",
+                NotUnicode(_) => "error creating cgroup: $JD_CGROUP_PATH is invalid Unicode",
             }
             .to_string(),
         )
@@ -466,8 +466,8 @@ fn run_child(
     macro_rules! log_error {
         ($($x:expr),*) => {
             // goes to handle_output and therefore looks like a normal stdout message to the user,
-            // so this should be prefixed with "ATO internal error" to make it clearer it's not from the user's program
-            println!("ATO internal error: {}", format!($($x,)*));
+            // so this should be prefixed with "JD internal error" to make it clearer it's not from the user's program
+            println!("JD internal error: {}", format!($($x,)*));
             // stderr still points to the web server log, so we continue writing there
             eprintln!($($x,)*);
         }
@@ -496,11 +496,11 @@ fn run_child(
     unsafe { close_open_fds(FIRST_NON_STDIO_FD, &[]) } // should never error
 
     let Err(e) = execve(
-        cstr!("/ATO/bash"),
-        &[cstr!("/ATO/bash"), cstr!("/ATO/runner")],
+        cstr!("/JD/bash"),
+        &[cstr!("/JD/bash"), cstr!("/JD/runner")],
         &env,
     );
-    eprintln!("ATO internal error: error running execve: {e}")
+    eprintln!("JD internal error: error running execve: {e}")
 }
 
 fn get_base_path(env_var: &str, default: &str) -> String {
@@ -508,7 +508,7 @@ fn get_base_path(env_var: &str, default: &str) -> String {
 }
 
 fn load_env(language: &Language) -> Result<Vec<CString>, Error> {
-    let env_base_path = get_base_path("ATO_ENV_PATH", "/usr/local/lib/ATO/env/");
+    let env_base_path = get_base_path("JD_ENV_PATH", "/usr/local/lib/JD/env/");
     let path = env_base_path + &language.image.replace("/", "+").replace(":", "+");
     
     let content = match std::fs::read(&path) {
@@ -604,12 +604,12 @@ macro_rules! mount {
 }
 
 fn get_rootfs(language: &Language) -> String {
-    let image_base_path = get_base_path("ATO_ROOTFS_PATH", "/usr/local/lib/ATO/rootfs/");
+    let image_base_path = get_base_path("JD_ROOTFS_PATH", "/usr/local/lib/JD/rootfs/");
     image_base_path + &language.image.replace("/", "+").replace(":", "+")
 }
 
 fn get_default_runner(language_id: &String) -> String {
-    let language_base_path = get_base_path("ATO_RUNNERS_PATH", "/usr/local/share/ATO/runners/");
+    let language_base_path = get_base_path("JD_RUNNERS_PATH", "/usr/local/share/JD/runners/");
     language_base_path + language_id
 }
 
@@ -618,7 +618,7 @@ fn setup_filesystem(request: &Request, language: &Language) -> Result<(), Error>
     let rootfs = get_rootfs(&language);
 
     // set the propogation type of all mounts to private - this is because:
-    // 1. when we mount /run/ATO, and bind-mount other stuff,
+    // 1. when we mount /run/JD, and bind-mount other stuff,
     //    we don't want those to propogate to the parent namespace
     // 2. we don't want any potential mounts in the parent namespace to appear here and mess things up either
     // 3. pivot_root below requires . and its parent to be mounted private anyway
@@ -628,40 +628,40 @@ fn setup_filesystem(request: &Request, language: &Language) -> Result<(), Error>
     );
 
     // 确保挂载点目录存在
-    if let Err(e) = mkdir("/run/ATO", Mode::S_IRWXU) {
+    if let Err(e) = mkdir("/run/JD", Mode::S_IRWXU) {
         if e != nix::errno::Errno::EEXIST {
-            return Err(Error::InternalError(format!("error creating /run/ATO directory: {e}")));
+            return Err(Error::InternalError(format!("error creating /run/JD directory: {e}")));
         }
     }
 
     // mount a tmpfs to contain the data written to the container's root filesystem
     // (which will be discarded when the container exits)
-    mount!("/run/ATO", "tmpfs", MS_NOSUID, "mode=755,size=655350k");
+    mount!("/run/JD", "tmpfs", MS_NOSUID, "mode=755,size=655350k");
     // overlayfs requires separate "upper" and "work" directories, so create those
     check!(
-        mkdir("/run/ATO/upper", Mode::S_IRWXU),
+        mkdir("/run/JD/upper", Mode::S_IRWXU),
         "error creating overlayfs upper directory: {}"
     );
     check!(
-        mkdir("/run/ATO/work", Mode::S_IRWXU),
+        mkdir("/run/JD/work", Mode::S_IRWXU),
         "error creating overlayfs work directory: {}"
     );
     // also create a place to mount the new merged writeable rootfs
     check!(
-        mkdir("/run/ATO/merged", Mode::S_IRWXU),
+        mkdir("/run/JD/merged", Mode::S_IRWXU),
         "error creating overlayfs merged directory: {}"
     );
 
     // mount writeable upper layer on top of rootfs using overlayfs
     // also, the kernel now considers it a mount point, which is required for pivot_root to work
-    let overlay_upper_path = get_base_path("ATO_OVERLAY_UPPER_PATH", "/usr/local/share/ATO/overlayfs_upper");
+    let overlay_upper_path = get_base_path("JD_OVERLAY_UPPER_PATH", "/usr/local/share/JD/overlayfs_upper");
     let mount_options = format!(
-        "upperdir=/run/ATO/upper,lowerdir={overlay_upper_path}:{rootfs},workdir=/run/ATO/work,index=off"
+        "upperdir=/run/JD/upper,lowerdir={overlay_upper_path}:{rootfs},workdir=/run/JD/work,index=off"
     );
     check!(
         mount::<str, str, str, str>(
             None,
-            "/run/ATO/merged",
+            "/run/JD/merged",
             Some("overlay"),
             MsFlags::empty(),
             Some(&mount_options),
@@ -670,7 +670,7 @@ fn setup_filesystem(request: &Request, language: &Language) -> Result<(), Error>
     );
 
     check!(
-        chdir::<str>("/run/ATO/merged"),
+        chdir::<str>("/run/JD/merged"),
         "error changing directory to new rootfs: {}"
     );
     // now . points to the new rootfs
@@ -685,8 +685,8 @@ fn setup_filesystem(request: &Request, language: &Language) -> Result<(), Error>
     setup_request_files(&request)?;
 
     // cwd after pivot_root is not well-defined, so we have to go somewhere
-    // since we need to go to /ATO at some point anyway, let's got there
-    check!(chdir("/ATO"), "error changing directory to /ATO: {}");
+    // since we need to go to /JD at some point anyway, let's got there
+    check!(chdir("/JD"), "error changing directory to /JD: {}");
     Ok(())
 }
 
@@ -722,17 +722,17 @@ fn setup_special_files(language_id: &String) -> Result<(), Error> {
         "mode=1755,size=655350k"
     );
     mount!(
-        "./ATO",
+        "./JD",
         "tmpfs",
         MS_NOSUID | MS_NODEV,
         "mode=755,size=655350k"
     );
     check!(
         mkdir(
-            "./ATO/context",
+            "./JD/context",
             Mode::S_IRWXU | Mode::S_IRGRP | Mode::S_IXGRP | Mode::S_IROTH | Mode::S_IXOTH
         ),
-        "error creating /ATO/context: {}"
+        "error creating /JD/context: {}"
     );
     mount!("./proc", "proc",);
     mount!(
@@ -812,11 +812,11 @@ fn setup_special_files(language_id: &String) -> Result<(), Error> {
         "error creating /dev/ptmx: {}"
     );
 
-    let bash_path = get_base_path("ATO_BASH_PATH", "/usr/local/lib/ATO/bash");
-    let yargs_path = get_base_path("ATO_YARGS_PATH", "/usr/local/lib/ATO/yargs");
+    let bash_path = get_base_path("JD_BASH_PATH", "/usr/local/lib/JD/bash");
+    let yargs_path = get_base_path("JD_YARGS_PATH", "/usr/local/lib/JD/yargs");
 
     // 仅在本地开发模式下绑定挂载宿主机的系统路径
-    if std::env::var("ATO_USE_HOST_LIBS").is_ok() {
+    if std::env::var("JD_USE_HOST_LIBS").is_ok() {
         for sys_dir in ["/bin", "/usr", "/lib", "/lib64", "/etc", "/opt", "/var/lib"] {
             if std::path::Path::new(sys_dir).exists() {
                 let dest = ".".to_owned() + sys_dir;
@@ -827,9 +827,9 @@ fn setup_special_files(language_id: &String) -> Result<(), Error> {
     }
 
     for (src, dest) in [
-        (&bash_path, "./ATO/bash"),
-        (&yargs_path, "./ATO/yargs"),
-        (&get_default_runner(&language_id), "./ATO/default_runner"),
+        (&bash_path, "./JD/bash"),
+        (&yargs_path, "./JD/yargs"),
+        (&get_default_runner(&language_id), "./JD/default_runner"),
     ] {
         drop(check!(
             File::create(&dest),
@@ -844,37 +844,37 @@ fn setup_special_files(language_id: &String) -> Result<(), Error> {
 
 fn setup_request_files(request: &Request) -> Result<(), Error> {
     check!(
-        std::fs::write("/ATO/code", &request.code),
-        "error writing /ATO/code: {}"
+        std::fs::write("/JD/code", &request.code),
+        "error writing /JD/code: {}"
     );
     if let Some(custom_runner) = &request.custom_runner {
         use std::io::Write;
         let mut file = check!(
-            std::fs::File::create("/ATO/runner"),
-            "error opening /ATO/runner: {}"
+            std::fs::File::create("/JD/runner"),
+            "error opening /JD/runner: {}"
         );
         check!(
             file.write_all(&custom_runner),
-            "error writing /ATO/runner: {}"
+            "error writing /JD/runner: {}"
         );
     } else {
         check!(
-            std::os::unix::fs::symlink("/ATO/default_runner", "/ATO/runner"),
-            "error linking /ATO/runner: {}"
+            std::os::unix::fs::symlink("/JD/default_runner", "/JD/runner"),
+            "error linking /JD/runner: {}"
         );
     }
     // TODO: stream input in instead of writing it to a file?
     check!(
-        std::fs::write("/ATO/input", &request.input),
-        "error writing /ATO/input: {}"
+        std::fs::write("/JD/input", &request.input),
+        "error writing /JD/input: {}"
     );
     check!(
-        std::fs::write("/ATO/arguments", join_args(&request.arguments)),
-        "error writing /ATO/arguments: {}"
+        std::fs::write("/JD/arguments", join_args(&request.arguments)),
+        "error writing /JD/arguments: {}"
     );
     check!(
-        std::fs::write("/ATO/options", join_args(&request.options)),
-        "error writing /ATO/options: {}"
+        std::fs::write("/JD/options", join_args(&request.options)),
+        "error writing /JD/options: {}"
     );
     Ok(())
 }

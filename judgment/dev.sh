@@ -5,8 +5,8 @@ gcc -Wall -Werror -static yargs.c -o ./yargs_local
 
 # 创建并确保开发目录权限
 mkdir -p dev_rootfs dev_env dev_overlay_upper
-# 创建 overlayfs 必须的子目录 (ATO, proc, dev, sys, tmp)
-mkdir -p dev_overlay_upper/{ATO,proc,dev,sys,tmp}
+# 创建 overlayfs 必须的子目录 (JD, proc, dev, sys, tmp)
+mkdir -p dev_overlay_upper/{JD,proc,dev,sys,tmp}
 
 # 自动创建 languages.json 中定义的镜像目录和默认环境文件，防止挂载失败和警告
 if [ -f "languages.json" ]; then
@@ -59,20 +59,20 @@ while [ "$CURRENT_DIR" != "/" ]; do
 done
 
 # 设置开发环境路径
-export ATO_BASH_PATH=/bin/bash
-export ATO_YARGS_PATH=$(pwd)/yargs_local
-export ATO_RUNNERS_PATH=$(pwd)/runners/
-export ATO_ROOTFS_PATH=$(pwd)/dev_rootfs/
-export ATO_ENV_PATH=$(pwd)/dev_env/
-export ATO_OVERLAY_UPPER_PATH=$(pwd)/dev_overlay_upper/
-export ATO_USE_HOST_LIBS=1
+export JD_BASH_PATH=/bin/bash
+export JD_YARGS_PATH=$(pwd)/yargs_local
+export JD_RUNNERS_PATH=$(pwd)/runners/
+export JD_ROOTFS_PATH=$(pwd)/dev_rootfs/
+export JD_ENV_PATH=$(pwd)/dev_env/
+export JD_OVERLAY_UPPER_PATH=$(pwd)/dev_overlay_upper/
+export JD_USE_HOST_LIBS=1
 # 使用双栈绑定，解决 localhost 访问慢的问题
 # 提示: 如果使用系统 bash，沙箱内部需要访问 /lib 和 /lib64。
 # 我们通过环境变量告诉后端，但在本地开发模式下，后端会自动处理基础映射。
 # 如果执行仍然报错，请确保宿主机的 /bin/bash 对 ato 用户可执行。
 
-export ATO_BIND=[::]:8500
-export ATO_CGROUP_PATH=/sys/fs/cgroup
+export JD_BIND=[::]:8500
+export JD_CGROUP_PATH=/sys/fs/cgroup
 
 # 强制修复所有关键二进制文件和脚本的执行权限
 echo "正在修复文件权限..."

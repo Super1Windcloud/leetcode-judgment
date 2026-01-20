@@ -29,7 +29,7 @@ whoami | grep -xFq root || error you must run this script as root
 # - sed: configuration editing on installation
 # - python: helper scripts during installation
 # - skopeo: for docker image extraction
-[ -z "$ATO_NO_DEPS" ] && pacman -Syu --noconfirm --needed \
+[ -z "$JD_NO_DEPS" ] && pacman -Syu --noconfirm --needed \
   certbot \
   cronie \
   nginx \
@@ -43,50 +43,50 @@ curl -sSL "https://github.com/attempt-this-online/containers-storage/releases/do
 chmod 755 /usr/local/bin/containers-storage
 
 # don't use /tmp because it has weird permissions
-mkdir -p /var/cache/ATO
+mkdir -p /var/cache/JD
 
-if [ "$ATO_MANUAL_PACKAGE" ]; then
-  tar -xf "$ATO_MANUAL_PACKAGE" -C /var/cache/ATO
+if [ "$JD_MANUAL_PACKAGE" ]; then
+  tar -xf "$JD_MANUAL_PACKAGE" -C /var/cache/JD
 else
-  curl -sSL "https://github.com/attempt-this-online/attempt-this-online/releases/download/v$VERSION/attempt_this_online.tar.gz" |
-    tar -xz -C /var/cache/ATO
+  curl -sSL "https://github.com/attempt-this-online/attempt-this-online/releases/download/v$VERSION/judgment.tar.gz" |
+    tar -xz -C /var/cache/JD
 fi
 
-cd /var/cache/ATO/attempt_this_online
+cd /var/cache/JD/judgment
 
 mkdir -p \
-  /usr/local/lib/ATO \
-  /usr/local/share/ATO
+  /usr/local/lib/JD \
+  /usr/local/share/JD
 
-# configure ATO user
-useradd -rs /usr/bin/nologin -md /var/lib/ATO_home ato
+# configure JD user
+useradd -rs /usr/bin/nologin -md /var/lib/JD_home jd
 
 # install backend
-install -m 500 -o ato -g ato server /usr/local/lib/ATO/
+install -m 500 -o jd -g jd server /usr/local/lib/JD/
 
 # install runners
-cp -RT runners /usr/local/share/ATO/runners
-chown -R ato:ato /usr/local/share/ATO/runners
-chmod -R a+rX-w /usr/local/share/ATO/runners
+cp -RT runners /usr/local/share/JD/runners
+chown -R jd:jd /usr/local/share/JD/runners
+chmod -R a+rX-w /usr/local/share/JD/runners
 
 # setup apparmor TODO
 # systemctl enable --now apparmor.service
 
 # install static files
-cp -RT public /usr/local/share/ATO/public
+cp -RT public /usr/local/share/JD/public
 for format in woff woff2 ttf; do
-  curl -sSL "https://raw.githubusercontent.com/tonsky/FiraCode/5.2/distr/$format/FiraCode-Regular.$format" -o "/usr/local/share/ATO/public/FiraCode-Regular.$format"
+  curl -sSL "https://raw.githubusercontent.com/tonsky/FiraCode/5.2/distr/$format/FiraCode-Regular.$format" -o "/usr/local/share/JD/public/FiraCode-Regular.$format"
 done
 for format in woff woff2 otf; do
   for variant in Bold Regular; do
-    curl -sSL "https://github.com/pxeger/Cantarell/raw/v0.301-2/Cantarell$variant.$format" -o "/usr/local/share/ATO/public/Cantarell-$variant.$format"
+    curl -sSL "https://github.com/pxeger/Cantarell/raw/v0.301-2/Cantarell$variant.$format" -o "/usr/local/share/JD/public/Cantarell-$variant.$format"
   done
 done
-chown -R http:http /usr/local/share/ATO/public
-chmod -R a+rX-w /usr/local/share/ATO/public
+chown -R http:http /usr/local/share/JD/public
+chmod -R a+rX-w /usr/local/share/JD/public
 
 # configure nginx
-sed -i "s/ato.pxeger.com/$1/g" setup/nginx.conf
+sed -i "s/jd.pxeger.com/$1/g" setup/nginx.conf
 install -m 644 -o root -g root setup/nginx.conf /etc/nginx/
 # don't waste time generating DH params unless necessary
 [ -f /etc/nginx/dhparam.pem ] || openssl dhparam -out /etc/nginx/dhparam.pem 2048
@@ -104,17 +104,17 @@ echo "7 10 * * * systemctl stop nginx && certbot renew && systemctl start nginx"
 systemctl enable --now cronie.service
 
 # install yargs
-install -m 555 -o root -g root yargs /usr/local/lib/ATO/yargs
+install -m 555 -o root -g root yargs /usr/local/lib/JD/yargs
 
 # steal a statically linked bash from Debian
-curl -L "https://github.com/attempt-this-online/static-bash/releases/download/5.2.0(1)-rc2/bash" >/usr/local/lib/ATO/bash
-chmod 555 /usr/local/lib/ATO/bash
+curl -L "https://github.com/attempt-this-online/static-bash/releases/download/5.2.0(1)-rc2/bash" >/usr/local/lib/JD/bash
+chmod 555 /usr/local/lib/JD/bash
 
 # configure service
-install -m 555 -o root -g root setup/ATO /usr/local/bin/
+install -m 555 -o root -g root setup/JD /usr/local/bin/
 mkdir -p /usr/local/lib/systemd/system/
-install -m 644 -o root -g root setup/ATO.service /usr/local/lib/systemd/system/
-systemctl enable ATO.service
+install -m 644 -o root -g root setup/JD.service /usr/local/lib/systemd/system/
+systemctl enable JD.service
 
 # generate flags to be used as proof of compromise
 flag() {
@@ -124,20 +124,20 @@ flag() {
   chmod 400 "$1"
 }
 flag /root/flag root:root
-flag /var/lib/ATO_home/flag ato:ato
+flag /var/lib/JD_home/flag jd:jd
 
-# Create upper layer filesystem for overlayfs which contains the mount point /ATO pre-made
-mkdir -p /usr/local/share/ATO/overlayfs_upper/ATO /usr/local/share/ATO/overlayfs_upper/proc /usr/local/share/ATO/overlayfs_upper/dev
+# Create upper layer filesystem for overlayfs which contains the mount point /JD pre-made
+mkdir -p /usr/local/share/JD/overlayfs_upper/JD /usr/local/share/JD/overlayfs_upper/proc /usr/local/share/JD/overlayfs_upper/dev
 
 echo Finished system setup.
 echo Now extracting Docker images - this will take a long time...
 
-mkdir -p /usr/local/lib/ATO/env /usr/local/lib/ATO/containers /usr/local/lib/ATO/rootfs
-chown -R ato:ato /usr/local/lib/ATO
+mkdir -p /usr/local/lib/JD/env /usr/local/lib/JD/containers /usr/local/lib/JD/rootfs
+chown -R jd:jd /usr/local/lib/JD
 
-STORAGE_BACKEND='containers-storage:[/usr/local/lib/ATO/containers+/run/ATO/containers]'
+STORAGE_BACKEND='containers-storage:[/usr/local/lib/JD/containers+/run/JD/containers]'
 
-[ -z "$ATO_NO_IMAGES" ] &&
+[ -z "$JD_NO_IMAGES" ] &&
   while read -r image; do
     # ignore blank lines or comments
     [ -z "$image" ] || [ "$image" = "#" ] && continue
@@ -151,10 +151,10 @@ STORAGE_BACKEND='containers-storage:[/usr/local/lib/ATO/containers+/run/ATO/cont
     image_pathsafe="$(echo "$image" | tr '/:' '+')"
 
     # extract environment variables from the image
-    skopeo inspect "$STORAGE_BACKEND$image" | setup/parse_env >"/usr/local/lib/ATO/env/$image_pathsafe"
+    skopeo inspect "$STORAGE_BACKEND$image" | setup/parse_env >"/usr/local/lib/JD/env/$image_pathsafe"
 
     # set it up to be mounted
-    echo "$image" "$image_pathsafe" >>/usr/local/lib/ATO/to_mount
+    echo "$image" "$image_pathsafe" >>/usr/local/lib/JD/to_mount
 
   done <images.txt
 
@@ -162,9 +162,9 @@ echo Finished extracting images.
 echo Clearing up...
 
 cd /
-rm -rf /var/cache/ATO
+rm -rf /var/cache/JD
 
 echo Starting up services...
-systemctl start nginx.service ATO.service
+systemctl start nginx.service JD.service
 
 echo Finished!

@@ -1,6 +1,6 @@
-#!/ATO/bash
+#!/JD/bash
 
-cd /ATO/context
-ln -s /ATO/code /ATO/code.cs
-/ATO/yargs % /ATO/options mcs % /ATO/code.cs -out:/ATO/exe
-/ATO/yargs % /ATO/arguments mono /ATO/exe % < /ATO/input
+cd /JD/context
+ln -s /JD/code /JD/code.cs
+/JD/yargs % /JD/options mcs % /JD/code.cs -out:/JD/exe
+/JD/yargs % /JD/arguments mono /JD/exe % < /JD/input

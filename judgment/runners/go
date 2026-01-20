@@ -1,14 +1,14 @@
-#!/ATO/bash
+#!/JD/bash
 
-cd /ATO/context
+cd /JD/context
 # 使用简单的源文件模式，尽量避免复杂的模块检查
 echo "module solution" > go.mod
-ln -s /ATO/code main.go
+ln -s /JD/code main.go
 
-mkdir -p /ATO/tmp
-export TMPDIR=/ATO/tmp 
-export GOCACHE=/ATO/tmp
-export GOMODCACHE=/ATO/tmp
+mkdir -p /JD/tmp
+export TMPDIR=/JD/tmp 
+export GOCACHE=/JD/tmp
+export GOMODCACHE=/JD/tmp
 export CGO_ENABLED=0 
 export GOPROXY=off 
 export GOSUMDB=off
@@ -16,4 +16,4 @@ export GOSUMDB=off
 # 强制使用本地工具链，避免 go 指令尝试联网
 export GOTOOLCHAIN=local
 
-/ATO/yargs %1 /ATO/options /ATO/yargs %2 /ATO/arguments go run main.go %1 %2 < /ATO/input
+/JD/yargs %1 /JD/options /JD/yargs %2 /JD/arguments go run main.go %1 %2 < /JD/input

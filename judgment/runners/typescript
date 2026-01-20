@@ -1,6 +1,6 @@
-#!/ATO/bash
+#!/JD/bash
 
-cd /ATO/context
-mkdir /ATO/deno
-export DENO_DIR=/ATO/deno
-/ATO/yargs %1 /ATO/options /ATO/yargs %2 /ATO/arguments deno run -A %1 /ATO/code %2 < /ATO/input
+cd /JD/context
+mkdir /JD/deno
+export DENO_DIR=/JD/deno
+/JD/yargs %1 /JD/options /JD/yargs %2 /JD/arguments deno run -A %1 /JD/code %2 < /JD/input
