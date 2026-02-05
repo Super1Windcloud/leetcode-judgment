@@ -66,5 +66,20 @@
     "resetTemplate": "Reset to default template",
     "loading": "Loading editor...",
     "runResult": "Run Result"
+  },
+  "Problem": {
+    "output": "Output",
+    "submission": "Submission",
+    "submitting": "Judging your solution...",
+    "accepted": "Accepted",
+    "wrongAnswer": "Wrong Answer / Error",
+    "runtime": "Runtime",
+    "memory": "Memory",
+    "errorDetails": "Error Details",
+    "submitPlaceholder": "Submit your code to see the result.",
+    "executing": "Executing code...",
+    "noOutput": "No output yet. Run your code!",
+    "submit": "Submit",
+    "submitting_btn": "Submitting..."
   }
 }

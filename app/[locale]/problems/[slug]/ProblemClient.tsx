@@ -8,6 +8,7 @@ import {
 	Copy,
 	Play,
 	Send,
+	Trophy,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type React from "react";
@@ -110,14 +111,18 @@ export function ProblemClient({
 	t,
 	parsedSolution,
 }: ProblemClientProps) {
+	const tProblem = useTranslations("Problem");
 	const [activeTab, setActiveTab] = useState("description");
 	const [editorCode, setEditorCode] = useState("");
 	const [editorLanguage, setEditorLanguage] = useState("java");
 	const [selectedSolutionIndex, setSelectedSolutionIndex] = useState(0);
 	const [isRunning, setIsRunning] = useState(false);
+	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [output, setOutput] = useState<
 		{ id: string; type: "stdout" | "stderr" | "system"; content: string }[]
 	>([]);
+	const [submissionResult, setSubmissionResult] =
+		useState<JudgmentResponse | null>(null);
 
 	// Reset selection when problem changes
 	useEffect(() => {
@@ -135,12 +140,16 @@ export function ProblemClient({
 	}, [currentSolution]);
 
 	const handleRun = async () => {
-		if (isRunning) return;
+		if (isRunning || isSubmitting) return;
 		setIsRunning(true);
 		setOutput([
-			{ id: crypto.randomUUID(), type: "system", content: "Executing code..." },
+			{
+				id: crypto.randomUUID(),
+				type: "system",
+				content: tProblem("executing"),
+			},
 		]);
-		setActiveTab("output"); // We'll add an output tab
+		setActiveTab("output");
 
 		const client = new JudgmentClient();
 		try {
@@ -170,7 +179,7 @@ export function ProblemClient({
 							{
 								id: crypto.randomUUID(),
 								type: "system",
-								content: `\n--- Execution Finished ---\nStatus: ${status_type} (${status_value})\nTime: ${(real / 1e9).toFixed(3)}s\nMemory: ${(max_mem / 1024).toFixed(2)} MB`,
+								content: `\n--- Execution Finished ---\nStatus: ${status_type} (${status_value})\nTime: ${(real / 1e6).toFixed(2)}ms\nMemory: ${(max_mem / 1024).toFixed(2)} MB`,
 							},
 						]);
 					}
@@ -191,11 +200,41 @@ export function ProblemClient({
 		}
 	};
 
-	const handleSubmit = () => {
-		toast.success("Submission logic will be implemented here.");
-	};
+	const handleSubmit = async () => {
+		if (isRunning || isSubmitting) return;
+		setIsSubmitting(true);
+		setSubmissionResult(null);
+		setActiveTab("submission");
 
-	const common = useTranslations("Common");
+		const client  = new JudgmentClient();
+		try {
+			await client.execute(
+				{
+					language: editorLanguage,
+					code: editorCode,
+					timeout: 15, // Longer timeout for submission
+				},
+				(msg: JudgmentResponse) => {
+					if ("Done" in msg) {
+						setSubmissionResult(msg);
+						if (
+							msg.Done.status_type === "exited" &&
+							msg.Done.status_value === 0
+						) {
+							toast.success("Submission Accepted!");
+						} else {
+							toast.error(`Submission Failed: ${msg.Done.status_type}`);
+						}
+					}
+				},
+			);
+		} catch (error) {
+			console.error("Submission failed:", error);
+			toast.error("Connection failed. Please try again.");
+		} finally {
+			setIsSubmitting(false);
+		}
+	};
 
 	return (
 		<div className="h-screen w-full overflow-hidden bg-[#f5f5f5] dark:bg-[#292b2c] text-foreground flex flex-col">
@@ -255,7 +294,16 @@ export function ProblemClient({
 												className="cursor-pointer  data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-primary border-b-2 border-transparent data-[state=active]:border-primary rounded-none h-full px-2 text-xs"
 											>
 												<Play className="w-3.5 h-3.5 mr-1.5" />
-												Output
+												{tProblem("output")}
+											</TabsTrigger>
+										)}
+										{(isSubmitting || submissionResult) && (
+											<TabsTrigger
+												value="submission"
+												className="cursor-pointer  data-[state=active]:bg-transparent data-[state=active]:shadow-none data-[state=active]:text-primary border-b-2 border-transparent data-[state=active]:border-primary rounded-none h-full px-2 text-xs"
+											>
+												<Trophy className="w-3.5 h-3.5 mr-1.5" />
+												{tProblem("submission")}
 											</TabsTrigger>
 										)}
 									</TabsList>
@@ -450,7 +498,89 @@ export function ProblemClient({
 											))}
 											{output.length === 0 && (
 												<div className="text-zinc-500 italic">
-													No output yet. Run your code!
+													{tProblem("noOutput")}
+												</div>
+											)}
+										</ScrollArea>
+									</TabsContent>
+
+									<TabsContent value="submission" className="h-full m-0">
+										<ScrollArea className="h-full bg-zinc-50 dark:bg-zinc-900 p-6">
+											{isSubmitting ? (
+												<div className="flex flex-col items-center justify-center h-full py-20 space-y-4">
+													<div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary" />
+													<p className="text-zinc-500 animate-pulse">
+														{tProblem("submitting")}
+													</p>
+												</div>
+											) : submissionResult && "Done" in submissionResult ? (
+												<div className="space-y-6">
+													<div
+														className={cn(
+															"p-6 rounded-xl border flex items-center justify-between",
+															submissionResult.Done.status_type === "exited" &&
+																submissionResult.Done.status_value === 0
+																? "bg-emerald-500/10 border-emerald-500/20 text-emerald-500"
+																: "bg-red-500/10 border-red-500/20 text-red-500",
+														)}
+													>
+														<div>
+															<h2 className="text-2xl font-bold">
+																{submissionResult.Done.status_type ===
+																	"exited" &&
+																submissionResult.Done.status_value === 0
+																	? tProblem("accepted")
+																	: tProblem("wrongAnswer")}
+															</h2>
+															<p className="text-sm opacity-80">
+																{submissionResult.Done.status_type} (
+																{submissionResult.Done.status_value})
+															</p>
+														</div>
+														<Trophy className="w-10 h-10" />
+													</div>
+
+													<div className="grid grid-cols-2 gap-4">
+														<div className="bg-white dark:bg-zinc-800 p-4 rounded-lg border border-zinc-200 dark:border-zinc-700">
+															<p className="text-xs text-zinc-500 uppercase">
+																{tProblem("runtime")}
+															</p>
+															<p className="text-lg font-mono font-bold">
+																{(submissionResult.Done.real / 1000000).toFixed(
+																	2,
+																)}{" "}
+																ms
+															</p>
+														</div>
+														<div className="bg-white dark:bg-zinc-800 p-4 rounded-lg border border-zinc-200 dark:border-zinc-700">
+															<p className="text-xs text-zinc-500 uppercase">
+																{tProblem("memory")}
+															</p>
+															<p className="text-lg font-mono font-bold">
+																{(submissionResult.Done.max_mem / 1024).toFixed(
+																	2,
+																)}{" "}
+																MB
+															</p>
+														</div>
+													</div>
+
+													{submissionResult.Done.status_value !== 0 && (
+														<div className="bg-red-50 dark:bg-red-900/10 p-4 rounded-lg border border-red-200 dark:border-red-900/20">
+															<p className="text-xs text-red-500 uppercase mb-2 font-bold">
+																{tProblem("errorDetails")}
+															</p>
+															<pre className="text-xs text-red-600 dark:text-red-400 whitespace-pre-wrap overflow-x-auto">
+																{submissionResult.Done.timed_out
+																	? "Time Limit Exceeded"
+																	: "Check standard output/error for more details."}
+															</pre>
+														</div>
+													)}
+												</div>
+											) : (
+												<div className="text-zinc-500 text-center py-20 italic">
+													{tProblem("submitPlaceholder")}
 												</div>
 											)}
 										</ScrollArea>
@@ -502,11 +632,18 @@ export function ProblemClient({
 											size="sm"
 											className="h-7 cursor-pointer  text-xs bg-emerald-600 hover:bg-emerald-700 text-white"
 											onClick={handleSubmit}
-											disabled={isRunning}
+											disabled={isRunning || isSubmitting}
 										>
-											<Send className="w-3 h-3 mr-1.5" />
-											{common("submit")}
-										</Button>
+											<Send
+												className={cn(
+													"w-3 h-3 mr-1.5",
+													isSubmitting && "animate-spin",
+												)}
+											/>
+											{isSubmitting
+												? tProblem("submitting_btn")
+												: tProblem("submit")}
+										</Button>{" "}
 									</>
 								}
 							/>

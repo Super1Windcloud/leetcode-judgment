@@ -65,5 +65,20 @@
     "resetTemplate": "重置为默认模板",
     "loading": "编辑器加载中...",
     "runResult": "运行结果"
+  },
+  "Problem": {
+    "output": "输出",
+    "submission": "提交记录",
+    "submitting": "正在评测您的方案...",
+    "accepted": "通过",
+    "wrongAnswer": "答案错误 / 运行时错误",
+    "runtime": "运行时间",
+    "memory": "内存消耗",
+    "errorDetails": "错误详情",
+    "submitPlaceholder": "提交您的代码以查看结果。",
+    "executing": "正在执行代码...",
+    "noOutput": "暂无输出。请运行您的代码！",
+    "submit": "提交",
+    "submitting_btn": "提交中..."
   }
 }
