@@ -1,0 +1,604 @@
+{
+  "testCases": [
+    {
+      "input": {
+        "s": "jaqltp"
+      },
+      "output": "j"
+    },
+    {
+      "input": {
+        "s": "txslsur"
+      },
+      "output": "sls"
+    },
+    {
+      "input": {
+        "s": "rjhcpvo"
+      },
+      "output": "r"
+    },
+    {
+      "input": {
+        "s": "qtakui"
+      },
+      "output": "q"
+    },
+    {
+      "input": {
+        "s": "t"
+      },
+      "output": "t"
+    },
+    {
+      "input": {
+        "s": "yrmeczintw"
+      },
+      "output": "y"
+    },
+    {
+      "input": {
+        "s": "tshykbnt"
+      },
+      "output": "t"
+    },
+    {
+      "input": {
+        "s": "svnhtpcfht"
+      },
+      "output": "s"
+    },
+    {
+      "input": {
+        "s": "wghrsn"
+      },
+      "output": "w"
+    },
+    {
+      "input": {
+        "s": "dnomotdoxr"
+      },
+      "output": "omo"
+    },
+    {
+      "input": {
+        "s": "hlddxlwf"
+      },
+      "output": "dd"
+    },
+    {
+      "input": {
+        "s": "ocgsp"
+      },
+      "output": "o"
+    },
+    {
+      "input": {
+        "s": "jkijbrniz"
+      },
+      "output": "j"
+    },
+    {
+      "input": {
+        "s": "i"
+      },
+      "output": "i"
+    },
+    {
+      "input": {
+        "s": "kdlmvac"
+      },
+      "output": "k"
+    },
+    {
+      "input": {
+        "s": "qns"
+      },
+      "output": "q"
+    },
+    {
+      "input": {
+        "s": "kkhqil"
+      },
+      "output": "kk"
+    },
+    {
+      "input": {
+        "s": "yovpyhv"
+      },
+      "output": "y"
+    },
+    {
+      "input": {
+        "s": "g"
+      },
+      "output": "g"
+    },
+    {
+      "input": {
+        "s": "kymt"
+      },
+      "output": "k"
+    },
+    {
+      "input": {
+        "s": "yfzplljz"
+      },
+      "output": "ll"
+    },
+    {
+      "input": {
+        "s": "jifbem"
+      },
+      "output": "j"
+    },
+    {
+      "input": {
+        "s": "jijzl"
+      },
+      "output": "jij"
+    },
+    {
+      "input": {
+        "s": "jzsmavqk"
+      },
+      "output": "j"
+    },
+    {
+      "input": {
+        "s": "knodi"
+      },
+      "output": "k"
+    },
+    {
+      "input": {
+        "s": "xx"
+      },
+      "output": "xx"
+    },
+    {
+      "input": {
+        "s": "tcvs"
+      },
+      "output": "t"
+    },
+    {
+      "input": {
+        "s": "b"
+      },
+      "output": "b"
+    },
+    {
+      "input": {
+        "s": "wtsqptzv"
+      },
+      "output": "w"
+    },
+    {
+      "input": {
+        "s": "cz"
+      },
+      "output": "c"
+    },
+    {
+      "input": {
+        "s": "wcnvgwnm"
+      },
+      "output": "w"
+    },
+    {
+      "input": {
+        "s": "ytipvlmnzv"
+      },
+      "output": "y"
+    },
+    {
+      "input": {
+        "s": "krz"
+      },
+      "output": "k"
+    },
+    {
+      "input": {
+        "s": "zgzx"
+      },
+      "output": "zgz"
+    },
+    {
+      "input": {
+        "s": "hqjyjd"
+      },
+      "output": "jyj"
+    },
+    {
+      "input": {
+        "s": "qk"
+      },
+      "output": "q"
+    },
+    {
+      "input": {
+        "s": "mvcoj"
+      },
+      "output": "m"
+    },
+    {
+      "input": {
+        "s": ""
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "s": "xqirzdk"
+      },
+      "output": "x"
+    },
+    {
+      "input": {
+        "s": "jbupy"
+      },
+      "output": "j"
+    },
+    {
+      "input": {
+        "s": "n"
+      },
+      "output": "n"
+    },
+    {
+      "input": {
+        "s": "bhmv"
+      },
+      "output": "b"
+    },
+    {
+      "input": {
+        "s": "yfacxo"
+      },
+      "output": "y"
+    },
+    {
+      "input": {
+        "s": ""
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "s": "cyftj"
+      },
+      "output": "c"
+    },
+    {
+      "input": {
+        "s": "qdiiinfg"
+      },
+      "output": "iii"
+    },
+    {
+      "input": {
+        "s": "ptk"
+      },
+      "output": "p"
+    },
+    {
+      "input": {
+        "s": "tvukgjslj"
+      },
+      "output": "t"
+    },
+    {
+      "input": {
+        "s": "gxggdpf"
+      },
+      "output": "gxg"
+    },
+    {
+      "input": {
+        "s": "jobatw"
+      },
+      "output": "j"
+    },
+    {
+      "input": {
+        "s": "syx"
+      },
+      "output": "s"
+    },
+    {
+      "input": {
+        "s": "kf"
+      },
+      "output": "k"
+    },
+    {
+      "input": {
+        "s": ""
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "s": ""
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "s": "ffrwdyqen"
+      },
+      "output": "ff"
+    },
+    {
+      "input": {
+        "s": "gyibeysqmi"
+      },
+      "output": "g"
+    },
+    {
+      "input": {
+        "s": "nbsxqr"
+      },
+      "output": "n"
+    },
+    {
+      "input": {
+        "s": "qka"
+      },
+      "output": "q"
+    },
+    {
+      "input": {
+        "s": "xyk"
+      },
+      "output": "x"
+    },
+    {
+      "input": {
+        "s": "sknulcjy"
+      },
+      "output": "s"
+    },
+    {
+      "input": {
+        "s": "anvelhl"
+      },
+      "output": "lhl"
+    },
+    {
+      "input": {
+        "s": "egqtsjed"
+      },
+      "output": "e"
+    },
+    {
+      "input": {
+        "s": "srcncotl"
+      },
+      "output": "cnc"
+    },
+    {
+      "input": {
+        "s": ""
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "s": "mibl"
+      },
+      "output": "m"
+    },
+    {
+      "input": {
+        "s": "zwkg"
+      },
+      "output": "z"
+    },
+    {
+      "input": {
+        "s": "klsovejfk"
+      },
+      "output": "k"
+    },
+    {
+      "input": {
+        "s": "tz"
+      },
+      "output": "t"
+    },
+    {
+      "input": {
+        "s": "ezjmpyfpb"
+      },
+      "output": "e"
+    },
+    {
+      "input": {
+        "s": "kkdarq"
+      },
+      "output": "kk"
+    },
+    {
+      "input": {
+        "s": "hiwosx"
+      },
+      "output": "h"
+    },
+    {
+      "input": {
+        "s": ""
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "s": "ef"
+      },
+      "output": "e"
+    },
+    {
+      "input": {
+        "s": "dib"
+      },
+      "output": "d"
+    },
+    {
+      "input": {
+        "s": "z"
+      },
+      "output": "z"
+    },
+    {
+      "input": {
+        "s": "gkhaos"
+      },
+      "output": "g"
+    },
+    {
+      "input": {
+        "s": ""
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "s": "zb"
+      },
+      "output": "z"
+    },
+    {
+      "input": {
+        "s": "awd"
+      },
+      "output": "a"
+    },
+    {
+      "input": {
+        "s": "p"
+      },
+      "output": "p"
+    },
+    {
+      "input": {
+        "s": "tzmc"
+      },
+      "output": "t"
+    },
+    {
+      "input": {
+        "s": "adoi"
+      },
+      "output": "a"
+    },
+    {
+      "input": {
+        "s": "jb"
+      },
+      "output": "j"
+    },
+    {
+      "input": {
+        "s": ""
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "s": "bjreazkze"
+      },
+      "output": "zkz"
+    },
+    {
+      "input": {
+        "s": "funnnnn"
+      },
+      "output": "nnnnn"
+    },
+    {
+      "input": {
+        "s": "gxwt"
+      },
+      "output": "g"
+    },
+    {
+      "input": {
+        "s": "bnzehcitl"
+      },
+      "output": "b"
+    },
+    {
+      "input": {
+        "s": "ghq"
+      },
+      "output": "g"
+    },
+    {
+      "input": {
+        "s": "p"
+      },
+      "output": "p"
+    },
+    {
+      "input": {
+        "s": "tuarsisrxg"
+      },
+      "output": "rsisr"
+    },
+    {
+      "input": {
+        "s": "pnxzoad"
+      },
+      "output": "p"
+    },
+    {
+      "input": {
+        "s": "eo"
+      },
+      "output": "e"
+    },
+    {
+      "input": {
+        "s": "hkdkw"
+      },
+      "output": "kdk"
+    },
+    {
+      "input": {
+        "s": "fue"
+      },
+      "output": "f"
+    },
+    {
+      "input": {
+        "s": ""
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "s": "vguz"
+      },
+      "output": "v"
+    },
+    {
+      "input": {
+        "s": "tljzedcxsc"
+      },
+      "output": "t"
+    },
+    {
+      "input": {
+        "s": "fthwblzaen"
+      },
+      "output": "f"
+    },
+    {
+      "input": {
+        "s": "ipdpkmrow"
+      },
+      "output": "pdp"
+    }
+  ]
+}

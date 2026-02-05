@@ -1,0 +1,704 @@
+{
+  "testCases": [
+    {
+      "input": {
+        "s": "bbbbbabb",
+        "p": "b*bbb*.*.*"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "babaa",
+        "p": "b.*b.a"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "baabaab",
+        "p": "ab*ba*b*"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "b",
+        "p": "..*.b*.."
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "ababaaa",
+        "p": "bb"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "bbab",
+        "p": "."
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "aaaa",
+        "p": ""
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "",
+        "p": ""
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "aabbbb",
+        "p": "ab.b"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "babababa",
+        "p": ""
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "a",
+        "p": "baa"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "ba",
+        "p": ""
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "ba",
+        "p": "b*b*"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "baab",
+        "p": "b"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "aabb",
+        "p": "b"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "b",
+        "p": "..*a.b"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "abbbb",
+        "p": "bb.b*.*b"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "a",
+        "p": "b*b*a*"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "aaaaba",
+        "p": "aa..b*b*"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "abbab",
+        "p": "a*...b.*"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "",
+        "p": "aa*.b*a"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "abaab",
+        "p": "ab*.a"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "",
+        "p": ".b*ba.a*"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "",
+        "p": ""
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "bbbb",
+        "p": ""
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "bbbb",
+        "p": "a"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "babb",
+        "p": "a*"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "bababb",
+        "p": ""
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "aba",
+        "p": ".*.*.*b*"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "baaabab",
+        "p": "b*a.*"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "abba",
+        "p": "a*abaa*"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "aa",
+        "p": "."
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "bbabaab",
+        "p": ""
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "",
+        "p": "b.b."
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "abbaab",
+        "p": "a"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "",
+        "p": "b*abb.*b"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "aabbabb",
+        "p": ""
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "aaababa",
+        "p": ".*ba..*a*"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "bbabbaba",
+        "p": ".*a"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "bbbbabaa",
+        "p": ""
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "bb",
+        "p": ""
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "ba",
+        "p": "..a*a*.*a*"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "b",
+        "p": ""
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "b",
+        "p": "..a*a*bb"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "babbbb",
+        "p": ".."
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "baaabba",
+        "p": "a*a*a*a*b*a*"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "aa",
+        "p": "b*a*ab.*a"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "babbaba",
+        "p": ""
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "aa",
+        "p": "b"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "b",
+        "p": ".a*bb"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "",
+        "p": "."
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "bbabab",
+        "p": "b..*bb."
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "abbab",
+        "p": "bb*ab*"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "ba",
+        "p": ".a*bb*.a"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "aaba",
+        "p": "ab*a*b"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "baaaba",
+        "p": "ab"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "bbab",
+        "p": ".ab*a*"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "bbabaa",
+        "p": ".a*.*ab*a"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "b",
+        "p": "a*"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "aba",
+        "p": "ba*b"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "bbb",
+        "p": "bba"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "bab",
+        "p": "a"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "b",
+        "p": "."
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "bbb",
+        "p": ".a*a"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "ababaaa",
+        "p": "b*.*"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "b",
+        "p": "a*"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "",
+        "p": ".*a*."
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "aab",
+        "p": "ba.*.*.*"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "babababb",
+        "p": "b*"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "aaaa",
+        "p": "...*.*.*"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "abab",
+        "p": ".*.*"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "bbaa",
+        "p": "b*.aa*"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "baabbabb",
+        "p": "b*"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "aa",
+        "p": "a*"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "",
+        "p": ".a"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "ababbba",
+        "p": ""
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "bbbbbb",
+        "p": "b.*.*a*a"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "b",
+        "p": ".*a*a"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "babbabbb",
+        "p": "bb*a"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "baaa",
+        "p": "abb*.*b"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "abaaba",
+        "p": "a*a*.a*a"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "aaab",
+        "p": ""
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "babbbbb",
+        "p": "b.a*"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "bbbaba",
+        "p": "ba*b."
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "babbaaa",
+        "p": "aa*.abb*"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "a",
+        "p": ""
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "",
+        "p": "bb.*.*"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "b",
+        "p": ".ab*.*b."
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "abaaa",
+        "p": ".aa."
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "aba",
+        "p": "a"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "abb",
+        "p": "aa*"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "babbab",
+        "p": ".*b."
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "",
+        "p": "a*."
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "baabb",
+        "p": "baa"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "aba",
+        "p": ".*b"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "a",
+        "p": ""
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "aba",
+        "p": "ab.*b.*"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "ba",
+        "p": "..a"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "aa",
+        "p": "b*"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "baaba",
+        "p": "a*.bb"
+      },
+      "output": false
+    }
+  ]
+}

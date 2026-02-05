@@ -1,0 +1,704 @@
+{
+  "testCases": [
+    {
+      "input": {
+        "haystack": "znlstbymktfsmatno",
+        "needle": "tfs"
+      },
+      "output": 9
+    },
+    {
+      "input": {
+        "haystack": "iokqjtqbzb",
+        "needle": "f"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "",
+        "needle": "dqava"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "xfj",
+        "needle": "d"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "nqbfucrgetysvfzme",
+        "needle": "nqbf"
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "haystack": "zwwhg",
+        "needle": "iiqjw"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "creyywltv",
+        "needle": "zgj"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "ighinhnicrordlntrb",
+        "needle": "vw"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "ijyeeedeld",
+        "needle": "e"
+      },
+      "output": 3
+    },
+    {
+      "input": {
+        "haystack": "w",
+        "needle": "fz"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "kaagcibbzgmid",
+        "needle": "m"
+      },
+      "output": 10
+    },
+    {
+      "input": {
+        "haystack": "hemfjphwcsrwnsu",
+        "needle": "u"
+      },
+      "output": 14
+    },
+    {
+      "input": {
+        "haystack": "ouqcmwjrq",
+        "needle": "xevx"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "ohyvkmkibgeisvk",
+        "needle": "ohy"
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "haystack": "sujjwnmuhaegu",
+        "needle": "eg"
+      },
+      "output": 10
+    },
+    {
+      "input": {
+        "haystack": "mqyvjjl",
+        "needle": "qyv"
+      },
+      "output": 1
+    },
+    {
+      "input": {
+        "haystack": "ejuscelcsocao",
+        "needle": ""
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "haystack": "qe",
+        "needle": "dz"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "lfdoprdpfqscnqfyoceq",
+        "needle": "scnq"
+      },
+      "output": 10
+    },
+    {
+      "input": {
+        "haystack": "n",
+        "needle": ""
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "haystack": "onmfew",
+        "needle": "nm"
+      },
+      "output": 1
+    },
+    {
+      "input": {
+        "haystack": "doq",
+        "needle": "x"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "jwqzoveflqnhclkow",
+        "needle": "rdyedc"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "lcdv",
+        "needle": "mcjd"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "kzjdfrflkmtys",
+        "needle": "u"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "erajoyqrxsiza",
+        "needle": "ktw"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "krumlsce",
+        "needle": "evq"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "gkrsxygbl",
+        "needle": "sxyg"
+      },
+      "output": 3
+    },
+    {
+      "input": {
+        "haystack": "eqanimqatzbxwbumfrl",
+        "needle": "mxjasz"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "v",
+        "needle": ""
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "haystack": "ekeweaeuicgxdcmksty",
+        "needle": "sulelp"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "nrfxjwwqy",
+        "needle": "jwwqy"
+      },
+      "output": 4
+    },
+    {
+      "input": {
+        "haystack": "ymifoyz",
+        "needle": "h"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "vahqssfcefpgeirnxpc",
+        "needle": "xctycs"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "suvtjdfdduollmlt",
+        "needle": "ollml"
+      },
+      "output": 10
+    },
+    {
+      "input": {
+        "haystack": "tucdguzxfu",
+        "needle": "rhg"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "mhtumhkjfdvppdbbobdld",
+        "needle": "mhtu"
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "haystack": "onabowrjtkavx",
+        "needle": "tka"
+      },
+      "output": 8
+    },
+    {
+      "input": {
+        "haystack": "ucfdpdzcfhdguyxorro",
+        "needle": "uyxo"
+      },
+      "output": 12
+    },
+    {
+      "input": {
+        "haystack": "hgv",
+        "needle": "utfdlg"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "vrkguzlhunshgdpia",
+        "needle": "vblsc"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "ijdceuqdgfvgbmnncs",
+        "needle": "k"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "mmiget",
+        "needle": "mmige"
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "haystack": "zhvgjzqvtnufebpnuhlgh",
+        "needle": "vtnufe"
+      },
+      "output": 7
+    },
+    {
+      "input": {
+        "haystack": "pdwcci",
+        "needle": "vdtfuu"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "jlaxrcidalplqsv",
+        "needle": "lqsv"
+      },
+      "output": 11
+    },
+    {
+      "input": {
+        "haystack": "qrwtgxpzyqpynodo",
+        "needle": "ar"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "xbpmdruogsyul",
+        "needle": "pmdru"
+      },
+      "output": 2
+    },
+    {
+      "input": {
+        "haystack": "",
+        "needle": "bdepbt"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "lyhwqumkagomxwunn",
+        "needle": ""
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "haystack": "fzwazcetuxcj",
+        "needle": "skbas"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "xbesjfqoufplukiot",
+        "needle": "t"
+      },
+      "output": 16
+    },
+    {
+      "input": {
+        "haystack": "kganjnkrtmrmhfszpnlcqrfsq",
+        "needle": "szpnl"
+      },
+      "output": 14
+    },
+    {
+      "input": {
+        "haystack": "wazu",
+        "needle": "waz"
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "haystack": "idvvwxtvfr",
+        "needle": ""
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "haystack": "",
+        "needle": ""
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "haystack": "hswnzw",
+        "needle": "lx"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "dyexuafbtrhld",
+        "needle": "iuqls"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "cfqcpcyncwwxmxrh",
+        "needle": "odfwth"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "zhgdzbytjkfm",
+        "needle": "tjkf"
+      },
+      "output": 7
+    },
+    {
+      "input": {
+        "haystack": "dlyseukarehhcdqulqyl",
+        "needle": "vaylhp"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "rhxuwkoovi",
+        "needle": "rcjely"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "xohpccqaykuvnrlnncum",
+        "needle": "uvn"
+      },
+      "output": 10
+    },
+    {
+      "input": {
+        "haystack": "svidgheangzc",
+        "needle": "ang"
+      },
+      "output": 7
+    },
+    {
+      "input": {
+        "haystack": "niomfiafbb",
+        "needle": "io"
+      },
+      "output": 1
+    },
+    {
+      "input": {
+        "haystack": "drysxbeeh",
+        "needle": "f"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "zpodiyuvrcjsbsaujckaluh",
+        "needle": "odi"
+      },
+      "output": 2
+    },
+    {
+      "input": {
+        "haystack": "zgameqftmbtcahzjrro",
+        "needle": "e"
+      },
+      "output": 4
+    },
+    {
+      "input": {
+        "haystack": "rv",
+        "needle": "s"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "bjnedtvszzp",
+        "needle": ""
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "haystack": "gmpaiboxtsuioiuuqnbo",
+        "needle": "gp"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "vwf",
+        "needle": "lbp"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "hfacfgfn",
+        "needle": "vc"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "onjcytyzhpkcmyiai",
+        "needle": "yi"
+      },
+      "output": 13
+    },
+    {
+      "input": {
+        "haystack": "ehxcuddvrqzsw",
+        "needle": "vrq"
+      },
+      "output": 7
+    },
+    {
+      "input": {
+        "haystack": "uutveztucluduydxw",
+        "needle": "uduy"
+      },
+      "output": 10
+    },
+    {
+      "input": {
+        "haystack": "ljccnagsrshmoqe",
+        "needle": "dts"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "ivutlgfeozoimsxhwmwuhrpi",
+        "needle": "gfeoz"
+      },
+      "output": 5
+    },
+    {
+      "input": {
+        "haystack": "cjuzwpew",
+        "needle": ""
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "haystack": "ymcpygyjrtkanh",
+        "needle": "ygyjrt"
+      },
+      "output": 4
+    },
+    {
+      "input": {
+        "haystack": "l",
+        "needle": ""
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "haystack": "wfhicbve",
+        "needle": "n"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "yhtmtp",
+        "needle": "pzm"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "pcjmefvgoipyfiahz",
+        "needle": ""
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "haystack": "jrmrpdsebym",
+        "needle": "pdseby"
+      },
+      "output": 4
+    },
+    {
+      "input": {
+        "haystack": "zpwedytngj",
+        "needle": "ftc"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "lripherhyev",
+        "needle": "fnols"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "wsqw",
+        "needle": "ws"
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "haystack": "iqlhpjcnazzgggwonupujrqp",
+        "needle": "pujrqp"
+      },
+      "output": 18
+    },
+    {
+      "input": {
+        "haystack": "qjaghgjb",
+        "needle": "gctt"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "pyx",
+        "needle": "p"
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "haystack": "a",
+        "needle": "rbwd"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "dcwpkbvfckcpkqlkjvj",
+        "needle": "kq"
+      },
+      "output": 12
+    },
+    {
+      "input": {
+        "haystack": "jbnqgufslsttqwhvecm",
+        "needle": ""
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "haystack": "zwlsaj",
+        "needle": "zw"
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "haystack": "udggmo",
+        "needle": "h"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "lioj",
+        "needle": "beuzc"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "xwlgsdlk",
+        "needle": "gsdlk"
+      },
+      "output": 3
+    },
+    {
+      "input": {
+        "haystack": "dvjxittrqyiiocu",
+        "needle": "qsnsz"
+      },
+      "output": -1
+    },
+    {
+      "input": {
+        "haystack": "ybmyllprqjqkuqbttnwuttivy",
+        "needle": "qkuqb"
+      },
+      "output": 10
+    }
+  ]
+}

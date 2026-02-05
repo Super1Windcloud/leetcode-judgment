@@ -1,0 +1,704 @@
+{
+  "testCases": [
+    {
+      "input": {
+        "dividend": -567,
+        "divisor": 558
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -333,
+        "divisor": -867
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 603,
+        "divisor": -260
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -126,
+        "divisor": 383
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 635,
+        "divisor": -243
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 901,
+        "divisor": 254
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 158,
+        "divisor": 319
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -945,
+        "divisor": -756
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -923,
+        "divisor": -584
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 368,
+        "divisor": -593
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 682,
+        "divisor": 418
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 807,
+        "divisor": 329
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 847,
+        "divisor": 410
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -335,
+        "divisor": -625
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -381,
+        "divisor": 445
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 656,
+        "divisor": -903
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 953,
+        "divisor": 836
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -258,
+        "divisor": -788
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 889,
+        "divisor": -830
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -766,
+        "divisor": -939
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 958,
+        "divisor": -808
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 187,
+        "divisor": 952
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 76,
+        "divisor": -792
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -375,
+        "divisor": -704
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 736,
+        "divisor": -822
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -367,
+        "divisor": 938
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -250,
+        "divisor": 138
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -164,
+        "divisor": 591
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 348,
+        "divisor": 121
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -699,
+        "divisor": -218
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 901,
+        "divisor": -768
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 400,
+        "divisor": 215
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 46,
+        "divisor": -978
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -347,
+        "divisor": 950
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 512,
+        "divisor": -170
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -908,
+        "divisor": -686
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 404,
+        "divisor": 240
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 177,
+        "divisor": -43
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -753,
+        "divisor": -682
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 783,
+        "divisor": 929
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 566,
+        "divisor": 783
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 304,
+        "divisor": 216
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -732,
+        "divisor": 750
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 405,
+        "divisor": 637
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 635,
+        "divisor": -759
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -565,
+        "divisor": -519
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 177,
+        "divisor": 77
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -942,
+        "divisor": -170
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 166,
+        "divisor": 336
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 109,
+        "divisor": 938
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -918,
+        "divisor": -980
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -775,
+        "divisor": -400
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 804,
+        "divisor": -906
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 278,
+        "divisor": 904
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 788,
+        "divisor": -450
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -876,
+        "divisor": -737
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -968,
+        "divisor": 650
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 730,
+        "divisor": -835
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 113,
+        "divisor": 7
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 179,
+        "divisor": -497
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -947,
+        "divisor": -332
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -388,
+        "divisor": -65
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 332,
+        "divisor": 835
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -384,
+        "divisor": 143
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -209,
+        "divisor": -599
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 100,
+        "divisor": -571
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -260,
+        "divisor": -53
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 190,
+        "divisor": 533
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 23,
+        "divisor": 357
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -825,
+        "divisor": 80
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 347,
+        "divisor": -289
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -972,
+        "divisor": 580
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -368,
+        "divisor": 607
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -458,
+        "divisor": -636
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 690,
+        "divisor": -431
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -394,
+        "divisor": 383
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 984,
+        "divisor": -294
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 659,
+        "divisor": -740
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 778,
+        "divisor": 266
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 843,
+        "divisor": 510
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 434,
+        "divisor": 247
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 899,
+        "divisor": 332
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -843,
+        "divisor": -278
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -677,
+        "divisor": 884
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -44,
+        "divisor": -965
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 835,
+        "divisor": 435
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 104,
+        "divisor": 517
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 652,
+        "divisor": 313
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 892,
+        "divisor": -112
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -348,
+        "divisor": 48
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 937,
+        "divisor": -1000
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -86,
+        "divisor": 625
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -163,
+        "divisor": 65
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 681,
+        "divisor": 232
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -539,
+        "divisor": 38
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -715,
+        "divisor": -557
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 638,
+        "divisor": 312
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 57,
+        "divisor": -792
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": -462,
+        "divisor": -634
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "dividend": 747,
+        "divisor": -421
+      },
+      "output": 0
+    }
+  ]
+}

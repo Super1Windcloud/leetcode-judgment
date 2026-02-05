@@ -1,0 +1,1058 @@
+{
+  "testCases": [
+    {
+      "input": {
+        "strs": [
+          "vrhqc",
+          "vg",
+          "vfspj",
+          "vw",
+          "vdk",
+          "v"
+        ]
+      },
+      "output": "v"
+    },
+    {
+      "input": {
+        "strs": [
+          "rdg",
+          "rdg",
+          "rdgp"
+        ]
+      },
+      "output": "rdg"
+    },
+    {
+      "input": {
+        "strs": [
+          "uwy",
+          "u",
+          "uv"
+        ]
+      },
+      "output": "u"
+    },
+    {
+      "input": {
+        "strs": [
+          "s",
+          "",
+          "n",
+          "xoyc"
+        ]
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "strs": [
+          "ojljtsn",
+          "ojlr",
+          "ojlvtx",
+          "ojllxu",
+          "ojlv"
+        ]
+      },
+      "output": "ojl"
+    },
+    {
+      "input": {
+        "strs": [
+          "wjvlbk",
+          "wjvajt"
+        ]
+      },
+      "output": "wjv"
+    },
+    {
+      "input": {
+        "strs": [
+          "x",
+          "x",
+          "xckur",
+          "x"
+        ]
+      },
+      "output": "x"
+    },
+    {
+      "input": {
+        "strs": [
+          "fjpig",
+          "fcteo",
+          "fcg",
+          "fjdu"
+        ]
+      },
+      "output": "f"
+    },
+    {
+      "input": {
+        "strs": [
+          "",
+          "hol"
+        ]
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "strs": [
+          "dplpmx",
+          "dpxq",
+          "dpxcv",
+          "dpeaf",
+          "dpi"
+        ]
+      },
+      "output": "dp"
+    },
+    {
+      "input": {
+        "strs": [
+          "c"
+        ]
+      },
+      "output": "c"
+    },
+    {
+      "input": {
+        "strs": [
+          "u",
+          "uhg",
+          "u"
+        ]
+      },
+      "output": "u"
+    },
+    {
+      "input": {
+        "strs": [
+          "gm"
+        ]
+      },
+      "output": "gm"
+    },
+    {
+      "input": {
+        "strs": [
+          "ibbk",
+          "ibxxnv",
+          "ib",
+          "ibf",
+          "ibhnjb",
+          "ibia"
+        ]
+      },
+      "output": "ib"
+    },
+    {
+      "input": {
+        "strs": [
+          "fbvs",
+          "fumo",
+          "fv",
+          "f",
+          "fj"
+        ]
+      },
+      "output": "f"
+    },
+    {
+      "input": {
+        "strs": [
+          "qwxybl",
+          "qwg",
+          "qwllde"
+        ]
+      },
+      "output": "qw"
+    },
+    {
+      "input": {
+        "strs": [
+          "gjvg",
+          "gjvjxo",
+          "gjv",
+          "gjvmqb"
+        ]
+      },
+      "output": "gjv"
+    },
+    {
+      "input": {
+        "strs": [
+          "tvfu",
+          "tn",
+          "typpo",
+          "tejp",
+          "t",
+          "t"
+        ]
+      },
+      "output": "t"
+    },
+    {
+      "input": {
+        "strs": [
+          "fqoah",
+          "fqotku",
+          "fqo",
+          "fqo",
+          "fqo",
+          "fqov"
+        ]
+      },
+      "output": "fqo"
+    },
+    {
+      "input": {
+        "strs": [
+          "qgma",
+          "qg"
+        ]
+      },
+      "output": "qg"
+    },
+    {
+      "input": {
+        "strs": [
+          "tgaie",
+          "tutw",
+          "tvceh",
+          "tc",
+          "tvmyv"
+        ]
+      },
+      "output": "t"
+    },
+    {
+      "input": {
+        "strs": [
+          "xfbu",
+          "xfbqdsm",
+          "xfbuyi",
+          "xfb"
+        ]
+      },
+      "output": "xfb"
+    },
+    {
+      "input": {
+        "strs": [
+          "t",
+          "x",
+          "cc"
+        ]
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "strs": [
+          "gozh",
+          "gohe",
+          "gowj",
+          "goznz"
+        ]
+      },
+      "output": "go"
+    },
+    {
+      "input": {
+        "strs": [
+          "sgivx",
+          "sgicbvl",
+          "sgivea"
+        ]
+      },
+      "output": "sgi"
+    },
+    {
+      "input": {
+        "strs": [
+          "laeq",
+          "v",
+          "cbj",
+          "soff",
+          "eat"
+        ]
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "strs": [
+          "hx",
+          "h"
+        ]
+      },
+      "output": "h"
+    },
+    {
+      "input": {
+        "strs": [
+          "qvnz",
+          "qvdn",
+          "qvcc",
+          "qvg",
+          "qvsm"
+        ]
+      },
+      "output": "qv"
+    },
+    {
+      "input": {
+        "strs": [
+          "brqchkt"
+        ]
+      },
+      "output": "brqchkt"
+    },
+    {
+      "input": {
+        "strs": [
+          "cqebqjp",
+          "cqembl",
+          "cqe",
+          "cqet",
+          "cqexrpx",
+          "cqehm"
+        ]
+      },
+      "output": "cqe"
+    },
+    {
+      "input": {
+        "strs": [
+          "ls",
+          "",
+          ""
+        ]
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "strs": [
+          "fhur",
+          "fhugvh",
+          "fhugbad",
+          "fhude",
+          "fhuaq"
+        ]
+      },
+      "output": "fhu"
+    },
+    {
+      "input": {
+        "strs": [
+          "o",
+          "n",
+          "mmwa",
+          "aec",
+          "wjn"
+        ]
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "strs": [
+          "aeyan",
+          "aewmmw",
+          "ae",
+          "aeile"
+        ]
+      },
+      "output": "ae"
+    },
+    {
+      "input": {
+        "strs": [
+          "fvdjbyf",
+          "fvd",
+          "fvd",
+          "fvdmn",
+          "fvdriww",
+          "fvdwsw"
+        ]
+      },
+      "output": "fvd"
+    },
+    {
+      "input": {
+        "strs": [
+          "lg",
+          "gii",
+          "us",
+          "ikxu",
+          "sxd",
+          ""
+        ]
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "strs": [
+          "kg",
+          "kmd",
+          "kvm",
+          "kb",
+          "kvsau",
+          "kihka"
+        ]
+      },
+      "output": "k"
+    },
+    {
+      "input": {
+        "strs": [
+          "wmnfudy",
+          "wmnz",
+          "wmnt",
+          "wmnq",
+          "wmn",
+          "wmnjmkw"
+        ]
+      },
+      "output": "wmn"
+    },
+    {
+      "input": {
+        "strs": [
+          "fyndz",
+          "fbyth",
+          "fj"
+        ]
+      },
+      "output": "f"
+    },
+    {
+      "input": {
+        "strs": [
+          "agegiob",
+          "ageukyv",
+          "agexjgy"
+        ]
+      },
+      "output": "age"
+    },
+    {
+      "input": {
+        "strs": [
+          "nur",
+          "nuw",
+          "nui",
+          "nujz",
+          "nueqsu",
+          "nu"
+        ]
+      },
+      "output": "nu"
+    },
+    {
+      "input": {
+        "strs": [
+          "qqnxa",
+          "qqnvzg",
+          "qqnw",
+          "qqnraz"
+        ]
+      },
+      "output": "qqn"
+    },
+    {
+      "input": {
+        "strs": [
+          "iad"
+        ]
+      },
+      "output": "iad"
+    },
+    {
+      "input": {
+        "strs": [
+          "klkdis"
+        ]
+      },
+      "output": "klkdis"
+    },
+    {
+      "input": {
+        "strs": [
+          "",
+          "yoct",
+          ""
+        ]
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "strs": [
+          "lx",
+          "lxrww",
+          "lxihjp",
+          "lxvwu",
+          "lxpk"
+        ]
+      },
+      "output": "lx"
+    },
+    {
+      "input": {
+        "strs": [
+          "vzvxa",
+          "vbsn"
+        ]
+      },
+      "output": "v"
+    },
+    {
+      "input": {
+        "strs": [
+          "voq",
+          "v",
+          "vhc"
+        ]
+      },
+      "output": "v"
+    },
+    {
+      "input": {
+        "strs": [
+          "uv",
+          "aif",
+          "tb",
+          "xmib",
+          "a"
+        ]
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "strs": [
+          "xw",
+          "xwga"
+        ]
+      },
+      "output": "xw"
+    },
+    {
+      "input": {
+        "strs": [
+          "jxegz",
+          "jxeeo",
+          "jxelrqf",
+          "jxebu",
+          "jxevnmv"
+        ]
+      },
+      "output": "jxe"
+    },
+    {
+      "input": {
+        "strs": [
+          "orre",
+          "",
+          "pzp",
+          "q"
+        ]
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "strs": [
+          "aeqy"
+        ]
+      },
+      "output": "aeqy"
+    },
+    {
+      "input": {
+        "strs": [
+          "wdf"
+        ]
+      },
+      "output": "wdf"
+    },
+    {
+      "input": {
+        "strs": [
+          "wfnlne",
+          "wfnchz"
+        ]
+      },
+      "output": "wfn"
+    },
+    {
+      "input": {
+        "strs": [
+          "oiti",
+          "pbku",
+          "igb",
+          "ntk",
+          "cg"
+        ]
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "strs": [
+          "rbf"
+        ]
+      },
+      "output": "rbf"
+    },
+    {
+      "input": {
+        "strs": [
+          "lka",
+          "u",
+          "iusx"
+        ]
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "strs": [
+          "jf",
+          "ja"
+        ]
+      },
+      "output": "j"
+    },
+    {
+      "input": {
+        "strs": [
+          "tzfxr",
+          "tzw"
+        ]
+      },
+      "output": "tz"
+    },
+    {
+      "input": {
+        "strs": [
+          "mpxj"
+        ]
+      },
+      "output": "mpxj"
+    },
+    {
+      "input": {
+        "strs": [
+          "eib",
+          "eis"
+        ]
+      },
+      "output": "ei"
+    },
+    {
+      "input": {
+        "strs": [
+          "l"
+        ]
+      },
+      "output": "l"
+    },
+    {
+      "input": {
+        "strs": [
+          "pjg",
+          "pjgqq"
+        ]
+      },
+      "output": "pjg"
+    },
+    {
+      "input": {
+        "strs": [
+          "pjzsy",
+          "pjyjvo"
+        ]
+      },
+      "output": "pj"
+    },
+    {
+      "input": {
+        "strs": [
+          "xgl",
+          "tcgn"
+        ]
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "strs": [
+          "",
+          "l",
+          "gvqb",
+          "gbk",
+          "wwo"
+        ]
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "strs": [
+          "seob",
+          "seoqmw",
+          "seot",
+          "seogha",
+          "seofdjc",
+          "seope"
+        ]
+      },
+      "output": "seo"
+    },
+    {
+      "input": {
+        "strs": [
+          "",
+          "jftu"
+        ]
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "strs": [
+          "gmgnrfg",
+          "gmggwix",
+          "gmgtd",
+          "gmggq",
+          "gmgyp"
+        ]
+      },
+      "output": "gmg"
+    },
+    {
+      "input": {
+        "strs": [
+          "yyj",
+          "uv",
+          ""
+        ]
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "strs": [
+          "a"
+        ]
+      },
+      "output": "a"
+    },
+    {
+      "input": {
+        "strs": [
+          "yf",
+          "yfht",
+          "yfdzf",
+          "yfs",
+          "yfbj",
+          "yfpbdc"
+        ]
+      },
+      "output": "yf"
+    },
+    {
+      "input": {
+        "strs": [
+          "pbdshie",
+          "pbdzlvl",
+          "pbdvlgd"
+        ]
+      },
+      "output": "pbd"
+    },
+    {
+      "input": {
+        "strs": [
+          "oxms",
+          "oxm",
+          "oxm",
+          "oxmrta",
+          "oxmixc"
+        ]
+      },
+      "output": "oxm"
+    },
+    {
+      "input": {
+        "strs": [
+          "",
+          "gllv"
+        ]
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "strs": [
+          "mqkpm"
+        ]
+      },
+      "output": "mqkpm"
+    },
+    {
+      "input": {
+        "strs": [
+          "qt",
+          "u",
+          "m",
+          "hk",
+          ""
+        ]
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "strs": [
+          "zvt",
+          "zvtxq",
+          "zvt",
+          "zvto"
+        ]
+      },
+      "output": "zvt"
+    },
+    {
+      "input": {
+        "strs": [
+          "hgxp",
+          "hnnpn"
+        ]
+      },
+      "output": "h"
+    },
+    {
+      "input": {
+        "strs": [
+          "scknols",
+          "sckki",
+          "sckr",
+          "sckv",
+          "sckxay",
+          "scktl"
+        ]
+      },
+      "output": "sck"
+    },
+    {
+      "input": {
+        "strs": [
+          "yr",
+          "yrzj"
+        ]
+      },
+      "output": "yr"
+    },
+    {
+      "input": {
+        "strs": [
+          "vky"
+        ]
+      },
+      "output": "vky"
+    },
+    {
+      "input": {
+        "strs": [
+          "yir",
+          "yinqg",
+          "yisiwl",
+          "yijwgl",
+          "yi",
+          "yissh"
+        ]
+      },
+      "output": "yi"
+    },
+    {
+      "input": {
+        "strs": [
+          "nmlmdi",
+          "nm",
+          "nmhsjo",
+          "nmacn"
+        ]
+      },
+      "output": "nm"
+    },
+    {
+      "input": {
+        "strs": [
+          "w"
+        ]
+      },
+      "output": "w"
+    },
+    {
+      "input": {
+        "strs": [
+          "ddf",
+          "diy",
+          "dtxnc",
+          "dr",
+          "dve",
+          "diz"
+        ]
+      },
+      "output": "d"
+    },
+    {
+      "input": {
+        "strs": [
+          "tol",
+          "tolizpi",
+          "tol",
+          "tolvzh"
+        ]
+      },
+      "output": "tol"
+    },
+    {
+      "input": {
+        "strs": [
+          "f",
+          "fvbd",
+          "fpt",
+          "fc",
+          "fuezg",
+          "fjjyr"
+        ]
+      },
+      "output": "f"
+    },
+    {
+      "input": {
+        "strs": [
+          "pq",
+          "pxatm",
+          "p",
+          "py",
+          "pbf",
+          "p"
+        ]
+      },
+      "output": "p"
+    },
+    {
+      "input": {
+        "strs": [
+          "pbysl",
+          "pfdnt"
+        ]
+      },
+      "output": "p"
+    },
+    {
+      "input": {
+        "strs": [
+          "xkwo",
+          "xiln",
+          "x",
+          "xhe"
+        ]
+      },
+      "output": "x"
+    },
+    {
+      "input": {
+        "strs": [
+          "z",
+          "wne",
+          ""
+        ]
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "strs": [
+          "egl",
+          "eglbva"
+        ]
+      },
+      "output": "egl"
+    },
+    {
+      "input": {
+        "strs": [
+          "fclvxy",
+          "fcltbyw",
+          "fcl",
+          "fcljkdf",
+          "fclp"
+        ]
+      },
+      "output": "fcl"
+    },
+    {
+      "input": {
+        "strs": [
+          "",
+          "flch"
+        ]
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "strs": [
+          "sgu",
+          "",
+          "",
+          "vr",
+          "oo"
+        ]
+      },
+      "output": ""
+    },
+    {
+      "input": {
+        "strs": [
+          "sowa"
+        ]
+      },
+      "output": "sowa"
+    },
+    {
+      "input": {
+        "strs": [
+          "mfcj",
+          "mfct",
+          "mfcxm",
+          "mfcdeoa",
+          "mfcokgs",
+          "mfcd"
+        ]
+      },
+      "output": "mfc"
+    },
+    {
+      "input": {
+        "strs": [
+          "otydkzg",
+          "oty",
+          "otyybz",
+          "otyllw"
+        ]
+      },
+      "output": "oty"
+    }
+  ]
+}

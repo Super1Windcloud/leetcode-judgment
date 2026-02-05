@@ -1,0 +1,1271 @@
+{
+  "testCases": [
+    {
+      "input": {
+        "s": "haivwtfrz",
+        "words": [
+          "vw"
+        ]
+      },
+      "output": [
+        3
+      ]
+    },
+    {
+      "input": {
+        "s": "wtxnqxcsjse",
+        "words": [
+          "nqxc"
+        ]
+      },
+      "output": [
+        3
+      ]
+    },
+    {
+      "input": {
+        "s": "cslcghyoynwkvesim",
+        "words": [
+          "ghyo",
+          "vesi",
+          "ynwk"
+        ]
+      },
+      "output": [
+        4
+      ]
+    },
+    {
+      "input": {
+        "s": "wjxqnha",
+        "words": [
+          "jxq",
+          "nha"
+        ]
+      },
+      "output": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "s": "zjewcmhrgin",
+        "words": [
+          "m",
+          "c",
+          "h",
+          "r"
+        ]
+      },
+      "output": [
+        4
+      ]
+    },
+    {
+      "input": {
+        "s": "jwwrbvlgbgdljfit",
+        "words": [
+          "rbv",
+          "lgb",
+          "jfi",
+          "gdl"
+        ]
+      },
+      "output": [
+        3
+      ]
+    },
+    {
+      "input": {
+        "s": "odnhutg",
+        "words": [
+          "nh",
+          "ut"
+        ]
+      },
+      "output": [
+        2
+      ]
+    },
+    {
+      "input": {
+        "s": "nxci",
+        "words": [
+          "c",
+          "x",
+          "i"
+        ]
+      },
+      "output": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "s": "bzwhsqxwy",
+        "words": [
+          "wh",
+          "bz",
+          "sq"
+        ]
+      },
+      "output": [
+        0
+      ]
+    },
+    {
+      "input": {
+        "s": "wgbkoulewzbgdarozhi",
+        "words": [
+          "ewzb",
+          "koul",
+          "gdar",
+          "ozhi"
+        ]
+      },
+      "output": [
+        3
+      ]
+    },
+    {
+      "input": {
+        "s": "tbxzqkbysu",
+        "words": [
+          "k",
+          "q"
+        ]
+      },
+      "output": [
+        4
+      ]
+    },
+    {
+      "input": {
+        "s": "bnhqasgpsrx",
+        "words": [
+          "asgp"
+        ]
+      },
+      "output": [
+        4
+      ]
+    },
+    {
+      "input": {
+        "s": "siqi",
+        "words": [
+          "q",
+          "i",
+          "i"
+        ]
+      },
+      "output": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "s": "krudrdczpowuklruyg",
+        "words": [
+          "czp",
+          "klr",
+          "owu",
+          "drd"
+        ]
+      },
+      "output": [
+        3
+      ]
+    },
+    {
+      "input": {
+        "s": "isahjpsriaxeeu",
+        "words": [
+          "sr",
+          "jp",
+          "ia",
+          "ah"
+        ]
+      },
+      "output": [
+        2
+      ]
+    },
+    {
+      "input": {
+        "s": "zagzsgufdhucc",
+        "words": [
+          "fdh",
+          "sgu"
+        ]
+      },
+      "output": [
+        4
+      ]
+    },
+    {
+      "input": {
+        "s": "srjhzfxxitga",
+        "words": [
+          "f",
+          "x",
+          "x",
+          "z"
+        ]
+      },
+      "output": [
+        4
+      ]
+    },
+    {
+      "input": {
+        "s": "xloutxsheobdlomnx",
+        "words": [
+          "heo",
+          "bdl",
+          "txs",
+          "lou"
+        ]
+      },
+      "output": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "s": "yhoywruuhhe",
+        "words": [
+          "oywr",
+          "uuhh"
+        ]
+      },
+      "output": [
+        2
+      ]
+    },
+    {
+      "input": {
+        "s": "mmkoq",
+        "words": [
+          "m",
+          "m",
+          "k"
+        ]
+      },
+      "output": [
+        0
+      ]
+    },
+    {
+      "input": {
+        "s": "nhefredqp",
+        "words": [
+          "fred"
+        ]
+      },
+      "output": [
+        3
+      ]
+    },
+    {
+      "input": {
+        "s": "ykuqnguz",
+        "words": [
+          "uq",
+          "ng",
+          "yk"
+        ]
+      },
+      "output": [
+        0
+      ]
+    },
+    {
+      "input": {
+        "s": "aqvisyezdavouilzzp",
+        "words": [
+          "vis",
+          "dav",
+          "oui",
+          "yez"
+        ]
+      },
+      "output": [
+        2
+      ]
+    },
+    {
+      "input": {
+        "s": "szjytntwkhnlonpbuopi",
+        "words": [
+          "wkhn",
+          "lonp",
+          "buop",
+          "ytnt"
+        ]
+      },
+      "output": [
+        3
+      ]
+    },
+    {
+      "input": {
+        "s": "zlpxhifrmvp",
+        "words": [
+          "xh",
+          "rm",
+          "lp",
+          "if"
+        ]
+      },
+      "output": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "s": "tpfcivtzymizwi",
+        "words": [
+          "ci",
+          "zy",
+          "mi",
+          "vt"
+        ]
+      },
+      "output": [
+        3
+      ]
+    },
+    {
+      "input": {
+        "s": "biwscuywsywgs",
+        "words": [
+          "ws",
+          "uy",
+          "sc"
+        ]
+      },
+      "output": [
+        3
+      ]
+    },
+    {
+      "input": {
+        "s": "uasvgwol",
+        "words": [
+          "v",
+          "s"
+        ]
+      },
+      "output": [
+        2
+      ]
+    },
+    {
+      "input": {
+        "s": "tndmtdkrviapq",
+        "words": [
+          "dkrv",
+          "ndmt"
+        ]
+      },
+      "output": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "s": "baqvwzgw",
+        "words": [
+          "aq",
+          "vw"
+        ]
+      },
+      "output": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "s": "taveez",
+        "words": [
+          "v",
+          "e"
+        ]
+      },
+      "output": [
+        2
+      ]
+    },
+    {
+      "input": {
+        "s": "mphjmsfyh",
+        "words": [
+          "hj",
+          "ms"
+        ]
+      },
+      "output": [
+        2
+      ]
+    },
+    {
+      "input": {
+        "s": "jpjozkuazq",
+        "words": [
+          "o",
+          "z",
+          "k",
+          "u"
+        ]
+      },
+      "output": [
+        3
+      ]
+    },
+    {
+      "input": {
+        "s": "oyjjehxn",
+        "words": [
+          "j",
+          "e",
+          "h"
+        ]
+      },
+      "output": [
+        3
+      ]
+    },
+    {
+      "input": {
+        "s": "yxzqiahan",
+        "words": [
+          "xz",
+          "qi",
+          "ah"
+        ]
+      },
+      "output": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "s": "hakwfdzngqtamkp",
+        "words": [
+          "gq",
+          "fd",
+          "ta",
+          "zn"
+        ]
+      },
+      "output": [
+        4
+      ]
+    },
+    {
+      "input": {
+        "s": "qdonzabfhmijw",
+        "words": [
+          "zabf",
+          "hmij"
+        ]
+      },
+      "output": [
+        4
+      ]
+    },
+    {
+      "input": {
+        "s": "etccjiljaxsvfjprltd",
+        "words": [
+          "lja",
+          "xsv",
+          "fjp",
+          "cji"
+        ]
+      },
+      "output": [
+        3
+      ]
+    },
+    {
+      "input": {
+        "s": "mjzfsaq",
+        "words": [
+          "z",
+          "f"
+        ]
+      },
+      "output": [
+        2
+      ]
+    },
+    {
+      "input": {
+        "s": "jvpmkg",
+        "words": [
+          "pm",
+          "jv"
+        ]
+      },
+      "output": [
+        0
+      ]
+    },
+    {
+      "input": {
+        "s": "chcjmzilfkh",
+        "words": [
+          "jmzi"
+        ]
+      },
+      "output": [
+        3
+      ]
+    },
+    {
+      "input": {
+        "s": "twjepq",
+        "words": [
+          "ep",
+          "wj"
+        ]
+      },
+      "output": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "s": "biotwzcvjsmwbkqbm",
+        "words": [
+          "smwb",
+          "iotw",
+          "zcvj"
+        ]
+      },
+      "output": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "s": "tbzfrmkot",
+        "words": [
+          "frm",
+          "tbz",
+          "kot"
+        ]
+      },
+      "output": [
+        0
+      ]
+    },
+    {
+      "input": {
+        "s": "rfyuginzvj",
+        "words": [
+          "vj",
+          "gi",
+          "nz"
+        ]
+      },
+      "output": [
+        4
+      ]
+    },
+    {
+      "input": {
+        "s": "chfg",
+        "words": [
+          "f",
+          "h",
+          "c"
+        ]
+      },
+      "output": [
+        0
+      ]
+    },
+    {
+      "input": {
+        "s": "xwhqmcjgaliltblmqly",
+        "words": [
+          "jgal",
+          "lmql",
+          "iltb",
+          "hqmc"
+        ]
+      },
+      "output": [
+        2
+      ]
+    },
+    {
+      "input": {
+        "s": "gctyorysw",
+        "words": [
+          "cty",
+          "ory"
+        ]
+      },
+      "output": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "s": "aobcw",
+        "words": [
+          "b",
+          "c",
+          "w"
+        ]
+      },
+      "output": [
+        2
+      ]
+    },
+    {
+      "input": {
+        "s": "nwnjkubabypfsg",
+        "words": [
+          "uba",
+          "byp",
+          "fsg",
+          "njk"
+        ]
+      },
+      "output": [
+        2
+      ]
+    },
+    {
+      "input": {
+        "s": "vttlsjwwruj",
+        "words": [
+          "wr",
+          "ls",
+          "tt",
+          "jw"
+        ]
+      },
+      "output": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "s": "rqeykaoxjw",
+        "words": [
+          "k",
+          "y",
+          "a"
+        ]
+      },
+      "output": [
+        3
+      ]
+    },
+    {
+      "input": {
+        "s": "lwgmlexqxiqtapsh",
+        "words": [
+          "iqt",
+          "mle",
+          "xqx"
+        ]
+      },
+      "output": [
+        3
+      ]
+    },
+    {
+      "input": {
+        "s": "fadmnmlbrefyz",
+        "words": [
+          "fad",
+          "mnm",
+          "lbr"
+        ]
+      },
+      "output": [
+        0
+      ]
+    },
+    {
+      "input": {
+        "s": "bykarckeus",
+        "words": [
+          "rck",
+          "eus",
+          "yka"
+        ]
+      },
+      "output": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "s": "shaqvaltr",
+        "words": [
+          "a",
+          "v"
+        ]
+      },
+      "output": [
+        4
+      ]
+    },
+    {
+      "input": {
+        "s": "ntmrydxeevkohplupd",
+        "words": [
+          "mry",
+          "evk",
+          "dxe",
+          "ohp"
+        ]
+      },
+      "output": [
+        2
+      ]
+    },
+    {
+      "input": {
+        "s": "jrk",
+        "words": [
+          "k"
+        ]
+      },
+      "output": [
+        2
+      ]
+    },
+    {
+      "input": {
+        "s": "lozyxzpqzf",
+        "words": [
+          "xzp",
+          "ozy",
+          "qzf"
+        ]
+      },
+      "output": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "s": "kzkquadjjzk",
+        "words": [
+          "zk",
+          "qu",
+          "ad"
+        ]
+      },
+      "output": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "s": "parnqpjcs",
+        "words": [
+          "q",
+          "p",
+          "n"
+        ]
+      },
+      "output": [
+        3
+      ]
+    },
+    {
+      "input": {
+        "s": "qkiqoneit",
+        "words": [
+          "qo"
+        ]
+      },
+      "output": [
+        3
+      ]
+    },
+    {
+      "input": {
+        "s": "lqzzj",
+        "words": [
+          "q"
+        ]
+      },
+      "output": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "s": "odbrzaoimx",
+        "words": [
+          "br",
+          "za",
+          "oi"
+        ]
+      },
+      "output": [
+        2
+      ]
+    },
+    {
+      "input": {
+        "s": "babkoadrgs",
+        "words": [
+          "bkoa"
+        ]
+      },
+      "output": [
+        2
+      ]
+    },
+    {
+      "input": {
+        "s": "pzudla",
+        "words": [
+          "d"
+        ]
+      },
+      "output": [
+        3
+      ]
+    },
+    {
+      "input": {
+        "s": "tptwjseesi",
+        "words": [
+          "e",
+          "s",
+          "j",
+          "e"
+        ]
+      },
+      "output": [
+        4
+      ]
+    },
+    {
+      "input": {
+        "s": "plucfwcs",
+        "words": [
+          "wc",
+          "cf",
+          "lu"
+        ]
+      },
+      "output": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "s": "uoljusoxmilh",
+        "words": [
+          "mi",
+          "ox",
+          "us",
+          "lh"
+        ]
+      },
+      "output": [
+        4
+      ]
+    },
+    {
+      "input": {
+        "s": "fiyogsykij",
+        "words": [
+          "gs",
+          "yk",
+          "fi",
+          "yo"
+        ]
+      },
+      "output": [
+        0
+      ]
+    },
+    {
+      "input": {
+        "s": "sswjpwl",
+        "words": [
+          "sw"
+        ]
+      },
+      "output": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "s": "qyi",
+        "words": [
+          "q"
+        ]
+      },
+      "output": [
+        0
+      ]
+    },
+    {
+      "input": {
+        "s": "kgz",
+        "words": [
+          "g",
+          "k",
+          "z"
+        ]
+      },
+      "output": [
+        0
+      ]
+    },
+    {
+      "input": {
+        "s": "osjigwyzyidzcacmbw",
+        "words": [
+          "sjig",
+          "idzc",
+          "acmb",
+          "wyzy"
+        ]
+      },
+      "output": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "s": "rvqjeuuutnmtcnwnzsma",
+        "words": [
+          "wnzs",
+          "mtcn",
+          "qjeu",
+          "uutn"
+        ]
+      },
+      "output": [
+        2
+      ]
+    },
+    {
+      "input": {
+        "s": "csaiyadfkn",
+        "words": [
+          "yadf"
+        ]
+      },
+      "output": [
+        4
+      ]
+    },
+    {
+      "input": {
+        "s": "mzdcm",
+        "words": [
+          "d",
+          "c"
+        ]
+      },
+      "output": [
+        2
+      ]
+    },
+    {
+      "input": {
+        "s": "hibhlwxgap",
+        "words": [
+          "hlw",
+          "hib"
+        ]
+      },
+      "output": [
+        0
+      ]
+    },
+    {
+      "input": {
+        "s": "onalnq",
+        "words": [
+          "alnq"
+        ]
+      },
+      "output": [
+        2
+      ]
+    },
+    {
+      "input": {
+        "s": "jfzea",
+        "words": [
+          "f",
+          "z"
+        ]
+      },
+      "output": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "s": "dnklee",
+        "words": [
+          "l"
+        ]
+      },
+      "output": [
+        3
+      ]
+    },
+    {
+      "input": {
+        "s": "yvgxbrkowilbbn",
+        "words": [
+          "kowi",
+          "gxbr"
+        ]
+      },
+      "output": [
+        2
+      ]
+    },
+    {
+      "input": {
+        "s": "nybgnas",
+        "words": [
+          "ybgn"
+        ]
+      },
+      "output": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "s": "aqrksevrs",
+        "words": [
+          "k",
+          "s"
+        ]
+      },
+      "output": [
+        3
+      ]
+    },
+    {
+      "input": {
+        "s": "sswswqilg",
+        "words": [
+          "sw"
+        ]
+      },
+      "output": [
+        1,
+        3
+      ]
+    },
+    {
+      "input": {
+        "s": "wjnfrqaqzvku",
+        "words": [
+          "rqaq",
+          "wjnf",
+          "zvku"
+        ]
+      },
+      "output": [
+        0
+      ]
+    },
+    {
+      "input": {
+        "s": "syspyp",
+        "words": [
+          "yp",
+          "sp"
+        ]
+      },
+      "output": [
+        2
+      ]
+    },
+    {
+      "input": {
+        "s": "oq",
+        "words": [
+          "oq"
+        ]
+      },
+      "output": [
+        0
+      ]
+    },
+    {
+      "input": {
+        "s": "jhdcairhku",
+        "words": [
+          "dc",
+          "rh",
+          "ai"
+        ]
+      },
+      "output": [
+        2
+      ]
+    },
+    {
+      "input": {
+        "s": "azuobwbmd",
+        "words": [
+          "bw"
+        ]
+      },
+      "output": [
+        4
+      ]
+    },
+    {
+      "input": {
+        "s": "pthzfuovrpdz",
+        "words": [
+          "zf",
+          "pd",
+          "uo",
+          "vr"
+        ]
+      },
+      "output": [
+        3
+      ]
+    },
+    {
+      "input": {
+        "s": "siapfzxoxsvz",
+        "words": [
+          "xs",
+          "fz",
+          "xo"
+        ]
+      },
+      "output": [
+        4
+      ]
+    },
+    {
+      "input": {
+        "s": "ewmwcaeut",
+        "words": [
+          "w",
+          "m",
+          "c"
+        ]
+      },
+      "output": [
+        2
+      ]
+    },
+    {
+      "input": {
+        "s": "vstegpxguyztiuc",
+        "words": [
+          "pxgu",
+          "steg",
+          "yzti"
+        ]
+      },
+      "output": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "s": "kid",
+        "words": [
+          "k"
+        ]
+      },
+      "output": [
+        0
+      ]
+    },
+    {
+      "input": {
+        "s": "inrjtkcvc",
+        "words": [
+          "t",
+          "r",
+          "k",
+          "j"
+        ]
+      },
+      "output": [
+        2
+      ]
+    },
+    {
+      "input": {
+        "s": "varexycjyvjleols",
+        "words": [
+          "are",
+          "jle",
+          "jyv",
+          "xyc"
+        ]
+      },
+      "output": [
+        1
+      ]
+    },
+    {
+      "input": {
+        "s": "ipsazhrnp",
+        "words": [
+          "ip",
+          "zh",
+          "rn",
+          "sa"
+        ]
+      },
+      "output": [
+        0
+      ]
+    },
+    {
+      "input": {
+        "s": "swqukcohvjfhgxf",
+        "words": [
+          "oh",
+          "kc",
+          "vj",
+          "fh"
+        ]
+      },
+      "output": [
+        4
+      ]
+    },
+    {
+      "input": {
+        "s": "vmwnclkq",
+        "words": [
+          "n",
+          "w",
+          "c"
+        ]
+      },
+      "output": [
+        2
+      ]
+    }
+  ]
+}

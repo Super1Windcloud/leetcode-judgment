@@ -1,0 +1,2239 @@
+{
+  "testCases": [
+    {
+      "input": {
+        "board": [
+          [
+            "o",
+            "b",
+            "j",
+            "q"
+          ],
+          [
+            "x",
+            "l",
+            "r",
+            "d"
+          ],
+          [
+            "z",
+            "h",
+            "f",
+            "c"
+          ],
+          [
+            "w",
+            "i",
+            "j",
+            "e"
+          ]
+        ],
+        "word": "hvifk"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "o",
+            "g",
+            "p"
+          ],
+          [
+            "n",
+            "v",
+            "y"
+          ],
+          [
+            "a",
+            "t",
+            "t"
+          ]
+        ],
+        "word": "t"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "s",
+            "v",
+            "k",
+            "s"
+          ]
+        ],
+        "word": "ssss"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "s"
+          ],
+          [
+            "h"
+          ]
+        ],
+        "word": "sh"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "m",
+            "k"
+          ]
+        ],
+        "word": "p"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "f",
+            "n",
+            "i"
+          ],
+          [
+            "u",
+            "u",
+            "k"
+          ],
+          [
+            "f",
+            "s",
+            "u"
+          ]
+        ],
+        "word": "tkoj"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "n",
+            "z",
+            "l"
+          ],
+          [
+            "q",
+            "w",
+            "r"
+          ]
+        ],
+        "word": "nnqc"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "f",
+            "l",
+            "j",
+            "r",
+            "v"
+          ],
+          [
+            "t",
+            "d",
+            "a",
+            "k",
+            "h"
+          ],
+          [
+            "n",
+            "k",
+            "v",
+            "z",
+            "r"
+          ]
+        ],
+        "word": "da"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "a",
+            "o"
+          ],
+          [
+            "w",
+            "l"
+          ]
+        ],
+        "word": "a"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "d"
+          ]
+        ],
+        "word": "d"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "i",
+            "i",
+            "l",
+            "f"
+          ],
+          [
+            "e",
+            "s",
+            "s",
+            "d"
+          ],
+          [
+            "s",
+            "h",
+            "d",
+            "p"
+          ]
+        ],
+        "word": "slilii"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "d",
+            "f",
+            "b",
+            "t"
+          ],
+          [
+            "c",
+            "s",
+            "q",
+            "x"
+          ],
+          [
+            "e",
+            "i",
+            "f",
+            "r"
+          ],
+          [
+            "w",
+            "p",
+            "k",
+            "a"
+          ]
+        ],
+        "word": "d"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "w"
+          ],
+          [
+            "h"
+          ],
+          [
+            "q"
+          ]
+        ],
+        "word": "hw"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "d",
+            "l"
+          ]
+        ],
+        "word": "ydnrgm"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "i"
+          ],
+          [
+            "y"
+          ],
+          [
+            "n"
+          ]
+        ],
+        "word": "cqwf"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "x",
+            "x",
+            "g",
+            "p"
+          ]
+        ],
+        "word": "xwagu"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "x",
+            "g"
+          ],
+          [
+            "g",
+            "v"
+          ],
+          [
+            "k",
+            "t"
+          ]
+        ],
+        "word": "vgxgx"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "w"
+          ],
+          [
+            "y"
+          ],
+          [
+            "b"
+          ],
+          [
+            "p"
+          ],
+          [
+            "g"
+          ]
+        ],
+        "word": "wwyb"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "n",
+            "r",
+            "a",
+            "u"
+          ],
+          [
+            "o",
+            "x",
+            "j",
+            "n"
+          ],
+          [
+            "y",
+            "k",
+            "m",
+            "h"
+          ],
+          [
+            "a",
+            "a",
+            "d",
+            "d"
+          ],
+          [
+            "w",
+            "c",
+            "o",
+            "u"
+          ]
+        ],
+        "word": "dadmd"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "j",
+            "b",
+            "e",
+            "x",
+            "n"
+          ],
+          [
+            "l",
+            "y",
+            "i",
+            "q",
+            "x"
+          ],
+          [
+            "t",
+            "o",
+            "a",
+            "w",
+            "i"
+          ],
+          [
+            "x",
+            "e",
+            "h",
+            "c",
+            "p"
+          ],
+          [
+            "u",
+            "y",
+            "v",
+            "p",
+            "c"
+          ]
+        ],
+        "word": "q"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "d",
+            "g",
+            "n",
+            "q",
+            "f"
+          ],
+          [
+            "s",
+            "a",
+            "a",
+            "a",
+            "c"
+          ],
+          [
+            "g",
+            "u",
+            "o",
+            "w",
+            "p"
+          ],
+          [
+            "m",
+            "m",
+            "u",
+            "p",
+            "y"
+          ],
+          [
+            "u",
+            "d",
+            "a",
+            "b",
+            "m"
+          ]
+        ],
+        "word": "o"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "t"
+          ],
+          [
+            "s"
+          ]
+        ],
+        "word": "kcdyd"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "z",
+            "g",
+            "p",
+            "x"
+          ],
+          [
+            "e",
+            "b",
+            "x",
+            "l"
+          ],
+          [
+            "w",
+            "c",
+            "w",
+            "f"
+          ],
+          [
+            "f",
+            "k",
+            "u",
+            "b"
+          ]
+        ],
+        "word": "rzhc"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "r",
+            "x",
+            "q"
+          ],
+          [
+            "s",
+            "r",
+            "r"
+          ],
+          [
+            "a",
+            "s",
+            "v"
+          ],
+          [
+            "t",
+            "z",
+            "y"
+          ],
+          [
+            "t",
+            "i",
+            "w"
+          ]
+        ],
+        "word": "o"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "v",
+            "s",
+            "w",
+            "q"
+          ]
+        ],
+        "word": "bgt"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "m",
+            "b",
+            "y",
+            "j",
+            "g"
+          ]
+        ],
+        "word": "bbmmm"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "e",
+            "p",
+            "w",
+            "n",
+            "d"
+          ],
+          [
+            "t",
+            "t",
+            "l",
+            "k",
+            "h"
+          ],
+          [
+            "u",
+            "u",
+            "o",
+            "q",
+            "m"
+          ],
+          [
+            "k",
+            "n",
+            "c",
+            "m",
+            "e"
+          ],
+          [
+            "g",
+            "p",
+            "v",
+            "y",
+            "v"
+          ]
+        ],
+        "word": "i"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "r",
+            "c"
+          ],
+          [
+            "k",
+            "u"
+          ],
+          [
+            "r",
+            "i"
+          ],
+          [
+            "b",
+            "x"
+          ]
+        ],
+        "word": "v"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "a",
+            "m",
+            "m"
+          ],
+          [
+            "z",
+            "a",
+            "o"
+          ],
+          [
+            "p",
+            "m",
+            "b"
+          ],
+          [
+            "j",
+            "v",
+            "n"
+          ]
+        ],
+        "word": "om"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "m",
+            "j",
+            "x",
+            "f"
+          ]
+        ],
+        "word": "e"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "h"
+          ],
+          [
+            "o"
+          ]
+        ],
+        "word": "ppc"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "j",
+            "n",
+            "k",
+            "u"
+          ],
+          [
+            "o",
+            "n",
+            "h",
+            "f"
+          ]
+        ],
+        "word": "fuu"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "q",
+            "h",
+            "p",
+            "m",
+            "o"
+          ],
+          [
+            "m",
+            "s",
+            "p",
+            "j",
+            "d"
+          ],
+          [
+            "b",
+            "l",
+            "c",
+            "p",
+            "y"
+          ]
+        ],
+        "word": "pph"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "o",
+            "s",
+            "x",
+            "x",
+            "l"
+          ],
+          [
+            "o",
+            "g",
+            "h",
+            "i",
+            "i"
+          ],
+          [
+            "k",
+            "o",
+            "i",
+            "i",
+            "i"
+          ],
+          [
+            "p",
+            "q",
+            "f",
+            "v",
+            "p"
+          ]
+        ],
+        "word": "ahbk"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "m",
+            "u"
+          ],
+          [
+            "l",
+            "m"
+          ]
+        ],
+        "word": "m"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "u",
+            "f",
+            "v"
+          ],
+          [
+            "i",
+            "f",
+            "d"
+          ],
+          [
+            "w",
+            "q",
+            "a"
+          ],
+          [
+            "b",
+            "y",
+            "e"
+          ],
+          [
+            "g",
+            "k",
+            "q"
+          ]
+        ],
+        "word": "iiwb"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "r",
+            "u",
+            "v"
+          ],
+          [
+            "j",
+            "p",
+            "c"
+          ],
+          [
+            "t",
+            "e",
+            "s"
+          ],
+          [
+            "a",
+            "d",
+            "t"
+          ]
+        ],
+        "word": "atj"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "e",
+            "h",
+            "z",
+            "t"
+          ],
+          [
+            "g",
+            "q",
+            "w",
+            "u"
+          ]
+        ],
+        "word": "gkma"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "i",
+            "e",
+            "v"
+          ],
+          [
+            "e",
+            "p",
+            "d"
+          ],
+          [
+            "j",
+            "k",
+            "a"
+          ]
+        ],
+        "word": "qex"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "d"
+          ]
+        ],
+        "word": "d"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "y"
+          ],
+          [
+            "e"
+          ],
+          [
+            "v"
+          ],
+          [
+            "f"
+          ],
+          [
+            "m"
+          ]
+        ],
+        "word": "e"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "o",
+            "m",
+            "u",
+            "o",
+            "i"
+          ],
+          [
+            "u",
+            "y",
+            "g",
+            "d",
+            "h"
+          ],
+          [
+            "d",
+            "b",
+            "f",
+            "k",
+            "g"
+          ],
+          [
+            "v",
+            "t",
+            "h",
+            "y",
+            "l"
+          ]
+        ],
+        "word": "fjkgbv"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "s"
+          ],
+          [
+            "u"
+          ],
+          [
+            "k"
+          ],
+          [
+            "n"
+          ]
+        ],
+        "word": "edlgrf"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "f",
+            "k"
+          ],
+          [
+            "h",
+            "q"
+          ],
+          [
+            "u",
+            "w"
+          ],
+          [
+            "u",
+            "j"
+          ],
+          [
+            "k",
+            "f"
+          ]
+        ],
+        "word": "huu"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "m",
+            "g",
+            "g",
+            "g",
+            "h"
+          ],
+          [
+            "d",
+            "s",
+            "j",
+            "u",
+            "m"
+          ],
+          [
+            "i",
+            "f",
+            "y",
+            "m",
+            "w"
+          ],
+          [
+            "h",
+            "s",
+            "t",
+            "l",
+            "y"
+          ],
+          [
+            "n",
+            "h",
+            "q",
+            "r",
+            "t"
+          ]
+        ],
+        "word": "hwb"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "a"
+          ],
+          [
+            "s"
+          ],
+          [
+            "e"
+          ],
+          [
+            "a"
+          ]
+        ],
+        "word": "e"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "p",
+            "a",
+            "c"
+          ]
+        ],
+        "word": "u"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "o",
+            "r",
+            "j"
+          ],
+          [
+            "j",
+            "n",
+            "t"
+          ]
+        ],
+        "word": "tttt"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "z"
+          ],
+          [
+            "x"
+          ],
+          [
+            "o"
+          ]
+        ],
+        "word": "dj"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "a"
+          ],
+          [
+            "n"
+          ],
+          [
+            "p"
+          ]
+        ],
+        "word": "p"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "u",
+            "m",
+            "n",
+            "w"
+          ],
+          [
+            "o",
+            "u",
+            "u",
+            "c"
+          ],
+          [
+            "y",
+            "v",
+            "t",
+            "b"
+          ]
+        ],
+        "word": "q"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "f",
+            "l",
+            "b",
+            "n",
+            "x"
+          ]
+        ],
+        "word": "lb"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "s",
+            "t",
+            "n"
+          ],
+          [
+            "f",
+            "z",
+            "c"
+          ],
+          [
+            "u",
+            "h",
+            "z"
+          ]
+        ],
+        "word": "cz"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "d",
+            "w",
+            "n"
+          ]
+        ],
+        "word": "d"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "y",
+            "u",
+            "q",
+            "d"
+          ],
+          [
+            "c",
+            "e",
+            "u",
+            "r"
+          ],
+          [
+            "n",
+            "b",
+            "t",
+            "b"
+          ]
+        ],
+        "word": "vm"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "d"
+          ],
+          [
+            "i"
+          ]
+        ],
+        "word": "clgd"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "v"
+          ],
+          [
+            "w"
+          ],
+          [
+            "r"
+          ],
+          [
+            "q"
+          ]
+        ],
+        "word": "vv"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "h",
+            "h"
+          ],
+          [
+            "d",
+            "k"
+          ],
+          [
+            "j",
+            "y"
+          ],
+          [
+            "s",
+            "n"
+          ]
+        ],
+        "word": "k"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "w",
+            "y"
+          ],
+          [
+            "i",
+            "p"
+          ],
+          [
+            "y",
+            "a"
+          ]
+        ],
+        "word": "fl"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "f",
+            "w",
+            "x"
+          ],
+          [
+            "v",
+            "w",
+            "j"
+          ],
+          [
+            "z",
+            "z",
+            "i"
+          ],
+          [
+            "t",
+            "n",
+            "z"
+          ],
+          [
+            "v",
+            "m",
+            "d"
+          ]
+        ],
+        "word": "v"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "h",
+            "h",
+            "h",
+            "u",
+            "p"
+          ],
+          [
+            "v",
+            "x",
+            "s",
+            "f",
+            "h"
+          ],
+          [
+            "n",
+            "f",
+            "o",
+            "f",
+            "v"
+          ]
+        ],
+        "word": "m"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "i",
+            "q",
+            "n"
+          ],
+          [
+            "f",
+            "f",
+            "d"
+          ]
+        ],
+        "word": "arg"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "a",
+            "n",
+            "g"
+          ],
+          [
+            "r",
+            "d",
+            "v"
+          ]
+        ],
+        "word": "yyqruv"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "r"
+          ],
+          [
+            "a"
+          ],
+          [
+            "m"
+          ]
+        ],
+        "word": "ypgi"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "s",
+            "n"
+          ],
+          [
+            "o",
+            "e"
+          ],
+          [
+            "p",
+            "p"
+          ],
+          [
+            "i",
+            "l"
+          ]
+        ],
+        "word": "l"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "b",
+            "c"
+          ],
+          [
+            "k",
+            "s"
+          ],
+          [
+            "i",
+            "b"
+          ],
+          [
+            "v",
+            "j"
+          ]
+        ],
+        "word": "kscc"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "s",
+            "p",
+            "z",
+            "r"
+          ]
+        ],
+        "word": "s"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "g",
+            "r",
+            "g",
+            "x",
+            "b"
+          ]
+        ],
+        "word": "vx"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "o",
+            "l",
+            "u"
+          ],
+          [
+            "x",
+            "a",
+            "t"
+          ],
+          [
+            "s",
+            "x",
+            "f"
+          ],
+          [
+            "n",
+            "v",
+            "v"
+          ]
+        ],
+        "word": "p"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "q",
+            "j",
+            "q",
+            "h"
+          ],
+          [
+            "i",
+            "x",
+            "b",
+            "s"
+          ],
+          [
+            "u",
+            "a",
+            "d",
+            "w"
+          ],
+          [
+            "y",
+            "b",
+            "d",
+            "u"
+          ]
+        ],
+        "word": "qkx"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "q",
+            "v"
+          ],
+          [
+            "s",
+            "u"
+          ]
+        ],
+        "word": "lbg"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "b",
+            "n",
+            "z",
+            "z",
+            "m"
+          ],
+          [
+            "h",
+            "j",
+            "v",
+            "o",
+            "f"
+          ]
+        ],
+        "word": "hhjvzn"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "i",
+            "a",
+            "u"
+          ],
+          [
+            "y",
+            "v",
+            "p"
+          ],
+          [
+            "e",
+            "t",
+            "l"
+          ]
+        ],
+        "word": "yvplpu"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "m",
+            "x",
+            "i",
+            "r"
+          ],
+          [
+            "v",
+            "n",
+            "c",
+            "r"
+          ]
+        ],
+        "word": "vncir"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "s",
+            "o",
+            "s",
+            "v",
+            "l"
+          ]
+        ],
+        "word": "mjw"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "j",
+            "z",
+            "z"
+          ],
+          [
+            "y",
+            "p",
+            "m"
+          ],
+          [
+            "a",
+            "u",
+            "y"
+          ],
+          [
+            "c",
+            "x",
+            "f"
+          ],
+          [
+            "l",
+            "v",
+            "x"
+          ]
+        ],
+        "word": "z"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "p"
+          ],
+          [
+            "n"
+          ],
+          [
+            "x"
+          ]
+        ],
+        "word": "nnx"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "j",
+            "r",
+            "z"
+          ]
+        ],
+        "word": "qgxhy"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "h",
+            "i",
+            "x",
+            "f"
+          ]
+        ],
+        "word": "ydxmm"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "t",
+            "v",
+            "e",
+            "o",
+            "g"
+          ],
+          [
+            "y",
+            "d",
+            "l",
+            "j",
+            "m"
+          ],
+          [
+            "m",
+            "x",
+            "q",
+            "l",
+            "u"
+          ],
+          [
+            "p",
+            "w",
+            "a",
+            "f",
+            "k"
+          ]
+        ],
+        "word": "uho"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "e",
+            "a"
+          ]
+        ],
+        "word": "ae"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "s",
+            "s",
+            "d",
+            "m",
+            "v"
+          ],
+          [
+            "j",
+            "r",
+            "c",
+            "i",
+            "l"
+          ]
+        ],
+        "word": "sjjs"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "z",
+            "h",
+            "m",
+            "m"
+          ],
+          [
+            "p",
+            "p",
+            "k",
+            "s"
+          ],
+          [
+            "i",
+            "w",
+            "g",
+            "q"
+          ],
+          [
+            "p",
+            "r",
+            "w",
+            "l"
+          ],
+          [
+            "c",
+            "w",
+            "i",
+            "o"
+          ]
+        ],
+        "word": "wiwio"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "o",
+            "a",
+            "k",
+            "c"
+          ]
+        ],
+        "word": "xwwec"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "d"
+          ],
+          [
+            "h"
+          ]
+        ],
+        "word": "dd"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "l",
+            "d",
+            "e",
+            "r",
+            "d"
+          ],
+          [
+            "k",
+            "l",
+            "u",
+            "g",
+            "l"
+          ],
+          [
+            "y",
+            "g",
+            "x",
+            "h",
+            "h"
+          ],
+          [
+            "y",
+            "t",
+            "z",
+            "l",
+            "j"
+          ],
+          [
+            "i",
+            "t",
+            "k",
+            "w",
+            "v"
+          ]
+        ],
+        "word": "gueue"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "i"
+          ],
+          [
+            "g"
+          ],
+          [
+            "d"
+          ],
+          [
+            "r"
+          ],
+          [
+            "l"
+          ]
+        ],
+        "word": "jnpgy"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "i",
+            "c",
+            "m",
+            "n"
+          ],
+          [
+            "i",
+            "z",
+            "h",
+            "s"
+          ],
+          [
+            "g",
+            "p",
+            "g",
+            "k"
+          ],
+          [
+            "c",
+            "c",
+            "o",
+            "d"
+          ]
+        ],
+        "word": "rjv"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "h",
+            "v",
+            "p",
+            "j",
+            "f"
+          ],
+          [
+            "q",
+            "g",
+            "o",
+            "l",
+            "w"
+          ]
+        ],
+        "word": "nigzu"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "j",
+            "z"
+          ],
+          [
+            "t",
+            "y"
+          ]
+        ],
+        "word": "zz"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "n"
+          ]
+        ],
+        "word": "max"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "j"
+          ],
+          [
+            "p"
+          ]
+        ],
+        "word": "pp"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "z",
+            "j",
+            "g",
+            "p",
+            "s"
+          ],
+          [
+            "l",
+            "i",
+            "s",
+            "b",
+            "u"
+          ],
+          [
+            "j",
+            "f",
+            "p",
+            "f",
+            "z"
+          ],
+          [
+            "z",
+            "y",
+            "z",
+            "r",
+            "r"
+          ],
+          [
+            "t",
+            "z",
+            "s",
+            "j",
+            "u"
+          ]
+        ],
+        "word": "zt"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "k"
+          ],
+          [
+            "g"
+          ],
+          [
+            "u"
+          ]
+        ],
+        "word": "roe"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "v"
+          ],
+          [
+            "r"
+          ],
+          [
+            "i"
+          ]
+        ],
+        "word": "qhd"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "b"
+          ]
+        ],
+        "word": "b"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "g"
+          ],
+          [
+            "a"
+          ],
+          [
+            "w"
+          ],
+          [
+            "w"
+          ],
+          [
+            "x"
+          ]
+        ],
+        "word": "ihyd"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "z",
+            "d",
+            "z",
+            "f"
+          ]
+        ],
+        "word": "p"
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "o",
+            "o"
+          ],
+          [
+            "k",
+            "l"
+          ],
+          [
+            "n",
+            "z"
+          ],
+          [
+            "y",
+            "f"
+          ]
+        ],
+        "word": "nz"
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "board": [
+          [
+            "u",
+            "g"
+          ],
+          [
+            "e",
+            "j"
+          ],
+          [
+            "q",
+            "z"
+          ],
+          [
+            "g",
+            "v"
+          ]
+        ],
+        "word": "ekp"
+      },
+      "output": false
+    }
+  ]
+}

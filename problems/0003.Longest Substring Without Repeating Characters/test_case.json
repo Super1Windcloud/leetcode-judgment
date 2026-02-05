@@ -1,0 +1,604 @@
+{
+  "testCases": [
+    {
+      "input": {
+        "s": "wlknq"
+      },
+      "output": 5
+    },
+    {
+      "input": {
+        "s": "oduaud"
+      },
+      "output": 4
+    },
+    {
+      "input": {
+        "s": "xnsb"
+      },
+      "output": 4
+    },
+    {
+      "input": {
+        "s": "u"
+      },
+      "output": 1
+    },
+    {
+      "input": {
+        "s": "qxc"
+      },
+      "output": 3
+    },
+    {
+      "input": {
+        "s": "eycb"
+      },
+      "output": 4
+    },
+    {
+      "input": {
+        "s": "rkdwdgdf"
+      },
+      "output": 4
+    },
+    {
+      "input": {
+        "s": "pnyftuwce"
+      },
+      "output": 9
+    },
+    {
+      "input": {
+        "s": "eost"
+      },
+      "output": 4
+    },
+    {
+      "input": {
+        "s": "ryxdd"
+      },
+      "output": 4
+    },
+    {
+      "input": {
+        "s": "wvyrl"
+      },
+      "output": 5
+    },
+    {
+      "input": {
+        "s": "iihja"
+      },
+      "output": 4
+    },
+    {
+      "input": {
+        "s": "kpzzjf"
+      },
+      "output": 3
+    },
+    {
+      "input": {
+        "s": "xmlikup"
+      },
+      "output": 7
+    },
+    {
+      "input": {
+        "s": "xsnaepfr"
+      },
+      "output": 8
+    },
+    {
+      "input": {
+        "s": ""
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "s": "xlfq"
+      },
+      "output": 4
+    },
+    {
+      "input": {
+        "s": "lox"
+      },
+      "output": 3
+    },
+    {
+      "input": {
+        "s": "pkoy"
+      },
+      "output": 4
+    },
+    {
+      "input": {
+        "s": "fhl"
+      },
+      "output": 3
+    },
+    {
+      "input": {
+        "s": "rjitugs"
+      },
+      "output": 7
+    },
+    {
+      "input": {
+        "s": "f"
+      },
+      "output": 1
+    },
+    {
+      "input": {
+        "s": "wbebrh"
+      },
+      "output": 4
+    },
+    {
+      "input": {
+        "s": "agd"
+      },
+      "output": 3
+    },
+    {
+      "input": {
+        "s": "mzjbvy"
+      },
+      "output": 6
+    },
+    {
+      "input": {
+        "s": "fyl"
+      },
+      "output": 3
+    },
+    {
+      "input": {
+        "s": "yrzqgm"
+      },
+      "output": 6
+    },
+    {
+      "input": {
+        "s": "d"
+      },
+      "output": 1
+    },
+    {
+      "input": {
+        "s": "w"
+      },
+      "output": 1
+    },
+    {
+      "input": {
+        "s": ""
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "s": "adefph"
+      },
+      "output": 6
+    },
+    {
+      "input": {
+        "s": "znxapfeitk"
+      },
+      "output": 10
+    },
+    {
+      "input": {
+        "s": "fhi"
+      },
+      "output": 3
+    },
+    {
+      "input": {
+        "s": "pnarjlmykx"
+      },
+      "output": 10
+    },
+    {
+      "input": {
+        "s": "j"
+      },
+      "output": 1
+    },
+    {
+      "input": {
+        "s": "f"
+      },
+      "output": 1
+    },
+    {
+      "input": {
+        "s": "phninjqji"
+      },
+      "output": 4
+    },
+    {
+      "input": {
+        "s": "ksndvrp"
+      },
+      "output": 7
+    },
+    {
+      "input": {
+        "s": "b"
+      },
+      "output": 1
+    },
+    {
+      "input": {
+        "s": "nxtedvb"
+      },
+      "output": 7
+    },
+    {
+      "input": {
+        "s": "jdo"
+      },
+      "output": 3
+    },
+    {
+      "input": {
+        "s": "eudxw"
+      },
+      "output": 5
+    },
+    {
+      "input": {
+        "s": "venvbpefn"
+      },
+      "output": 6
+    },
+    {
+      "input": {
+        "s": "dgtyd"
+      },
+      "output": 4
+    },
+    {
+      "input": {
+        "s": "peio"
+      },
+      "output": 4
+    },
+    {
+      "input": {
+        "s": "eo"
+      },
+      "output": 2
+    },
+    {
+      "input": {
+        "s": ""
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "s": "tiu"
+      },
+      "output": 3
+    },
+    {
+      "input": {
+        "s": "aammotxwwa"
+      },
+      "output": 5
+    },
+    {
+      "input": {
+        "s": "hegowgxsqu"
+      },
+      "output": 7
+    },
+    {
+      "input": {
+        "s": ""
+      },
+      "output": 0
+    },
+    {
+      "input": {
+        "s": "zj"
+      },
+      "output": 2
+    },
+    {
+      "input": {
+        "s": "mtjp"
+      },
+      "output": 4
+    },
+    {
+      "input": {
+        "s": "wmjfao"
+      },
+      "output": 6
+    },
+    {
+      "input": {
+        "s": "lfxpmrn"
+      },
+      "output": 7
+    },
+    {
+      "input": {
+        "s": "llctonkk"
+      },
+      "output": 6
+    },
+    {
+      "input": {
+        "s": "bgcpyyq"
+      },
+      "output": 5
+    },
+    {
+      "input": {
+        "s": "my"
+      },
+      "output": 2
+    },
+    {
+      "input": {
+        "s": "gwnlgull"
+      },
+      "output": 5
+    },
+    {
+      "input": {
+        "s": "nftdg"
+      },
+      "output": 5
+    },
+    {
+      "input": {
+        "s": "xxwrhfnovc"
+      },
+      "output": 9
+    },
+    {
+      "input": {
+        "s": "tfp"
+      },
+      "output": 3
+    },
+    {
+      "input": {
+        "s": "chs"
+      },
+      "output": 3
+    },
+    {
+      "input": {
+        "s": "yam"
+      },
+      "output": 3
+    },
+    {
+      "input": {
+        "s": "svfk"
+      },
+      "output": 4
+    },
+    {
+      "input": {
+        "s": "drwfzri"
+      },
+      "output": 5
+    },
+    {
+      "input": {
+        "s": "cirnr"
+      },
+      "output": 4
+    },
+    {
+      "input": {
+        "s": "wsf"
+      },
+      "output": 3
+    },
+    {
+      "input": {
+        "s": "mqq"
+      },
+      "output": 2
+    },
+    {
+      "input": {
+        "s": "ymwqljanfy"
+      },
+      "output": 9
+    },
+    {
+      "input": {
+        "s": "xo"
+      },
+      "output": 2
+    },
+    {
+      "input": {
+        "s": "bz"
+      },
+      "output": 2
+    },
+    {
+      "input": {
+        "s": "vzacumf"
+      },
+      "output": 7
+    },
+    {
+      "input": {
+        "s": "o"
+      },
+      "output": 1
+    },
+    {
+      "input": {
+        "s": "czbsecbe"
+      },
+      "output": 5
+    },
+    {
+      "input": {
+        "s": "foexo"
+      },
+      "output": 4
+    },
+    {
+      "input": {
+        "s": "npmhmxla"
+      },
+      "output": 5
+    },
+    {
+      "input": {
+        "s": "lqleez"
+      },
+      "output": 3
+    },
+    {
+      "input": {
+        "s": "bemyyy"
+      },
+      "output": 4
+    },
+    {
+      "input": {
+        "s": "us"
+      },
+      "output": 2
+    },
+    {
+      "input": {
+        "s": "m"
+      },
+      "output": 1
+    },
+    {
+      "input": {
+        "s": "hhjpkflsd"
+      },
+      "output": 8
+    },
+    {
+      "input": {
+        "s": "nlldjbl"
+      },
+      "output": 4
+    },
+    {
+      "input": {
+        "s": "cw"
+      },
+      "output": 2
+    },
+    {
+      "input": {
+        "s": "unta"
+      },
+      "output": 4
+    },
+    {
+      "input": {
+        "s": "wyzfgji"
+      },
+      "output": 7
+    },
+    {
+      "input": {
+        "s": "fqp"
+      },
+      "output": 3
+    },
+    {
+      "input": {
+        "s": "b"
+      },
+      "output": 1
+    },
+    {
+      "input": {
+        "s": "eqnvka"
+      },
+      "output": 6
+    },
+    {
+      "input": {
+        "s": "qxblfjy"
+      },
+      "output": 7
+    },
+    {
+      "input": {
+        "s": "yda"
+      },
+      "output": 3
+    },
+    {
+      "input": {
+        "s": "bbit"
+      },
+      "output": 3
+    },
+    {
+      "input": {
+        "s": "abetw"
+      },
+      "output": 5
+    },
+    {
+      "input": {
+        "s": "tgecgz"
+      },
+      "output": 4
+    },
+    {
+      "input": {
+        "s": "hf"
+      },
+      "output": 2
+    },
+    {
+      "input": {
+        "s": "avqcmnx"
+      },
+      "output": 7
+    },
+    {
+      "input": {
+        "s": "uomwqsngd"
+      },
+      "output": 9
+    },
+    {
+      "input": {
+        "s": "vngo"
+      },
+      "output": 4
+    },
+    {
+      "input": {
+        "s": "seolad"
+      },
+      "output": 6
+    },
+    {
+      "input": {
+        "s": "wafj"
+      },
+      "output": 4
+    }
+  ]
+}

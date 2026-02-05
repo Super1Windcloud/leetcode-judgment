@@ -1,0 +1,1168 @@
+{
+  "testCases": [
+    {
+      "input": {
+        "s": "cgafpzn",
+        "wordDict": [
+          "c",
+          "g",
+          "afpz",
+          "n"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "esbjaucspubzsromf",
+        "wordDict": [
+          "esbj",
+          "auc",
+          "s",
+          "pu",
+          "bzs",
+          "rom"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "lu",
+        "wordDict": [
+          "lu"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "tibjxhz",
+        "wordDict": [
+          "ti",
+          "bjx",
+          "hz"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "km",
+        "wordDict": [
+          "km"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "otidnhehmpxwwqluo",
+        "wordDict": [
+          "ot",
+          "idn",
+          "hehm",
+          "pxw",
+          "wq"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "nlkshzn",
+        "wordDict": [
+          "nl",
+          "ksh",
+          "zn"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "h",
+        "wordDict": [
+          "h"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "spqbliq",
+        "wordDict": [
+          "spqb",
+          "liq"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "zahvvwrhmrrtphyxnyt",
+        "wordDict": [
+          "za",
+          "hvvw",
+          "rhmr",
+          "rtph",
+          "yxny",
+          "t"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "u",
+        "wordDict": [
+          "u"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "dxnbzwqaqufl",
+        "wordDict": [
+          "dxn",
+          "bzw",
+          "qaqu",
+          "fl"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "rbeblmztpey",
+        "wordDict": [
+          "r",
+          "b",
+          "ebl",
+          "mzt",
+          "pey"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "jqzsxyqsk",
+        "wordDict": [
+          "jq",
+          "zsx",
+          "y",
+          "qsk"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "pmslhbunxbfpkscgcu",
+        "wordDict": [
+          "pm",
+          "slhb",
+          "unxb",
+          "fpk",
+          "sc",
+          "gc"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "xnpfcqzjcwhowseznoz",
+        "wordDict": [
+          "xnpf",
+          "c",
+          "qzjc",
+          "wh",
+          "owse",
+          "znoz"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "mqpbgtldkxcnnhlr",
+        "wordDict": [
+          "mq",
+          "pbg",
+          "tl",
+          "d",
+          "kx",
+          "cnnh"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "nigrwuwccjjtte",
+        "wordDict": [
+          "n",
+          "ig",
+          "rwuw",
+          "c",
+          "cjjt",
+          "te"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "xawg",
+        "wordDict": [
+          "xawg"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "ipunpr",
+        "wordDict": [
+          "ip",
+          "unp",
+          "r"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "fbuezmq",
+        "wordDict": [
+          "fbue"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "dztzztzalrj",
+        "wordDict": [
+          "dz",
+          "tzz",
+          "tzal"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "cdsasybsuspssu",
+        "wordDict": [
+          "cdsa",
+          "syb",
+          "sus",
+          "pssu"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "rbpss",
+        "wordDict": [
+          "rb",
+          "ps",
+          "s"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "pr",
+        "wordDict": [
+          "p"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "pptznmqxkocgcpd",
+        "wordDict": [
+          "pp",
+          "tzn",
+          "mqxk",
+          "o",
+          "cgcp",
+          "d"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "gedverklwchpomtzi",
+        "wordDict": [
+          "g",
+          "edve",
+          "rkl",
+          "wchp",
+          "omtz"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "scaagtnfepnjspqt",
+        "wordDict": [
+          "sc",
+          "a",
+          "agtn",
+          "fep",
+          "nj",
+          "spqt"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "npkrpd",
+        "wordDict": [
+          "npk",
+          "r"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "hhbfjobl",
+        "wordDict": [
+          "hh",
+          "bfjo",
+          "b",
+          "l"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "kqahzrvrjvek",
+        "wordDict": [
+          "kq",
+          "ah",
+          "zrv",
+          "rjve"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "skmmf",
+        "wordDict": [
+          "skm",
+          "mf"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "slrfpa",
+        "wordDict": [
+          "s",
+          "lrfp"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "qkysspnhv",
+        "wordDict": [
+          "q",
+          "kys",
+          "s",
+          "pnh"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "rotiffuacphmbqwdx",
+        "wordDict": [
+          "ro",
+          "tif",
+          "fuac",
+          "phmb",
+          "qwdx"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "gejjmspqtxbakc",
+        "wordDict": [
+          "gejj",
+          "m",
+          "spqt",
+          "xb",
+          "akc"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "xfttvofmzcgigs",
+        "wordDict": [
+          "xftt",
+          "vof",
+          "mzcg"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "kgftsshohicge",
+        "wordDict": [
+          "kgf",
+          "ts",
+          "sho",
+          "hi"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "nrseftpuss",
+        "wordDict": [
+          "nrse",
+          "ftpu",
+          "ss"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "kwubsbvxt",
+        "wordDict": [
+          "kw",
+          "ubsb",
+          "vx"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "jmxws",
+        "wordDict": [
+          "j",
+          "mxws"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "izzqfeiwdcjils",
+        "wordDict": [
+          "i",
+          "zz",
+          "qfei",
+          "w",
+          "dcji",
+          "ls"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "qahpiujeauost",
+        "wordDict": [
+          "qah",
+          "p",
+          "iu",
+          "je",
+          "a",
+          "uost"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "vombrswmxkmp",
+        "wordDict": [
+          "vomb",
+          "rs",
+          "w",
+          "mx"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "xbtqezmevaihht",
+        "wordDict": [
+          "xbtq",
+          "e",
+          "zmev",
+          "ai",
+          "hht"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "rlfv",
+        "wordDict": [
+          "rlfv"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "ivkjr",
+        "wordDict": [
+          "ivkj"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "taleuzcmjrbher",
+        "wordDict": [
+          "tal",
+          "euzc",
+          "m",
+          "jrb",
+          "h",
+          "er"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "jgpozb",
+        "wordDict": [
+          "jgp",
+          "o",
+          "zb"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "eggeulfdjlcm",
+        "wordDict": [
+          "eg",
+          "ge",
+          "ulf",
+          "d",
+          "j"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "ibjkgood",
+        "wordDict": [
+          "ib",
+          "jk",
+          "good"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "lfcfm",
+        "wordDict": [
+          "lfcf"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "ngkqddfnihdr",
+        "wordDict": [
+          "ngkq",
+          "dd",
+          "fnih",
+          "dr"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "yqgkzliyiak",
+        "wordDict": [
+          "yqgk",
+          "zliy",
+          "iak"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "mkvbittpbsipwv",
+        "wordDict": [
+          "mkvb",
+          "ittp",
+          "b",
+          "sip",
+          "wv"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "pfxewweieyiotmfjyn",
+        "wordDict": [
+          "p",
+          "fxe",
+          "wwei",
+          "eyi",
+          "otmf",
+          "jyn"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "ecwgflegzig",
+        "wordDict": [
+          "ecwg",
+          "fleg",
+          "zig"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "ici",
+        "wordDict": [
+          "i"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "zrfxtvttg",
+        "wordDict": [
+          "z",
+          "rf",
+          "xt",
+          "v",
+          "ttg"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "uopdgppyspfycfbq",
+        "wordDict": [
+          "uopd",
+          "gppy",
+          "sp",
+          "fyc"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "k",
+        "wordDict": [
+          "k"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "uxwlaaoxuxeq",
+        "wordDict": [
+          "uxwl",
+          "a",
+          "ao",
+          "xu"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "otxrtjlsrkuwaztwee",
+        "wordDict": [
+          "otx",
+          "rtj",
+          "lsr",
+          "kuw",
+          "a",
+          "ztwe"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "ivgbyz",
+        "wordDict": [
+          "ivg",
+          "byz"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "rpxnoaow",
+        "wordDict": [
+          "rp",
+          "xn",
+          "oao",
+          "w"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "zatmnd",
+        "wordDict": [
+          "z",
+          "a",
+          "tmnd"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "qxddqnhlybtns",
+        "wordDict": [
+          "qxdd",
+          "qnh",
+          "lyb"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "flykbtbljmbvyvgem",
+        "wordDict": [
+          "flyk",
+          "btb",
+          "lj",
+          "mbvy",
+          "v"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "wfjhsqqscdwhdusg",
+        "wordDict": [
+          "wf",
+          "jhs",
+          "qqsc",
+          "dw",
+          "hdu"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "kkoxloozdisrf",
+        "wordDict": [
+          "k",
+          "ko",
+          "xlo",
+          "ozdi",
+          "srf"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "ovnrxcyfgzb",
+        "wordDict": [
+          "o",
+          "vn",
+          "rx",
+          "cyf"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "gv",
+        "wordDict": [
+          "gv"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "gqkwackgmwiystu",
+        "wordDict": [
+          "gqk",
+          "wa",
+          "c",
+          "kgmw",
+          "iy",
+          "stu"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "zwyhvfych",
+        "wordDict": [
+          "z",
+          "w",
+          "y",
+          "hvfy"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "ppccp",
+        "wordDict": [
+          "p",
+          "p"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "wwzis",
+        "wordDict": [
+          "w",
+          "wz",
+          "i"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "kunbahlut",
+        "wordDict": [
+          "kun",
+          "bah",
+          "lut"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "vqfeowo",
+        "wordDict": [
+          "vqfe",
+          "owo"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "hxjikhjvunsdc",
+        "wordDict": [
+          "hxji",
+          "kh",
+          "jv",
+          "u",
+          "nsdc"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "totahmjgqejimhkzry",
+        "wordDict": [
+          "tot",
+          "ahmj",
+          "gq",
+          "ejim",
+          "hkz",
+          "ry"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "xbmjpnek",
+        "wordDict": [
+          "xb",
+          "mjp",
+          "nek"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "vtuxxrvu",
+        "wordDict": [
+          "v",
+          "tu",
+          "x",
+          "xrv"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "qtkjmjevmioumamzenkw",
+        "wordDict": [
+          "qt",
+          "kjmj",
+          "evm",
+          "i",
+          "oum",
+          "amze"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "ruykurd",
+        "wordDict": [
+          "ruy",
+          "kur",
+          "d"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "ayjwlrmsfn",
+        "wordDict": [
+          "ay",
+          "jwlr",
+          "msfn"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "vgvjsnuqzkppyzlh",
+        "wordDict": [
+          "v",
+          "gvjs",
+          "nu",
+          "qzkp",
+          "pyzl",
+          "h"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "lueogmfbooiyyqp",
+        "wordDict": [
+          "lueo",
+          "gmfb",
+          "ooiy",
+          "yqp"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "lqjogrbdzwm",
+        "wordDict": [
+          "lqj",
+          "ogrb",
+          "dzw"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "xibrrg",
+        "wordDict": [
+          "xibr",
+          "rg"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "erarjlvcrt",
+        "wordDict": [
+          "e",
+          "rar",
+          "j",
+          "lv",
+          "crt"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "uzbwseusvmabtd",
+        "wordDict": [
+          "uzbw",
+          "se",
+          "us",
+          "vmab",
+          "td"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "obbhxxw",
+        "wordDict": [
+          "obb",
+          "hxxw"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "kmvnxzrabxspehzb",
+        "wordDict": [
+          "km",
+          "vnxz",
+          "rab",
+          "xsp",
+          "ehzb"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "offhhatkai",
+        "wordDict": [
+          "offh",
+          "hat",
+          "ka"
+        ]
+      },
+      "output": false
+    },
+    {
+      "input": {
+        "s": "lycc",
+        "wordDict": [
+          "lyc",
+          "c"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "qzqo",
+        "wordDict": [
+          "qzq",
+          "o"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "ocgpal",
+        "wordDict": [
+          "oc",
+          "g",
+          "pal"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "yqfztupoyjtylncf",
+        "wordDict": [
+          "yqfz",
+          "t",
+          "up",
+          "oyjt",
+          "yln",
+          "cf"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "tw",
+        "wordDict": [
+          "tw"
+        ]
+      },
+      "output": true
+    },
+    {
+      "input": {
+        "s": "mbpijyuqlna",
+        "wordDict": [
+          "mb",
+          "pi",
+          "jyuq",
+          "l"
+        ]
+      },
+      "output": false
+    }
+  ]
+}
