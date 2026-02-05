@@ -1,4 +1,4 @@
-import { expect, test, describe, beforeAll, afterAll } from 'vitest';
+import { expect, test, describe } from 'vitest';
 import WebSocket from 'ws';
 import { encode, decode } from '@msgpack/msgpack';
 import { readFileSync } from 'fs';
@@ -102,7 +102,7 @@ describe('Judgment System Tests', () => {
 
     test('test_basic_execution', async () => {
         const ws = await connect();
-        await ws.send(createRequest({ code: '' }));
+        ws.send(createRequest({code: ''}));
         const r = await recv(ws);
         
         expect(r).toHaveProperty('Done');
@@ -118,7 +118,7 @@ describe('Judgment System Tests', () => {
 
     test('test_stdout', async () => {
         const ws = await connect();
-        await ws.send(createRequest({ code: 'echo hello' }));
+        ws.send(createRequest({code: 'echo hello'}));
         const r1 = await recv(ws);
         expect(r1).toEqual({ Stdout: new TextEncoder().encode('hello\n') });
         const r2 = await recv(ws);
@@ -128,7 +128,7 @@ describe('Judgment System Tests', () => {
 
     test('test_stderr', async () => {
         const ws = await connect();
-        await ws.send(createRequest({ code: 'echo hello >&2' }));
+        ws.send(createRequest({code: 'echo hello >&2'}));
         const r1 = await recv(ws);
         expect(r1).toEqual({ Stderr: new TextEncoder().encode('hello\n') });
         const r2 = await recv(ws);
@@ -138,7 +138,7 @@ describe('Judgment System Tests', () => {
 
     test('test_stdin', async () => {
         const ws = await connect();
-        await ws.send(createRequest({ code: 'rev', input: 'hello' }));
+        ws.send(createRequest({code: 'rev', input: 'hello'}));
         const r1 = await recv(ws);
         expect(r1).toEqual({ Stdout: new TextEncoder().encode('olleh') });
         const r2 = await recv(ws);
@@ -148,9 +148,9 @@ describe('Judgment System Tests', () => {
 
     test('test_custom_runner', async () => {
         const ws = await connect();
-        await ws.send(createRequest({ 
-            code: 'hello', 
-            custom_runner: 'rev /ATO/code' 
+        ws.send(createRequest({
+            code: 'hello',
+            custom_runner: 'rev /ATO/code'
         }));
         const r1 = await recv(ws);
         expect(new TextDecoder().decode((r1 as { Stdout: Uint8Array }).Stdout)).toBe('olleh');
@@ -161,7 +161,7 @@ describe('Judgment System Tests', () => {
 
     test('test_timeout', async () => {
         const ws = await connect();
-        await ws.send(createRequest({ code: 'sleep 3', timeout: 1 }));
+        ws.send(createRequest({code: 'sleep 3', timeout: 1}));
         const r = await recv(ws);
         const done = (r as { Done: DoneResponse }).Done;
         expect(done.timed_out).toBe(true);
@@ -172,10 +172,10 @@ describe('Judgment System Tests', () => {
 
     test('test_kill', async () => {
         const ws = await connect();
-        await ws.send(createRequest({ code: 'sleep 3' }));
+        ws.send(createRequest({code: 'sleep 3'}));
         // Wait a bit
         await new Promise(r => setTimeout(r, 500));
-        await ws.send(encode('Kill'));
+        ws.send(encode('Kill'));
         const r = await recv(ws);
         const done = (r as { Done: DoneResponse }).Done;
         expect(done.status_type).toBe('killed');
@@ -185,7 +185,7 @@ describe('Judgment System Tests', () => {
 
     test('test_tmp', async () => {
         const ws = await connect();
-        await ws.send(createRequest({ code: 'touch /tmp/foo; ls /tmp' }));
+        ws.send(createRequest({code: 'touch /tmp/foo; ls /tmp'}));
         const r1 = await recv(ws);
         expect(new TextDecoder().decode((r1 as { Stdout: Uint8Array }).Stdout)).toBe('foo\n');
         ws.close();
@@ -199,9 +199,9 @@ describe('Hello World Tests', () => {
         if (lang.hello_world) {
             test(`Hello World: ${id}`, async () => {
                 const ws = await connect();
-                await ws.send(createRequest({ 
+                ws.send(createRequest({
                     ...lang.hello_world,
-                    language: id 
+                    language: id
                 }));
                 
                 let output = '';

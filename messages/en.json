@@ -18,7 +18,9 @@
     "settings": "Settings"
   },
   "Common": {
-    "logo": "Leetcode Judgment"
+    "logo": "Leetcode Judgment",
+    "submit": "Submit"
+
   },
   "About": {
     "title": "About - Leetcode Judgment",
@@ -53,5 +55,31 @@
     "submit": "Create Problem",
     "success": "Problem created successfully!",
     "error": "Failed to create problem."
+  },
+  "CodeEditor": {
+    "language": "Lang",
+    "selectLanguage": "Select Language",
+    "theme": "Theme",
+    "selectTheme": "Select Theme",
+    "defaultTheme": "Default",
+    "formatCode": "Format Code (Ctrl+Alt+L)",
+    "resetTemplate": "Reset to default template",
+    "loading": "Loading editor...",
+    "runResult": "Run Result"
+  },
+  "Problem": {
+    "output": "Output",
+    "submission": "Submission",
+    "submitting": "Judging your solution...",
+    "accepted": "Accepted",
+    "wrongAnswer": "Wrong Answer / Error",
+    "runtime": "Runtime",
+    "memory": "Memory",
+    "errorDetails": "Error Details",
+    "submitPlaceholder": "Submit your code to see the result.",
+    "executing": "Executing code...",
+    "noOutput": "No output yet. Run your code!",
+    "submit": "Submit",
+    "submitting_btn": "Submitting..."
   }
 }
