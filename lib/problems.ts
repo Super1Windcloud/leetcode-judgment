@@ -2,10 +2,10 @@ import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
 
-const ASSETS_DIR = path.join(process.cwd(), "assets");
+const ASSETS_DIR = path.join(process.cwd(), "problems");
 
 export interface Problem {
-	id: string;
+	id: string | number;
 	title: string;
 	slug: string;
 	difficulty?: string;
@@ -25,6 +25,42 @@ export interface PaginatedProblems {
 	currentPage: number;
 }
 
+function getSmartCollection(allProblems: Problem[]) {
+	const finalProblemsMap = new Map<string, Problem>(); // 使用 Map 方便通过 ID 去重
+
+	// 1. 获取所有存在的 Tag 列表
+	const allTags = new Set<string>();
+	allProblems.map((p) => p.tags?.map((t) => allTags.add(t)));
+
+	// 2. 核心逻辑：遍历每个 Tag，尝试抓取 2 题
+	allTags.forEach((tag) => {
+		let countForThisTag = 0;
+
+		for (const p of allProblems) {
+			if (countForThisTag >= 2) break; // 每个 Tag 最多拿 2 个
+
+			if (p.tags?.includes(tag)) {
+				finalProblemsMap.set(p.id.toString(), p);
+				countForThisTag++;
+			}
+		}
+	});
+
+	// 3. 补全难度（确保 Easy, Medium, Hard 至少各有一个）
+	const finalArray = Array.from(finalProblemsMap.values());
+	const difficulties = ["Easy", "Medium", "Hard"];
+
+	difficulties.forEach((diff) => {
+		const hasDiff = finalArray.some((p) => p.difficulty === diff);
+		if (!hasDiff) {
+			const found = allProblems.find((p) => p.difficulty === diff);
+			if (found) finalArray.push(found);
+		}
+	});
+
+	return finalArray;
+}
+
 export async function getProblems(
 	page = 1,
 	limit = 20,
@@ -34,28 +70,50 @@ export async function getProblems(
 		withFileTypes: true,
 	});
 
-	const allProblems = entries
+	// 1. 先拿到基础列表
+	const baseProblems = entries
 		.filter((entry) => entry.isDirectory())
 		.map((entry) => {
-			const folderName = entry.name;
-			// Pattern: XXXX.Title
-			const match = folderName.match(/^(\d+)\.(.+)$/);
-			if (match) {
-				return {
-					id: match[1],
-					title: match[2], // Default title from folder name
-					slug: folderName,
-				};
-			}
-			return null;
+			const match = entry.name.match(/^(\d+)\.(.+)$/);
+			return match ? { id: match[1], title: match[2], slug: entry.name } : null;
 		})
-		.filter((p): p is { id: string; title: string; slug: string } => p !== null)
-		.sort((a, b) => Number.parseInt(a.id, 10) - Number.parseInt(b.id, 10));
+		.filter(
+			(p): p is { id: string; title: string; slug: string } => p !== null,
+		);
 
-	const total = allProblems.length;
+	// 2. 重要：必须先加载所有题目的 tags 和 difficulty 才能进行 SmartCollection 筛选
+	const allProblemsWithMeta = await Promise.all(
+		baseProblems.map(async (p) => {
+			try {
+				const readmePath = path.join(ASSETS_DIR, p.slug, "README.md");
+				const fileContent = await fs.promises.readFile(readmePath, "utf-8");
+				const { data } = matter(fileContent); // 只读 frontmatter，速度很快
+
+				let difficulty = data.difficulty;
+				// 简单的难度映射逻辑
+				if (difficulty === "简单") difficulty = "Easy";
+				if (difficulty === "中等") difficulty = "Medium";
+				if (difficulty === "困难") difficulty = "Hard";
+
+				return { ...p, difficulty, tags: data.tags || [] };
+			} catch {
+				return { ...p, tags: [] };
+			}
+		}),
+	);
+
+	const filteredProblems = getSmartCollection(allProblemsWithMeta);
+
+	const finalWithOrder = filteredProblems.map((p, idx) => ({
+		...p,
+		id: idx + 1, // 新的连续编号，从 1 开始
+	}));
+
+	// console.log(finalWithOrder)
+	const total = finalWithOrder.length;
 	const totalPages = Math.ceil(total / limit);
 	const offset = (page - 1) * limit;
-	const paginatedItems = allProblems.slice(offset, offset + limit);
+	const paginatedItems = finalWithOrder.slice(offset, offset + limit);
 
 	// Fetch details for the current page
 	const problemsWithDetails = await Promise.all(

@@ -181,7 +181,7 @@ export function ProblemList({
 								key={problem.id}
 								href={`/problems/${problem.slug}`}
 								className="group block"
-								onMouseEnter={() => setHoveredId(problem.id)}
+								onMouseEnter={() => setHoveredId(problem.id.toString())}
 								onMouseLeave={() => setHoveredId(null)}
 							>
 								<div className="relative h-full transition-all duration-300 hover:-translate-y-1">
