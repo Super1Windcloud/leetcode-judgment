@@ -21,7 +21,7 @@ export function Navbar() {
 	];
 
 	return (
-		<header className="sticky top-0 z-50 w-full animate-slide-down border-none">
+		<header className="fixed top-0 left-0 z-50 w-full animate-slide-down border-none">
 			<GlassSurface
 				width="100%"
 				height="64px"
@@ -29,6 +29,7 @@ export function Navbar() {
 				borderWidth={0}
 				opacity={0}
 				blur={0}
+				disableFilter
 				className="border-none"
 			>
 				<div className="container mx-auto flex h-full items-center px-4">

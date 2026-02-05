@@ -21,6 +21,7 @@ export interface GlassSurfaceProps {
 	blueOffset?: number;
 	xChannel?: "R" | "G" | "B";
 	yChannel?: "R" | "G" | "B";
+	disableFilter?: boolean;
 	mixBlendMode?:
 		| "normal"
 		| "multiply"
@@ -79,6 +80,7 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
 	blueOffset = 20,
 	xChannel = "R",
 	yChannel = "G",
+	disableFilter = false,
 	mixBlendMode = "difference",
 	className = "",
 	style = {},
@@ -229,6 +231,15 @@ const GlassSurface: React.FC<GlassSurfaceProps> = ({
 			"--glass-frost": backgroundOpacity.toString(),
 			"--glass-saturation": saturation.toString(),
 		} as React.CSSProperties;
+
+		if (disableFilter) {
+			return {
+				...baseStyles,
+				background: "transparent",
+				border: borderWidth === 0 ? "none" : "1px solid transparent",
+				boxShadow: "none",
+			};
+		}
 
 		if (!mounted) {
 			return {
