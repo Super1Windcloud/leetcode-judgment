@@ -510,17 +510,26 @@ fn get_base_path(env_var: &str, default: &str) -> String {
 fn load_env(language: &Language) -> Result<Vec<CString>, Error> {
     let env_base_path = get_base_path("JD_ENV_PATH", "/usr/local/lib/JD/env/");
     let path = env_base_path + &language.image.replace("/", "+").replace(":", "+");
-    
+
     let content = match std::fs::read(&path) {
         Ok(c) => c,
         Err(e) if e.kind() == std::io::ErrorKind::NotFound => {
-            eprintln!("Warning: environment file not found for {}, using empty env (Path: {})", language.image, path);
+            eprintln!(
+                "Warning: environment file not found for {}, using empty env (Path: {})",
+                language.image, path
+            );
             return Ok(vec![
-                CString::new("PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin").unwrap(),
+                CString::new("PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin")
+                    .unwrap(),
                 CString::new("LANG=C.UTF-8").unwrap(),
             ]);
         }
-        Err(e) => return Err(Error::InternalError(format!("error reading image env file ({}): {}", path, e))),
+        Err(e) => {
+            return Err(Error::InternalError(format!(
+                "error reading image env file ({}): {}",
+                path, e
+            )));
+        }
     };
 
     let mut env = content
@@ -630,7 +639,9 @@ fn setup_filesystem(request: &Request, language: &Language) -> Result<(), Error>
     // 确保挂载点目录存在
     if let Err(e) = mkdir("/run/JD", Mode::S_IRWXU) {
         if e != nix::errno::Errno::EEXIST {
-            return Err(Error::InternalError(format!("error creating /run/JD directory: {e}")));
+            return Err(Error::InternalError(format!(
+                "error creating /run/JD directory: {e}"
+            )));
         }
     }
 
@@ -654,7 +665,10 @@ fn setup_filesystem(request: &Request, language: &Language) -> Result<(), Error>
 
     // mount writeable upper layer on top of rootfs using overlayfs
     // also, the kernel now considers it a mount point, which is required for pivot_root to work
-    let overlay_upper_path = get_base_path("JD_OVERLAY_UPPER_PATH", "/usr/local/share/JD/overlayfs_upper");
+    let overlay_upper_path = get_base_path(
+        "JD_OVERLAY_UPPER_PATH",
+        "/usr/local/share/JD/overlayfs_upper",
+    );
     let mount_options = format!(
         "upperdir=/run/JD/upper,lowerdir={overlay_upper_path}:{rootfs},workdir=/run/JD/work,index=off"
     );
@@ -666,7 +680,8 @@ fn setup_filesystem(request: &Request, language: &Language) -> Result<(), Error>
             MsFlags::empty(),
             Some(&mount_options),
         ),
-        "error mounting new rootfs with options ({}): {}", mount_options
+        "error mounting new rootfs with options ({}): {}",
+        mount_options
     );
 
     check!(

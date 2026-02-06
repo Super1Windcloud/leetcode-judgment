@@ -1,5 +1,100 @@
 #!/bin/bash
 
+# 检查并尝试格式化代码
+if [[ "$*" == *"--fmt"* ]]; then
+    echo "--- 正在格式化代码 ---"
+    
+    # Rust
+    if command -v cargo-fmt >/dev/null 2>&1; then
+        echo "  -> 格式化 Rust 代码..."
+        cargo fmt
+    else
+        echo "  [跳过] 未找到 cargo-fmt"
+    fi
+
+    # C / C++ / C#
+    if command -v clang-format >/dev/null 2>&1; then
+        echo "  -> 格式化 C/C++/C# 代码..."
+        find . -maxdepth 1 -name "*.c" -o -name "*.cpp" -o -name "*.cs" | xargs -r clang-format -i
+    else
+        echo "  [跳过] 未找到 clang-format"
+    fi
+
+    # Java
+    if command -v google-java-format >/dev/null 2>&1; then
+        echo "  -> 格式化 Java 代码..."
+        find . -name "*.java" | xargs -r google-java-format -i
+    else
+        echo "  [跳过] 未找到 google-java-format"
+    fi
+
+    # Go
+    if command -v gofmt >/dev/null 2>&1; then
+        echo "  -> 格式化 Go 代码..."
+        find . -name "*.go" | xargs -r gofmt -w
+    else
+        echo "  [跳过] 未找到 gofmt"
+    fi
+
+    # PHP
+    if command -v php-cs-fixer >/dev/null 2>&1; then
+        echo "  -> 格式化 PHP 代码..."
+        find . -name "*.php" | xargs -r php-cs-fixer fix
+    else
+        echo "  [跳过] 未找到 php-cs-fixer"
+    fi
+
+    # Python
+    if command -v black >/dev/null 2>&1; then
+        echo "  -> 格式化 Python 代码..."
+        find . -name "*.py" | xargs -r black --quiet
+    else
+        echo "  [跳过] 未找到 black"
+    fi
+
+    # Shell scripts (runners and dev.sh)
+    if command -v shfmt >/dev/null 2>&1; then
+        echo "  -> 格式化 Shell 脚本 (runners/* and dev.sh)..."
+        shfmt -w dev.sh runners/*
+    else
+        echo "  [跳过] 未找到 shfmt"
+    fi
+
+    # JSON
+    if command -v jq >/dev/null 2>&1; then
+        echo "  -> 格式化 languages.json..."
+        jq . languages.json > languages.json.tmp && mv languages.json.tmp languages.json
+    else
+        echo "  [跳过] 未找到 jq"
+    fi
+
+    # TypeScript/JavaScript (Biome)
+    if [ -f "package.json" ]; then
+        if command -v pnpm >/dev/null 2>&1; then
+            echo "  -> 格式化 TS/JS 代码 (Biome)..."
+            pnpm fix
+        elif command -v npm >/dev/null 2>&1; then
+            echo "  -> 格式化 TS/JS 代码 (Biome)..."
+            npm run fix
+        fi
+    fi
+
+    echo "--- 格式化完成 ---"
+fi
+
+# 检查必要的开发工具 (与 Dockerfile 保持同步)
+MISSING_TOOLS=()
+for tool in gcc cargo jq clang-format shfmt go google-java-format php-cs-fixer black; do
+    if ! command -v $tool >/dev/null 2>&1; then
+        MISSING_TOOLS+=("$tool")
+    fi
+done
+
+if [ ${#MISSING_TOOLS[@]} -ne 0 ]; then
+    echo "提示: 以下开发/格式化工具未安装: ${MISSING_TOOLS[*]}"
+    echo "你可以运行: sudo pacman -S base-devel rust jq clang shfmt go google-java-format php-cs-fixer python-black"
+fi
+
 # 编译本地 yargs 工具（判题核心需要它）
 gcc -Wall -Werror -static yargs.c -o ./yargs_local
 

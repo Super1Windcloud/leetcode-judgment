@@ -132,4 +132,3 @@ pub fn setup_network() -> Result<(), Error> {
 
     Ok(())
 }
-

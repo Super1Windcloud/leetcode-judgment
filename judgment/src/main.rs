@@ -7,9 +7,9 @@ use crate::{constants::*, languages::*, sandbox::invoke};
 use nix::sys::signal::{SigHandler, Signal, signal};
 use serde::{Deserialize, Serialize, de::DeserializeOwned};
 use serde_bytes::ByteBuf;
+use std::io::{BufRead, BufReader, Read, Write};
 use std::net::{SocketAddr, TcpListener, TcpStream};
 use std::process::{Command, Stdio};
-use std::io::{Read, Write, BufRead, BufReader};
 use tungstenite as ws;
 use tungstenite::handshake::server as http;
 use tungstenite::http::StatusCode;
@@ -77,23 +77,23 @@ fn format_code(language: &str, code: &str) -> (Option<String>, Option<String>) {
             let mut c = Command::new("clang-format");
             c.arg("-style=Google");
             c
-        },
+        }
         "go" => Command::new("gofmt"),
         "python" | "py" => {
-             let mut c = Command::new("python3");
-             c.arg("-m");
-             c.arg("black");
-             c.arg("-");
-             c.arg("-q"); 
-             c
-        },
+            let mut c = Command::new("python3");
+            c.arg("-m");
+            c.arg("black");
+            c.arg("-");
+            c.arg("-q");
+            c
+        }
         "rust" => Command::new("rustfmt"),
         _ => return (Some(code.to_string()), None),
     };
 
     cmd.stdin(Stdio::piped())
-       .stdout(Stdio::piped())
-       .stderr(Stdio::piped());
+        .stdout(Stdio::piped())
+        .stderr(Stdio::piped());
 
     let mut child = match cmd.spawn() {
         Ok(c) => c,
@@ -110,9 +110,15 @@ fn format_code(language: &str, code: &str) -> (Option<String>, Option<String>) {
     };
 
     if output.status.success() {
-        (Some(String::from_utf8_lossy(&output.stdout).to_string()), None)
+        (
+            Some(String::from_utf8_lossy(&output.stdout).to_string()),
+            None,
+        )
     } else {
-        (None, Some(String::from_utf8_lossy(&output.stderr).to_string()))
+        (
+            None,
+            Some(String::from_utf8_lossy(&output.stderr).to_string()),
+        )
     }
 }
 
@@ -120,13 +126,15 @@ fn handle_format_api(mut connection: TcpStream) {
     let mut reader = BufReader::new(connection.try_clone().unwrap());
     let mut line = String::new();
     let mut content_length = 0;
-    
+
     loop {
         line.clear();
         match reader.read_line(&mut line) {
             Ok(0) => return,
             Ok(_) => {
-                if line == "\r\n" { break; }
+                if line == "\r\n" {
+                    break;
+                }
                 if line.to_lowercase().starts_with("content-length:") {
                     if let Some(val) = line.split(':').nth(1) {
                         content_length = val.trim().parse().unwrap_or(0);
@@ -137,10 +145,14 @@ fn handle_format_api(mut connection: TcpStream) {
         }
     }
 
-    if content_length == 0 { return; }
+    if content_length == 0 {
+        return;
+    }
 
     let mut body = vec![0u8; content_length];
-    if reader.read_exact(&mut body).is_err() { return; }
+    if reader.read_exact(&mut body).is_err() {
+        return;
+    }
 
     let req: FormatRequest = match serde_json::from_slice(&body) {
         Ok(v) => v,
@@ -156,7 +168,7 @@ fn handle_format_api(mut connection: TcpStream) {
         resp_json.len(),
         resp_json
     );
-    
+
     let _ = connection.write_all(response.as_bytes());
     let _ = connection.flush();
 }
@@ -164,7 +176,7 @@ fn handle_format_api(mut connection: TcpStream) {
 fn handle_ws(mut connection: TcpStream) {
     // 立即设置超时，防止恶意连接或慢速连接卡住进程
     let _ = connection.set_read_timeout(Some(std::time::Duration::from_secs(5)));
-    
+
     // tell the kernel that we now *do* care about our child processes
     unsafe { signal(Signal::SIGCHLD, SigHandler::SigDfl) }.unwrap();
 
@@ -179,7 +191,7 @@ fn handle_ws(mut connection: TcpStream) {
     };
     let request_str = String::from_utf8_lossy(&buffer[..n]);
     let request_lower = request_str.to_lowercase();
-    
+
     if let Some(first_line) = request_str.lines().next() {
         eprintln!("Incoming request: {}", first_line);
     }
@@ -240,7 +252,10 @@ fn handle_ws(mut connection: TcpStream) {
     let mut connection = Connection(websocket);
 
     // 握手成功后，将读取超时设置为更长的时间（例如 1 小时），允许用户在界面停留
-    let _ = connection.0.get_ref().set_read_timeout(Some(std::time::Duration::from_secs(3600)));
+    let _ = connection
+        .0
+        .get_ref()
+        .set_read_timeout(Some(std::time::Duration::from_secs(3600)));
 
     loop {
         use std::borrow::Cow;

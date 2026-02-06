@@ -1,122 +1,122 @@
 {
-    "c": {
-        "name": "C",
-        "hello_world": {
-            "code": "#include <stdio.h>\nint main(void) { puts(\"Hello, World!\"); }",
-            "output": "Hello, World!\n"
-        },
-        "image": "docker.io/library/gcc:13",
-        "version": "GCC 13",
-        "url": "https://gcc.gnu.org",
-        "sbcs": false,
-        "se_class": "c"
+  "c": {
+    "name": "C",
+    "hello_world": {
+      "code": "#include <stdio.h>\nint main(void) { puts(\"Hello, World!\"); }",
+      "output": "Hello, World!\n"
     },
-    "cpp": {
-        "name": "C++",
-        "hello_world": {
-            "code": "#include <iostream>\nint main() { std::cout << \"Hello, World!\" << std::endl; }",
-            "output": "Hello, World!\n"
-        },
-        "image": "docker.io/library/gcc:13",
-        "version": "GCC 13",
-        "url": "https://gcc.gnu.org",
-        "sbcs": false,
-        "se_class": "cpp"
+    "image": "docker.io/library/gcc:13",
+    "version": "GCC 13",
+    "url": "https://gcc.gnu.org",
+    "sbcs": false,
+    "se_class": "c"
+  },
+  "cpp": {
+    "name": "C++",
+    "hello_world": {
+      "code": "#include <iostream>\nint main() { std::cout << \"Hello, World!\" << std::endl; }",
+      "output": "Hello, World!\n"
     },
-    "csharp": {
-        "name": "C#",
-        "hello_world": {
-            "code": "using System;\npublic class HelloWorld {\n    public static void Main(string[] args) {\n        Console.WriteLine(\"Hello, World!\");\n    }\n}",
-            "output": "Hello, World!\n"
-        },
-        "image": "docker.io/library/mono:6.12",
-        "version": "Mono 6.12",
-        "url": "https://www.mono-project.com/",
-        "sbcs": false,
-        "se_class": "csharp"
+    "image": "docker.io/library/gcc:13",
+    "version": "GCC 13",
+    "url": "https://gcc.gnu.org",
+    "sbcs": false,
+    "se_class": "cpp"
+  },
+  "csharp": {
+    "name": "C#",
+    "hello_world": {
+      "code": "using System;\npublic class HelloWorld {\n    public static void Main(string[] args) {\n        Console.WriteLine(\"Hello, World!\");\n    }\n}",
+      "output": "Hello, World!\n"
     },
-    "go": {
-        "name": "Go",
-        "hello_world": {
-            "code": "package main\nimport \"fmt\"\nfunc main() {\n\tfmt.Print(\"Hello, World!\")\n}",
-            "output": "Hello, World!"
-        },
-        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/go:latest",
-        "version": "1.22",
-        "url": "https://go.dev",
-        "sbcs": false,
-        "se_class": "go"
+    "image": "docker.io/library/mono:6.12",
+    "version": "Mono 6.12",
+    "url": "https://www.mono-project.com/",
+    "sbcs": false,
+    "se_class": "csharp"
+  },
+  "go": {
+    "name": "Go",
+    "hello_world": {
+      "code": "package main\nimport \"fmt\"\nfunc main() {\n\tfmt.Print(\"Hello, World!\")\n}",
+      "output": "Hello, World!"
     },
-    "java": {
-        "name": "Java",
-        "hello_world": {
-            "code": "public class Main {\n\tpublic static void main(String[] args) {\n\t\tSystem.out.print(\"Hello, World!\");\n\t}\n}",
-            "output": "Hello, World!"
-        },
-        "image": "docker.io/library/eclipse-temurin:21-jdk",
-        "version": "JDK 21",
-        "url": "https://openjdk.org",
-        "sbcs": false,
-        "se_class": "java"
+    "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/go:latest",
+    "version": "1.22",
+    "url": "https://go.dev",
+    "sbcs": false,
+    "se_class": "go"
+  },
+  "java": {
+    "name": "Java",
+    "hello_world": {
+      "code": "public class Main {\n\tpublic static void main(String[] args) {\n\t\tSystem.out.print(\"Hello, World!\");\n\t}\n}",
+      "output": "Hello, World!"
     },
-    "javascript": {
-        "name": "JavaScript",
-        "hello_world": {
-            "code": "console.log(\"Hello, World!\")",
-            "output": "Hello, World!\n"
-        },
-        "image": "docker.io/library/node:24-slim",
-        "version": "Node.js 24",
-        "url": "https://nodejs.org",
-        "sbcs": false,
-        "se_class": "javascript"
+    "image": "docker.io/library/eclipse-temurin:21-jdk",
+    "version": "JDK 21",
+    "url": "https://openjdk.org",
+    "sbcs": false,
+    "se_class": "java"
+  },
+  "javascript": {
+    "name": "JavaScript",
+    "hello_world": {
+      "code": "console.log(\"Hello, World!\")",
+      "output": "Hello, World!\n"
     },
-    "php": {
-        "name": "PHP",
-        "hello_world": {
-            "code": "<?php\necho \"Hello, World!\";\n?>",
-            "output": "Hello, World!"
-        },
-        "image": "docker.io/library/php:8.3-cli-alpine",
-        "version": "PHP 8.3",
-        "url": "https://www.php.net",
-        "sbcs": false,
-        "se_class": "php"
+    "image": "docker.io/library/node:24-slim",
+    "version": "Node.js 24",
+    "url": "https://nodejs.org",
+    "sbcs": false,
+    "se_class": "javascript"
+  },
+  "php": {
+    "name": "PHP",
+    "hello_world": {
+      "code": "<?php\necho \"Hello, World!\";\n?>",
+      "output": "Hello, World!"
     },
-    "python": {
-        "name": "Python",
-        "hello_world": {
-            "code": "print(\"Hello, World!\")",
-            "output": "Hello, World!\n"
-        },
-        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/python_with_common_libraries:latest",
-        "version": "Latest (with libs)",
-        "url": "https://www.python.org",
-        "sbcs": false,
-        "se_class": "python"
+    "image": "docker.io/library/php:8.3-cli-alpine",
+    "version": "PHP 8.3",
+    "url": "https://www.php.net",
+    "sbcs": false,
+    "se_class": "php"
+  },
+  "python": {
+    "name": "Python",
+    "hello_world": {
+      "code": "print(\"Hello, World!\")",
+      "output": "Hello, World!\n"
     },
-    "rust": {
-        "name": "Rust",
-        "hello_world": {
-            "code": "fn main() { print!(\"Hello, World!\") }",
-            "output": "Hello, World!"
-        },
-        "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/rust:latest",
-        "version": "Latest",
-        "url": "https://www.rust-lang.org",
-        "sbcs": false,
-        "se_class": "rust"
+    "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/python_with_common_libraries:latest",
+    "version": "Latest (with libs)",
+    "url": "https://www.python.org",
+    "sbcs": false,
+    "se_class": "python"
+  },
+  "rust": {
+    "name": "Rust",
+    "hello_world": {
+      "code": "fn main() { print!(\"Hello, World!\") }",
+      "output": "Hello, World!"
     },
-    "typescript": {
-        "name": "TypeScript",
-        "hello_world": {
-            "code": "console.log('Hello, World!')",
-            "output": "Hello, World!\n"
-        },
-        "image": "docker.io/denoland/deno:alpine",
-        "version": "Deno Latest",
-        "url": "https://deno.land",
-        "sbcs": false,
-        "se_class": "typescript"
-    }
+    "image": "registry.gitlab.pxeger.com/attempt-this-online/languages/rust:latest",
+    "version": "Latest",
+    "url": "https://www.rust-lang.org",
+    "sbcs": false,
+    "se_class": "rust"
+  },
+  "typescript": {
+    "name": "TypeScript",
+    "hello_world": {
+      "code": "console.log('Hello, World!')",
+      "output": "Hello, World!\n"
+    },
+    "image": "docker.io/denoland/deno:alpine",
+    "version": "Deno Latest",
+    "url": "https://deno.land",
+    "sbcs": false,
+    "se_class": "typescript"
+  }
 }
