@@ -603,7 +603,10 @@ export function ProblemClient({
 								onLanguageChange={setEditorLanguage}
 								value={editorCode}
 								onChange={setEditorCode}
-								className="border-none rounded-none "
+								className="border-none rounded-none"
+								callbackFns={{
+									handleRun,
+								}}
 								actions={
 									<>
 										<Tooltip>
@@ -624,7 +627,7 @@ export function ProblemClient({
 												</Button>
 											</TooltipTrigger>
 											<TooltipContent className="bg-zinc-800 text-zinc-200 border-zinc-700">
-												<p className="text-xs">Run Code (Ctrl+Enter)</p>
+												<p className="text-xs">Run Code (Alt+E)</p>
 											</TooltipContent>
 										</Tooltip>
 										<Button

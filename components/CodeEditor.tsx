@@ -32,6 +32,9 @@ interface CodeEditorProps
 	extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
 	value?: string;
 
+	callbackFns?: {
+		handleRun: () => Promise<void>;
+	};
 	onChange?: (value: string) => void;
 
 	language?: string;
@@ -262,7 +265,7 @@ const XCODE_DARK_THEME_DATA = {
 
 export function CodeEditor({
 	className,
-
+	callbackFns,
 	value,
 
 	onChange,
@@ -683,8 +686,14 @@ export function CodeEditor({
 									monaco.KeyMod.CtrlCmd |
 										monaco.KeyMod.Alt |
 										monaco.KeyCode.KeyL,
-									() => {
-										handleFormat();
+									async () => {
+										await handleFormat();
+									},
+								);
+								editor.addCommand(
+									monaco.KeyMod.Alt | monaco.KeyCode.KeyE,
+									async () => {
+										await callbackFns?.handleRun();
 									},
 								);
 
