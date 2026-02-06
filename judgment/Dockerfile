@@ -5,15 +5,20 @@ FROM archlinux AS pin_skopeo
 RUN pacman -Syu --noconfirm skopeo
 FROM pin_skopeo AS build_deps
 WORKDIR /tmp
-RUN pacman -Syu --noconfirm go base-devel
+RUN pacman -Syu --noconfirm go base-devel curl binutils xz
+ENV GOPROXY=https://goproxy.cn,direct
 RUN <<"EOF"
 set -ex
-SKOPEO_VERSION=$(pacman -Qe skopeo | cut -d' ' -f2 | cut -d- -f1)
-STORAGE_VERSION=$(curl -L "https://github.com/containers/skopeo/raw/v$SKOPEO_VERSION/go.mod" | grep -F "go.podman.io/storage v" | cut -d'v' -f2)
-curl -L "https://github.com/containers/container-libs/archive/storage/v$STORAGE_VERSION.tar.gz" | tar -xz
-cd container-libs-storage-*/storage
-make -j binary
-mv containers-storage /
+if [ -f /usr/bin/containers-storage ]; then
+    cp /usr/bin/containers-storage /containers-storage
+else
+    SKOPEO_VERSION=$(pacman -Qe skopeo | cut -d' ' -f2 | cut -d- -f1)
+    STORAGE_VERSION=$(curl -L "https://github.com/containers/skopeo/raw/v$SKOPEO_VERSION/go.mod" | grep -F "go.podman.io/storage v" | cut -d'v' -f2)
+    curl -L "https://github.com/containers/container-libs/archive/storage/v$STORAGE_VERSION.tar.gz" | tar -xz
+    cd container-libs-storage-*/storage
+    make -j binary
+    mv containers-storage /
+fi
 
 cd /tmp
 curl -Lo bash.deb "https://ftp.debian.org/debian/pool/main/b/bash/bash-static_5.3-1_amd64.deb"
@@ -38,7 +43,7 @@ FROM pin_skopeo
 # install dependencies
 RUN <<"EOF"
 set -ex
-pacman -Syu --noconfirm jq entr strace clang go python-black rust
+pacman -Syu --noconfirm jq entr strace clang go python-black rust shfmt php php-cs-fixer google-java-format
 curl -Lo /usr/local/bin/tini "https://github.com/krallin/tini/releases/download/v0.19.0/tini-amd64"
 chmod +x /usr/local/bin/tini
 mkdir /usr/local/lib/JD
