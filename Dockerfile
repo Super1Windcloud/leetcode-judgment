@@ -28,15 +28,6 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 
-# Install formatters
-RUN apk add --no-cache \
-    clang-extra-tools \
-    go \
-    python3 \
-    py3-pip \
-    rust \
-    rustfmt \
-    && pip install black --break-system-packages
 
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
