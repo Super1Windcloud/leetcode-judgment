@@ -43,9 +43,19 @@ FROM pin_skopeo
 # install dependencies
 RUN <<"EOF"
 set -ex
-pacman -Syu --noconfirm jq entr strace clang go python-black rust shfmt php php-cs-fixer google-java-format
+pacman -Syu --noconfirm jq entr strace clang go python-black rust shfmt php jre-openjdk-headless
 curl -Lo /usr/local/bin/tini "https://github.com/krallin/tini/releases/download/v0.19.0/tini-amd64"
 chmod +x /usr/local/bin/tini
+
+# Install php-cs-fixer
+curl -Lo /usr/local/bin/php-cs-fixer "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/releases/latest/download/php-cs-fixer.phar"
+chmod +x /usr/local/bin/php-cs-fixer
+
+# Install google-java-format
+curl -Lo /usr/local/share/google-java-format.jar "https://github.com/google/google-java-format/releases/download/v1.22.0/google-java-format-1.22.0-all-deps.jar"
+printf "#!/bin/sh\nexec java -jar /usr/local/share/google-java-format.jar \"\$@\"\n" > /usr/local/bin/google-java-format
+chmod +x /usr/local/bin/google-java-format
+
 mkdir /usr/local/lib/JD
 EOF
 COPY --from=build_deps /bash-static /usr/local/lib/JD/bash
