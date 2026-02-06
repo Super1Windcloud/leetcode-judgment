@@ -1,4 +1,3 @@
-import { exec } from "node:child_process";
 import { type NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -12,66 +11,43 @@ export async function POST(req: NextRequest) {
 			);
 		}
 
-		let cmd = "";
-		const args: string[] = [];
+		// Determine backend URL
+		// Default to localhost:8500 if not set (for local dev where judgment runs on host)
+		// In Docker, JUDGMENT_API_URL should be set to "http://judgment:8500" or similar.
+		const judgmentUrl = process.env.JUDGMENT_API_URL || "http://localhost:8500";
+		const apiUrl = `${judgmentUrl.replace(/\/$/, "")}/api/format`;
 
-		switch (language.toLowerCase()) {
-			case "c":
-			case "cpp":
-			case "csharp":
-			case "java":
-				cmd = "clang-format";
-				args.push("-style=Google");
-				break;
-			case "go":
-				cmd = "gofmt";
-				break;
-			case "python":
-				cmd = "black";
-				// - reads from stdin, 2>/dev/null to suppress stderr (or handle in callback)
-				// black outputs to stdout when - is used.
-				args.push("-");
-				break;
-			case "rust":
-				cmd = "rustfmt";
-				// rustfmt reads from stdin by default if no args, and emits to stdout
-				break;
-			case "php":
-				// PHP-CS-Fixer is complex to use via stdin/stdout for snippets without config.
-				// Fallback to client-side or no-op.
-				return NextResponse.json({ formatted: code });
-			default:
-				// Language not supported by backend formatter
-				return NextResponse.json({ formatted: code });
-		}
-
-		// Wrap execution in a promise
-		const formatted = await new Promise<string>((resolve, reject) => {
-			const child = exec(
-				`${cmd} ${args.join(" ")}`,
-				{ timeout: 5000 }, // 5s timeout
-				(error, stdout, stderr) => {
-					if (error) {
-						// Distinguish between command not found and execution error (syntax)
-						// But for now, any error is a failure to format.
-						// console.warn(`Formatter ${cmd} failed:`, stderr || error.message);
-						reject(error);
-					} else {
-						resolve(stdout);
-					}
+		try {
+			const backendRes = await fetch(apiUrl, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
 				},
-			);
+				body: JSON.stringify({ language, code }),
+			});
 
-			if (child.stdin) {
-				child.stdin.write(code);
-				child.stdin.end();
+			if (!backendRes.ok) {
+				throw new Error(`Backend returned ${backendRes.status}`);
 			}
-		});
 
-		return NextResponse.json({ formatted });
+			const data = await backendRes.json();
+			return NextResponse.json(data);
+		} catch (fetchError) {
+			console.error(
+				"Failed to connect to judgment backend for formatting:",
+				fetchError,
+			);
+			// Fallback or error
+			return NextResponse.json(
+				{ error: "Formatting service unavailable" },
+				{ status: 503 },
+			);
+		}
 	} catch (error) {
 		console.error("Format API Error:", error);
-		// Return error status so frontend can fallback to simple indentation
-		return NextResponse.json({ error: "Formatting failed" }, { status: 500 });
+		return NextResponse.json(
+			{ error: "Internal Server Error" },
+			{ status: 500 },
+		);
 	}
 }

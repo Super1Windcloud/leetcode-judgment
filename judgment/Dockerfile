@@ -38,7 +38,7 @@ FROM pin_skopeo
 # install dependencies
 RUN <<"EOF"
 set -ex
-pacman -Syu --noconfirm jq entr strace
+pacman -Syu --noconfirm jq entr strace clang go python-black rust
 curl -Lo /usr/local/bin/tini "https://github.com/krallin/tini/releases/download/v0.19.0/tini-amd64"
 chmod +x /usr/local/bin/tini
 mkdir /usr/local/lib/JD

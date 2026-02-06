@@ -8,6 +8,8 @@ use nix::sys::signal::{SigHandler, Signal, signal};
 use serde::{Deserialize, Serialize, de::DeserializeOwned};
 use serde_bytes::ByteBuf;
 use std::net::{SocketAddr, TcpListener, TcpStream};
+use std::process::{Command, Stdio};
+use std::io::{Read, Write, BufRead, BufReader};
 use tungstenite as ws;
 use tungstenite::handshake::server as http;
 use tungstenite::http::StatusCode;
@@ -57,6 +59,108 @@ fn main() {
     }
 }
 
+#[derive(Deserialize)]
+struct FormatRequest {
+    language: String,
+    code: String,
+}
+
+#[derive(Serialize)]
+struct FormatResponse {
+    formatted: Option<String>,
+    error: Option<String>,
+}
+
+fn format_code(language: &str, code: &str) -> (Option<String>, Option<String>) {
+    let mut cmd = match language.to_lowercase().as_str() {
+        "c" | "cpp" | "c++" | "csharp" | "java" => {
+            let mut c = Command::new("clang-format");
+            c.arg("-style=Google");
+            c
+        },
+        "go" => Command::new("gofmt"),
+        "python" | "py" => {
+             let mut c = Command::new("python3");
+             c.arg("-m");
+             c.arg("black");
+             c.arg("-");
+             c.arg("-q"); 
+             c
+        },
+        "rust" => Command::new("rustfmt"),
+        _ => return (Some(code.to_string()), None),
+    };
+
+    cmd.stdin(Stdio::piped())
+       .stdout(Stdio::piped())
+       .stderr(Stdio::piped());
+
+    let mut child = match cmd.spawn() {
+        Ok(c) => c,
+        Err(e) => return (None, Some(e.to_string())),
+    };
+
+    if let Some(mut stdin) = child.stdin.take() {
+        let _ = stdin.write_all(code.as_bytes());
+    }
+
+    let output = match child.wait_with_output() {
+        Ok(o) => o,
+        Err(e) => return (None, Some(e.to_string())),
+    };
+
+    if output.status.success() {
+        (Some(String::from_utf8_lossy(&output.stdout).to_string()), None)
+    } else {
+        (None, Some(String::from_utf8_lossy(&output.stderr).to_string()))
+    }
+}
+
+fn handle_format_api(mut connection: TcpStream) {
+    let mut reader = BufReader::new(connection.try_clone().unwrap());
+    let mut line = String::new();
+    let mut content_length = 0;
+    
+    loop {
+        line.clear();
+        match reader.read_line(&mut line) {
+            Ok(0) => return,
+            Ok(_) => {
+                if line == "\r\n" { break; }
+                if line.to_lowercase().starts_with("content-length:") {
+                    if let Some(val) = line.split(':').nth(1) {
+                        content_length = val.trim().parse().unwrap_or(0);
+                    }
+                }
+            }
+            Err(_) => return,
+        }
+    }
+
+    if content_length == 0 { return; }
+
+    let mut body = vec![0u8; content_length];
+    if reader.read_exact(&mut body).is_err() { return; }
+
+    let req: FormatRequest = match serde_json::from_slice(&body) {
+        Ok(v) => v,
+        Err(_) => return,
+    };
+
+    let (formatted, error) = format_code(&req.language, &req.code);
+    let resp = FormatResponse { formatted, error };
+    let resp_json = serde_json::to_string(&resp).unwrap();
+
+    let response = format!(
+        "HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{}",
+        resp_json.len(),
+        resp_json
+    );
+    
+    let _ = connection.write_all(response.as_bytes());
+    let _ = connection.flush();
+}
+
 fn handle_ws(mut connection: TcpStream) {
     // 立即设置超时，防止恶意连接或慢速连接卡住进程
     let _ = connection.set_read_timeout(Some(std::time::Duration::from_secs(5)));
@@ -78,6 +182,11 @@ fn handle_ws(mut connection: TcpStream) {
     
     if let Some(first_line) = request_str.lines().next() {
         eprintln!("Incoming request: {}", first_line);
+    }
+
+    if request_str.starts_with("POST /api/format ") {
+        handle_format_api(connection);
+        return;
     }
 
     // 如果是访问 /test 的普通 GET 请求
