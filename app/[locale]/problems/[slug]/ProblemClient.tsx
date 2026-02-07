@@ -114,7 +114,38 @@ export function ProblemClient({
 	const tProblem = useTranslations("Problem");
 	const [activeTab, setActiveTab] = useState("description");
 	const [editorCode, setEditorCode] = useState("");
-	const [editorLanguage, setEditorLanguage] = useState("java");
+	const [editorLanguage, setEditorLanguage] = useState("javascript");
+
+	// Set initial language based on available templates
+	useEffect(() => {
+		if (problem.templates && problem.templates.length > 0) {
+			const firstTemplate = problem.templates[0].language;
+			let lang = firstTemplate;
+			if (firstTemplate === "python3") lang = "python";
+			if (firstTemplate === "ts") lang = "typescript";
+			if (firstTemplate === "js") lang = "javascript";
+			setEditorLanguage(lang);
+		}
+	}, [problem.templates]);
+
+	// Set initial code based on template
+	useEffect(() => {
+		if (problem.templates) {
+			const template = problem.templates.find(
+				(t) =>
+					t.language === editorLanguage ||
+					(t.language === "python3" && editorLanguage === "python") ||
+					(t.language === "ts" && editorLanguage === "typescript") ||
+					(t.language === "js" && editorLanguage === "javascript"),
+			);
+			if (template) {
+				setEditorCode(template.code);
+			} else {
+				// Fallback to empty if no template found
+				setEditorCode("");
+			}
+		}
+	}, [editorLanguage, problem.templates]);
 	const [selectedSolutionIndex, setSelectedSolutionIndex] = useState(0);
 	const [isRunning, setIsRunning] = useState(false);
 	const [isSubmitting, setIsSubmitting] = useState(false);
@@ -152,39 +183,357 @@ export function ProblemClient({
 		setActiveTab("output");
 
 		const client = new JudgmentClient();
+
+		// Pick random test cases
+		const allTestCases = problem.testCases || [];
+		const selectedCases =
+			allTestCases.length > 0
+				? [...allTestCases].sort(() => 0.5 - Math.random()).slice(0, 3)
+				: [];
+
+		const template = problem.templates?.find(
+			(t) =>
+				t.language === editorLanguage ||
+				(t.language === "python3" && editorLanguage === "python"),
+		);
+		const functionName = template?.functionName || "";
+
 		try {
-			await client.execute(
-				{
-					language: editorLanguage,
-					code: editorCode,
-					timeout: 10,
-				},
-				(msg: JudgmentResponse) => {
-					if ("Stdout" in msg) {
-						const text = new TextDecoder().decode(msg.Stdout);
-						setOutput((prev) => [
-							...prev,
-							{ id: crypto.randomUUID(), type: "stdout", content: text },
-						]);
-					} else if ("Stderr" in msg) {
-						const text = new TextDecoder().decode(msg.Stderr);
-						setOutput((prev) => [
-							...prev,
-							{ id: crypto.randomUUID(), type: "stderr", content: text },
-						]);
-					} else if ("Done" in msg) {
-						const { status_type, status_value, real, max_mem } = msg.Done;
-						setOutput((prev) => [
-							...prev,
-							{
-								id: crypto.randomUUID(),
-								type: "system",
-								content: `\n--- Execution Finished ---\nStatus: ${status_type} (${status_value})\nTime: ${(real / 1e6).toFixed(2)}ms\nMemory: ${(max_mem / 1024).toFixed(2)} MB`,
-							},
-						]);
-					}
-				},
-			);
+			for (let i = 0; i < selectedCases.length; i++) {
+				const testCase = selectedCases[i];
+
+				// Prepare input string for the runner (joined by \n)
+				const inputString = Object.values(testCase.input)
+					.map((val) => (typeof val === "string" ? val : JSON.stringify(val)))
+					.join("\n");
+
+				setOutput((prev) => [
+					...prev,
+					{
+						id: crypto.randomUUID(),
+						type: "system",
+						content: `\n--- Test Case ${i + 1} ---`,
+					},
+					{
+						id: crypto.randomUUID(),
+						type: "system",
+						content: `Input:\n${JSON.stringify(testCase.input, null, 2)}`,
+					},
+				]);
+
+				let wrappedCode = editorCode;
+
+				// Generate driver based on language
+				if (["javascript", "typescript"].includes(editorLanguage)) {
+					wrappedCode = `
+${editorCode}
+
+const fs = require('fs');
+const data = fs.readFileSync(0, 'utf8').split('\\n');
+const args = data.map(line => {
+    if (!line.trim()) return undefined;
+    try { return JSON.parse(line); } catch(e) { return line; }
+}).filter(x => x !== undefined);
+
+// Helper for ListNode
+function ListNode(val, next) {
+    this.val = (val===undefined ? 0 : val)
+    this.next = (next===undefined ? null : next)
+}
+function arrayToList(arr) {
+    if (!arr || !Array.isArray(arr) || arr.length === 0) return null;
+    let head = new ListNode(arr[0]);
+    let cur = head;
+    for (let i = 1; i < arr.length; i++) {
+        cur.next = new ListNode(arr[i]);
+        cur = cur.next;
+    }
+    return head;
+}
+function listToArray(head) {
+    let arr = [];
+    while (head) {
+        arr.push(head.val);
+        head = head.next;
+    }
+    return arr;
+}
+
+// Helper for TreeNode
+function TreeNode(val, left, right) {
+    this.val = (val===undefined ? 0 : val)
+    this.left = (left===undefined ? null : left)
+    this.right = (right===undefined ? null : right)
+}
+function arrayToTree(arr) {
+    if (!arr || !arr.length) return null;
+    let root = new TreeNode(arr[0]);
+    let queue = [root];
+    let i = 1;
+    while (queue.length > 0 && i < arr.length) {
+        let node = queue.shift();
+        if (arr[i] !== null) {
+            node.left = new TreeNode(arr[i]);
+            queue.push(node.left);
+        }
+        i++;
+        if (i < arr.length && arr[i] !== null) {
+            node.right = new TreeNode(arr[i]);
+            queue.push(node.right);
+        }
+        i++;
+    }
+    return root;
+}
+function treeToArray(root) {
+    if (!root) return [];
+    let result = [];
+    let queue = [root];
+    while (queue.length > 0) {
+        let node = queue.shift();
+        if (node) {
+            result.push(node.val);
+            queue.push(node.left);
+            queue.push(node.right);
+        } else {
+            result.push(null);
+        }
+    }
+    // Remove trailing nulls
+    while (result.length > 0 && result[result.length - 1] === null) {
+        result.pop();
+    }
+    return result;
+}
+
+// Check if we need to convert args (rough heuristic based on key names and problem slug)
+const isLinkedListProblem = ${JSON.stringify(
+						problem.slug.toLowerCase().includes("list"),
+					)};
+const isTreeProblem = ${JSON.stringify(
+						problem.slug.toLowerCase().includes("tree"),
+					)};
+
+const processedArgs = args.map((a, idx) => {
+    if (!Array.isArray(a)) return a;
+    if (isLinkedListProblem) return arrayToList(a);
+    if (isTreeProblem) return arrayToTree(a);
+    return a;
+});
+
+try {
+    const result = typeof ${functionName} === 'function' ? ${functionName}(...processedArgs) : (new Solution()).${functionName}(...processedArgs);
+    let finalResult = result;
+    if (isLinkedListProblem && typeof result === 'object' && result !== null && 'val' in result) {
+        finalResult = listToArray(result);
+    } else if (isTreeProblem && typeof result === 'object' && result !== null && 'val' in result) {
+        finalResult = treeToArray(result);
+    }
+    process.stdout.write(JSON.stringify(finalResult));
+} catch (e) {
+    process.stderr.write(e.stack || String(e));
+}
+`;
+				} else if (editorLanguage === "python") {
+					wrappedCode = `
+import sys
+import json
+import collections
+import heapq
+import math
+
+${editorCode}
+
+def solve():
+    input_data = sys.stdin.read().split('\\n')
+    args = []
+    for line in input_data:
+        if not line.strip(): continue
+        try:
+            args.append(json.loads(line))
+        except:
+            args.append(line)
+    
+    if 'Solution' in globals():
+        sol = Solution()
+        func = getattr(sol, "${functionName}")
+        result = func(*args)
+    else:
+        # Fallback if no Solution class
+        result = ${functionName}(*args)
+    
+    print(json.dumps(result), end='')
+
+if __name__ == "__main__":
+    solve()
+`;
+				} else if (editorLanguage === "java") {
+					// Java is more complex, requires a full Main class
+					wrappedCode = `
+import java.util.*;
+import java.io.*;
+
+${editorCode}
+
+public class Main {
+    public static void main(String[] args) throws Exception {
+        Solution sol = new Solution();
+        // Simplified Java runner placeholder
+        System.out.print("null");
+    }
+}
+`;
+				} else if (editorLanguage === "go") {
+					wrappedCode = `
+package main
+
+import (
+    "encoding/json"
+    "fmt"
+    "io/ioutil"
+    "os"
+)
+
+${editorCode}
+
+func main() {
+    // Simple Go driver placeholder
+    fmt.Print("null")
+}
+`;
+				} else if (editorLanguage === "rust") {
+					wrappedCode = `
+${editorCode}
+
+fn main() {
+    // Simple Rust driver placeholder
+    println!("null");
+}
+`;
+				} else if (editorLanguage === "php") {
+					wrappedCode = `
+<?php
+${editorCode}
+
+$stdin = fopen('php://stdin', 'r');
+$args = [];
+while ($line = fgets($stdin)) {
+    $line = trim($line);
+    if ($line === "") continue;
+    $decoded = json_decode($line, true);
+    $args[] = ($decoded === null) ? $line : $decoded;
+}
+
+$sol = new Solution();
+$result = call_user_func_array([$sol, "${functionName}"], $args);
+echo json_encode($result);
+`;
+				} else if (editorLanguage === "csharp") {
+					wrappedCode = `
+using System;
+using System.Collections.Generic;
+using System.Text.Json;
+
+${editorCode}
+
+public class Program {
+    public static void Main() {
+        // C# driver logic
+        Console.Write("null");
+    }
+}
+`;
+				} else if (editorLanguage === "cpp") {
+					wrappedCode = `
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+${editorCode}
+
+int main() {
+    // Simple C++ driver placeholder
+    cout << "null";
+    return 0;
+}
+`;
+				} else if (editorLanguage === "c") {
+					wrappedCode = `
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+${editorCode}
+
+int main() {
+    // Simple C driver placeholder
+    printf("null");
+    return 0;
+}
+`;
+				}
+
+				let actualOutput = "";
+				await client.execute(
+					{
+						language: editorLanguage,
+						code: wrappedCode,
+						input: inputString,
+						timeout: 10,
+					},
+					(msg: JudgmentResponse) => {
+						if ("Stdout" in msg) {
+							const text = new TextDecoder().decode(msg.Stdout);
+							actualOutput += text;
+						} else if ("Stderr" in msg) {
+							const text = new TextDecoder().decode(msg.Stderr);
+							setOutput((prev) => [
+								...prev,
+								{ id: crypto.randomUUID(), type: "stderr", content: text },
+							]);
+						} else if ("Done" in msg) {
+							const { status_type, status_value, real, max_mem } = msg.Done;
+
+							// Compare output
+							let passed = false;
+							try {
+								const parsedOutput = JSON.parse(actualOutput);
+								passed =
+									JSON.stringify(parsedOutput) ===
+									JSON.stringify(testCase.output);
+							} catch (_e) {
+								passed = false;
+							}
+							setOutput((prev) => [
+								...prev,
+								{
+									id: crypto.randomUUID(),
+									type: "stdout",
+									content: `Result: ${actualOutput}`,
+								},
+								{
+									id: crypto.randomUUID(),
+									type: "system",
+									content: `Expected: ${JSON.stringify(testCase.output)}`,
+								},
+								{
+									id: crypto.randomUUID(),
+									type: "system",
+									content: passed ? "✅ Passed" : "❌ Failed",
+								},
+								{
+									id: crypto.randomUUID(),
+									type: "system",
+									content: `Status: ${status_type} (${status_value}) | Time: ${(real / 1e6).toFixed(2)}ms | Memory: ${(max_mem / 1024).toFixed(2)} MB`,
+								},
+							]);
+						}
+					},
+				);
+			}
 		} catch (error) {
 			console.error("Execution failed:", error);
 			setOutput((prev) => [

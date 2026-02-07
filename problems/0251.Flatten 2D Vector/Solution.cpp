@@ -1,18 +1,17 @@
 class Vector2D {
+
 public:
     Vector2D(vector<vector<int>>& vec) {
-        this->vec = move(vec);
-    }
+    
+}
 
     int next() {
-        forward();
-        return vec[i][j++];
-    }
+    
+}
 
     bool hasNext() {
-        forward();
-        return i < vec.size();
-    }
+    
+}
 
 private:
     int i = 0;
@@ -20,11 +19,9 @@ private:
     vector<vector<int>> vec;
 
     void forward() {
-        while (i < vec.size() && j >= vec[i].size()) {
-            ++i;
-            j = 0;
-        }
-    }
+    
+}
+
 };
 
 /**

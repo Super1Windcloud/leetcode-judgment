@@ -1,25 +1,12 @@
 class Vector2D:
     def __init__(self, vec: List[List[int]]):
-        self.i = 0
-        self.j = 0
-        self.vec = vec
-
+        pass
     def next(self) -> int:
-        self.forward()
-        ans = self.vec[self.i][self.j]
-        self.j += 1
-        return ans
-
+        pass
     def hasNext(self) -> bool:
-        self.forward()
-        return self.i < len(self.vec)
-
+        pass
     def forward(self):
-        while self.i < len(self.vec) and self.j >= len(self.vec[self.i]):
-            self.i += 1
-            self.j = 0
-
-
+        pass
 # Your Vector2D object will be instantiated and called as such:
 # obj = Vector2D(vec)
 # param_1 = obj.next()

@@ -16,6 +16,270 @@ export interface ProblemDetail extends Problem {
 	content: string; // The full content or description
 	description: string;
 	solution: string;
+	templates?: {
+		language: string;
+		code: string;
+		functionName?: string;
+	}[];
+	testCases?: {
+		input: Record<string, unknown>;
+		output: unknown;
+	}[];
+}
+
+const LANGUAGE_EXT_MAP: Record<string, string> = {
+	cpp: "cpp",
+	c: "c",
+	csharp: "cs",
+	go: "go",
+	java: "java",
+	javascript: "js",
+	typescript: "ts",
+	php: "php",
+	python: "py",
+	rust: "rs",
+};
+
+function clearBraceBodies(code: string): string {
+	let result = "";
+	let i = 0;
+
+	while (i < code.length) {
+		const char = code[i];
+		if (char === "{") {
+			// Find matching brace
+			let count = 1;
+			let j = i + 1;
+			while (j < code.length && count > 0) {
+				if (code[j] === "{") count++;
+				else if (code[j] === "}") count--;
+				j++;
+			}
+
+			// Capture everything before the current '{' to check context
+			const lookback = result.slice(-50);
+			const isStructural = /\b(class|struct|interface|impl|enum)\b/.test(lookback);
+
+			if (isStructural) {
+				// It's a container (class/struct), keep its children but clear THEIR bodies
+				const body = code.substring(i + 1, j - 1);
+				result += `{\n${clearBraceBodies(body)}\n}`;
+			} else {
+				// It's a leaf body (function/method/block), clear it!
+				result += "{\n    \n}";
+			}
+			i = j;
+			continue;
+		}
+		result += char;
+		i++;
+	}
+	return result;
+}
+
+function clearPythonBodies(code: string): string {
+	const lines = code.split("\n");
+	const result: string[] = [];
+	let inFunc = false;
+	let funcIndent = 0;
+
+	for (const line of lines) {
+		const trimmed = line.trim();
+		if (trimmed.startsWith("def ") || trimmed.startsWith("class ")) {
+			result.push(line);
+			if (trimmed.endsWith(":")) {
+				const indent = line.length - line.trimStart().length;
+				if (trimmed.startsWith("def ")) {
+					result.push(`${" ".repeat(indent + 4)}pass`);
+					inFunc = true;
+					funcIndent = indent;
+				}
+			}
+		} else if (inFunc) {
+			const indent = line.length - line.trimStart().length;
+			if (trimmed !== "" && indent <= funcIndent) {
+				inFunc = false;
+				if (trimmed.startsWith("class ") || trimmed.startsWith("def ")) {
+					result.push(line);
+					if (trimmed.startsWith("def ")) {
+						const newIndent = line.length - line.trimStart().length;
+						result.push(`${" ".repeat(newIndent + 4)}pass`);
+						inFunc = true;
+						funcIndent = newIndent;
+					}
+				} else {
+					result.push(line);
+				}
+			}
+		} else {
+			result.push(line);
+		}
+	}
+	return result.join("\n");
+}
+
+function extractSignature(language: string, fullCode: string): string {
+	const lang = language.toLowerCase();
+
+	if (
+		[
+			"javascript",
+			"typescript",
+			"js",
+			"ts",
+			"java",
+			"cpp",
+			"csharp",
+			"cs",
+			"go",
+			"rust",
+			"rs",
+			"c",
+		].includes(lang)
+	) {
+		return clearBraceBodies(fullCode.trim());
+	}
+
+	if (["python", "py", "python3"].includes(lang)) {
+		return clearPythonBodies(fullCode.trim());
+	}
+
+	if (lang === "php") {
+		const code = fullCode.trim();
+		if (code.startsWith("<?php")) {
+			return `<?php\n${clearBraceBodies(code.substring(5))}`;
+		}
+		return clearBraceBodies(code);
+	}
+
+	return fullCode.trim();
+}
+
+function normalizeLanguage(lang: string): string {
+	const l = lang.toLowerCase();
+	if (l === "js" || l === "javascript") return "javascript";
+	if (l === "ts" || l === "typescript") return "typescript";
+	if (l === "py" || l === "python" || l === "python3") return "python";
+	if (l === "cs" || l === "csharp") return "csharp";
+	if (l === "rs" || l === "rust") return "rust";
+	if (l === "cpp" || l === "c++") return "cpp";
+	return l;
+}
+
+interface Template {
+	language: string;
+	code: string;
+	functionName?: string;
+}
+
+function normalizeTemplates(templates: Template[]) {
+	return templates.map((t) => ({
+		...t,
+		language: normalizeLanguage(t.language),
+	}));
+}
+
+function extractTemplates(solutionMarkdown: string): {
+	language: string;
+	code: string;
+	functionName?: string;
+}[] {
+	const templates: { language: string; code: string; functionName?: string }[] =
+		[];
+	const regex = /```(\w+)[^\r\n]*[\r\n]+([\s\S]*?)[\r\n]+```/g;
+	let match: RegExpExecArray | null;
+
+	// biome-ignore lint/suspicious/noAssignInExpressions: standard regex loop
+	while ((match = regex.exec(solutionMarkdown)) !== null) {
+		const language = match[1].toLowerCase();
+		const fullCode = match[2].trim();
+
+		let functionName = "";
+		// Extract function name logic (same as before)
+		if (["javascript", "typescript", "js", "ts"].includes(language)) {
+			const nameMatch = fullCode.match(
+				/(?:function|var|const|let)\s+(\w+)\s*[=(]|export\s+function\s+(\w+)/,
+			);
+			functionName = nameMatch ? nameMatch[1] || nameMatch[2] : "";
+		} else if (language === "python" || language === "python3") {
+			const nameMatch = fullCode.match(/def\s+(\w+)\(/);
+			functionName = nameMatch ? nameMatch[1] : "";
+		} else if (language === "java") {
+			const nameMatch = fullCode.match(/public\s+[\w<>[\]]+\s+(\w+)\(/);
+			functionName = nameMatch ? nameMatch[1] : "";
+		} else if (language === "cpp") {
+			const solMatch = fullCode.match(
+				/class\s+Solution\s*\{[\s\S]*?public:[\s\S]*?([\w<>:]+)\s+(\w+)\(/,
+			);
+			functionName = solMatch ? solMatch[2] : "";
+		} else if (language === "go") {
+			const nameMatch = fullCode.match(/func\s+(\w+)\(/);
+			functionName = nameMatch ? nameMatch[1] : "";
+		}
+
+		templates.push({
+			language,
+			code: extractSignature(language, fullCode),
+			functionName,
+		});
+	}
+
+	return templates;
+}
+
+async function getTemplatesFromFiles(problemDir: string): Promise<{
+	language: string;
+	code: string;
+	functionName?: string;
+}[]> {
+	const templates: { language: string; code: string; functionName?: string }[] =
+		[];
+
+	for (const [lang, ext] of Object.entries(LANGUAGE_EXT_MAP)) {
+		const filePath = path.join(problemDir, `Solution.${ext}`);
+		if (fs.existsSync(filePath)) {
+			try {
+				const fullCode = await fs.promises.readFile(filePath, "utf-8");
+
+				const normalizedLang = normalizeLanguage(lang);
+				let functionName = "";
+				// Extract function name
+				if (["javascript", "typescript"].includes(normalizedLang)) {
+					const nameMatch = fullCode.match(
+						/(?:function|var|const|let)\s+(\w+)\s*[=(]|export\s+function\s+(\w+)/,
+					);
+					functionName = nameMatch ? nameMatch[1] || nameMatch[2] : "";
+				} else if (normalizedLang === "python") {
+					const nameMatch = fullCode.match(/def\s+(\w+)\(/);
+					functionName = nameMatch ? nameMatch[1] : "";
+				} else if (normalizedLang === "java") {
+					const nameMatch = fullCode.match(/public\s+[\w<>[\]]+\s+(\w+)\(/);
+					functionName = nameMatch ? nameMatch[1] : "";
+				} else if (normalizedLang === "cpp") {
+					const solMatch = fullCode.match(
+						/class\s+Solution\s*\{[\s\S]*?public:[\s\S]*?([\w<>:]+)\s+(\w+)\(/,
+					);
+					functionName = solMatch ? solMatch[2] : "";
+				} else if (normalizedLang === "go") {
+					const nameMatch = fullCode.match(/func\s+(\w+)\(/);
+					functionName = nameMatch ? nameMatch[1] : "";
+				} else if (normalizedLang === "rust") {
+					const nameMatch = fullCode.match(/fn\s+(\w+)\(/);
+					functionName = nameMatch ? nameMatch[1] : "";
+				}
+
+				templates.push({
+					language: normalizedLang,
+					code: extractSignature(normalizedLang, fullCode),
+					functionName,
+				});
+			} catch (e) {
+				console.error(`Error reading ${filePath}:`, e);
+			}
+		}
+	}
+
+	return templates;
 }
 
 export interface PaginatedProblems {
@@ -237,6 +501,32 @@ async function getProblem(
 			if (difficulty === "困难") difficulty = "Hard";
 		}
 
+		const fileTemplates = await getTemplatesFromFiles(problemDir);
+		const extractedTemplates = extractTemplates(solution);
+
+		// Merge: prioritize file templates
+		const templatesMap = new Map<string, Template>();
+		for (const t of normalizeTemplates(extractedTemplates))
+			templatesMap.set(t.language, t);
+		for (const t of normalizeTemplates(fileTemplates))
+			templatesMap.set(t.language, t);
+		const templates = Array.from(templatesMap.values());
+
+		let testCases: ProblemDetail["testCases"] = undefined;
+		try {
+			const testCasePath = path.join(problemDir, "test_case.json");
+			if (fs.existsSync(testCasePath)) {
+				const testCaseContent = await fs.promises.readFile(
+					testCasePath,
+					"utf-8",
+				);
+				const parsed = JSON.parse(testCaseContent);
+				testCases = parsed.testCases;
+			}
+		} catch (e) {
+			console.error(`Error reading test cases for ${slug}:`, e);
+		}
+
 		return {
 			id: slug.split(".")[0],
 			title,
@@ -246,6 +536,8 @@ async function getProblem(
 			content,
 			description,
 			solution,
+			templates,
+			testCases,
 		};
 	} catch (error) {
 		console.error(`Error reading problem ${slug}:`, error);
