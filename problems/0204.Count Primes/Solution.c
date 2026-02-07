@@ -1,0 +1,3 @@
+void* countPrimes(void* n) {
+
+}

@@ -1,0 +1,3 @@
+void* productExceptSelf(void* nums) {
+
+}

@@ -1,0 +1,3 @@
+void* isSymmetric(void* root) {
+
+}

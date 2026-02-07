@@ -1,0 +1,3 @@
+void* ListNode(void* head) {
+
+}

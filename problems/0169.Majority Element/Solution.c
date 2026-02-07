@@ -1,0 +1,3 @@
+void* majorityElement(void* nums) {
+
+}

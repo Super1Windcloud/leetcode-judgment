@@ -2,7 +2,26 @@
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/assets/unused" />
       <excludeFolder url="file://$MODULE_DIR$/judgment/target" />
+      <excludeFolder url="file://$MODULE_DIR$/problems/incomplete/0005.Longest Palindromic Substring" />
+      <excludeFolder url="file://$MODULE_DIR$/problems/incomplete/0010.Regular Expression Matching" />
+      <excludeFolder url="file://$MODULE_DIR$/problems/incomplete/0017.Letter Combinations of a Phone Number" />
+      <excludeFolder url="file://$MODULE_DIR$/problems/incomplete/0022.Generate Parentheses" />
+      <excludeFolder url="file://$MODULE_DIR$/problems/incomplete/0028.Find the Index of the First Occurrence in a String" />
+      <excludeFolder url="file://$MODULE_DIR$/problems/incomplete/0032.Longest Valid Parentheses" />
+      <excludeFolder url="file://$MODULE_DIR$/problems/incomplete/0044.Wildcard Matching" />
+      <excludeFolder url="file://$MODULE_DIR$/problems/incomplete/0062.Unique Paths" />
+      <excludeFolder url="file://$MODULE_DIR$/problems/incomplete/0067.Add Binary" />
+      <excludeFolder url="file://$MODULE_DIR$/problems/incomplete/0070.Climbing Stairs" />
+      <excludeFolder url="file://$MODULE_DIR$/problems/incomplete/0094.Binary Tree Inorder Traversal" />
+      <excludeFolder url="file://$MODULE_DIR$/problems/incomplete/0100.Same Tree" />
+      <excludeFolder url="file://$MODULE_DIR$/problems/incomplete/0128.Longest Consecutive Sequence" />
+      <excludeFolder url="file://$MODULE_DIR$/problems/incomplete/0130.Surrounded Regions" />
+      <excludeFolder url="file://$MODULE_DIR$/problems/incomplete/0139.Word Break" />
+      <excludeFolder url="file://$MODULE_DIR$/problems/incomplete/0173.Binary Search Tree Iterator" />
+      <excludeFolder url="file://$MODULE_DIR$/problems/incomplete/0187.Repeated DNA Sequences" />
+      <excludeFolder url="file://$MODULE_DIR$/problems/incomplete/0209.Minimum Size Subarray Sum" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

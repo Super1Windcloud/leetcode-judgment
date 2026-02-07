@@ -58,7 +58,9 @@ function clearBraceBodies(code: string): string {
 
 			// Capture everything before the current '{' to check context
 			const lookback = result.slice(-50);
-			const isStructural = /\b(class|struct|interface|impl|enum)\b/.test(lookback);
+			const isStructural = /\b(class|struct|interface|impl|enum)\b/.test(
+				lookback,
+			);
 
 			if (isStructural) {
 				// It's a container (class/struct), keep its children but clear THEIR bodies
@@ -227,11 +229,13 @@ function extractTemplates(solutionMarkdown: string): {
 	return templates;
 }
 
-async function getTemplatesFromFiles(problemDir: string): Promise<{
-	language: string;
-	code: string;
-	functionName?: string;
-}[]> {
+async function getTemplatesFromFiles(problemDir: string): Promise<
+	{
+		language: string;
+		code: string;
+		functionName?: string;
+	}[]
+> {
 	const templates: { language: string; code: string; functionName?: string }[] =
 		[];
 
@@ -512,7 +516,7 @@ async function getProblem(
 			templatesMap.set(t.language, t);
 		const templates = Array.from(templatesMap.values());
 
-		let testCases: ProblemDetail["testCases"] = undefined;
+		let testCases: ProblemDetail["testCases"];
 		try {
 			const testCasePath = path.join(problemDir, "test_case.json");
 			if (fs.existsSync(testCasePath)) {
