@@ -296,6 +296,8 @@ export function CodeEditor({
 	const lastTemplateRef = React.useRef("");
 	const valueRef = React.useRef(value);
 	const onChangeRef = React.useRef(onChange);
+	const languageRef = React.useRef(language);
+	const callbackFnsRef = React.useRef(callbackFns);
 	const codeCacheRef = React.useRef<Record<string, string>>({});
 	const prevLanguageRef = React.useRef(language);
 
@@ -308,7 +310,7 @@ export function CodeEditor({
 
 		editor.focus();
 
-		const activeLanguage = language.toLowerCase();
+		const activeLanguage = languageRef.current.toLowerCase();
 		const isTsOrJs =
 			activeLanguage === "typescript" || activeLanguage === "javascript";
 
@@ -373,13 +375,15 @@ export function CodeEditor({
 				editor.setSelection(currentSelection);
 			}
 		}
-	}, [language]);
+	}, []);
 
 	// 同步最新的 props 到 ref
 	React.useEffect(() => {
 		valueRef.current = value;
 		onChangeRef.current = onChange;
-	}, [value, onChange]);
+		languageRef.current = language;
+		callbackFnsRef.current = callbackFns;
+	}, [value, onChange, language, callbackFns]);
 
 	// 当语言改变时，自动切换到对应语言的代码（从缓存加载或使用模板）
 	React.useEffect(() => {
@@ -693,7 +697,7 @@ export function CodeEditor({
 								editor.addCommand(
 									monaco.KeyMod.Alt | monaco.KeyCode.KeyE,
 									async () => {
-										await callbackFns?.handleRun();
+										await callbackFnsRef.current?.handleRun();
 									},
 								);
 
@@ -719,6 +723,7 @@ export function CodeEditor({
 								readOnly: false,
 								formatOnType: true,
 								formatOnPaste: true,
+
 								autoIndent: "full",
 								mouseWheelZoom: true,
 								smoothScrolling: true,
