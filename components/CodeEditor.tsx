@@ -296,6 +296,8 @@ export function CodeEditor({
 	const lastTemplateRef = React.useRef("");
 	const valueRef = React.useRef(value);
 	const onChangeRef = React.useRef(onChange);
+	const languageRef = React.useRef(language);
+	const callbackFnsRef = React.useRef(callbackFns);
 	const codeCacheRef = React.useRef<Record<string, string>>({});
 	const prevLanguageRef = React.useRef(language);
 
@@ -308,7 +310,7 @@ export function CodeEditor({
 
 		editor.focus();
 
-		const activeLanguage = language.toLowerCase();
+		const activeLanguage = languageRef.current.toLowerCase();
 		const isTsOrJs =
 			activeLanguage === "typescript" || activeLanguage === "javascript";
 
@@ -358,7 +360,19 @@ export function CodeEditor({
 					: currentValue;
 
 			const currentSelection = editor.getSelection();
-			editor.setValue(formattedValue);
+
+			// 使用 pushEditOperations 而不是 setValue，以保留撤回栈 (Undo Stack)
+			model.pushEditOperations(
+				[],
+				[
+					{
+						range: model.getFullModelRange(),
+						text: formattedValue,
+					},
+				],
+				() => null,
+			);
+
 			if (currentSelection) {
 				editor.setSelection(currentSelection);
 			}
@@ -373,13 +387,15 @@ export function CodeEditor({
 				editor.setSelection(currentSelection);
 			}
 		}
-	}, [language]);
+	}, []);
 
 	// 同步最新的 props 到 ref
 	React.useEffect(() => {
 		valueRef.current = value;
 		onChangeRef.current = onChange;
-	}, [value, onChange]);
+		languageRef.current = language;
+		callbackFnsRef.current = callbackFns;
+	}, [value, onChange, language, callbackFns]);
 
 	// 当语言改变时，自动切换到对应语言的代码（从缓存加载或使用模板）
 	React.useEffect(() => {
@@ -417,7 +433,22 @@ export function CodeEditor({
 
 	const handleResetTemplate = () => {
 		const template = LANGUAGE_TEMPLATES[language.toLowerCase()];
-		if (template) {
+		const editor = editorRef.current;
+		if (template && editor) {
+			const model = editor.getModel();
+			if (model) {
+				model.pushEditOperations(
+					[],
+					[
+						{
+							range: model.getFullModelRange(),
+							text: template,
+						},
+					],
+					() => null,
+				);
+			}
+
 			lastTemplateRef.current = template;
 			// 重置时清除当前语言的缓存
 			codeCacheRef.current[language.toLowerCase()] = template;
@@ -693,7 +724,7 @@ export function CodeEditor({
 								editor.addCommand(
 									monaco.KeyMod.Alt | monaco.KeyCode.KeyE,
 									async () => {
-										await callbackFns?.handleRun();
+										await callbackFnsRef.current?.handleRun();
 									},
 								);
 
@@ -719,6 +750,7 @@ export function CodeEditor({
 								readOnly: false,
 								formatOnType: true,
 								formatOnPaste: true,
+
 								autoIndent: "full",
 								mouseWheelZoom: true,
 								smoothScrolling: true,
