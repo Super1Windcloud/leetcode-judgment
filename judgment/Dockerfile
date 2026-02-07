@@ -43,18 +43,24 @@ FROM pin_skopeo
 # install dependencies
 RUN <<"EOF"
 set -ex
-pacman -Syu --noconfirm jq entr strace clang go python-black rust shfmt php jre-openjdk-headless
+pacman -Syu --noconfirm jq entr strace clang go python-black rust shfmt php php-interpreter jre-openjdk-headless
 curl -Lo /usr/local/bin/tini "https://github.com/krallin/tini/releases/download/v0.19.0/tini-amd64"
 chmod +x /usr/local/bin/tini
 
 # Install php-cs-fixer
 curl -Lo /usr/local/bin/php-cs-fixer "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/releases/latest/download/php-cs-fixer.phar"
-chmod +x /usr/local/bin/php-cs-fixer
+chmod a+x /usr/local/bin/php-cs-fixer
 
 # Install google-java-format
 curl -Lo /usr/local/share/google-java-format.jar "https://github.com/google/google-java-format/releases/download/v1.22.0/google-java-format-1.22.0-all-deps.jar"
 printf "#!/bin/sh\nexec java -jar /usr/local/share/google-java-format.jar \"\$@\"\n" > /usr/local/bin/google-java-format
-chmod +x /usr/local/bin/google-java-format
+chmod a+x /usr/local/bin/google-java-format
+
+# 确保 rustfmt 可用
+if ! command -v rustfmt >/dev/null 2>&1; then
+    # 在某些 Arch 版本中可能需要单独的 rustfmt 或者通过 rustup
+    pacman -S --noconfirm rust-src || true
+fi
 
 mkdir /usr/local/lib/JD
 EOF
@@ -67,8 +73,12 @@ mkdir -p /usr/local/share/JD/overlayfs_upper/{JD,proc,dev}
 mkdir -p /usr/local/share/JD/runners
 ln -s /mnt/rootfs /usr/local/lib/JD/rootfs
 ln -s /mnt/env /usr/local/lib/JD/env
-useradd -U jd
+# 使用 -m 创建家目录
+useradd -m -U jd
 EOF
+
+ENV HOME=/home/jd
+WORKDIR /home/jd
 
 COPY <<"EOF" /entrypoint.sh
 #!/bin/sh

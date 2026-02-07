@@ -39,7 +39,8 @@ if [[ "$*" == *"--fmt"* ]]; then
     # PHP
     if command -v php-cs-fixer >/dev/null 2>&1; then
         echo "  -> 格式化 PHP 代码..."
-        find . -name "*.php" | xargs -r php-cs-fixer fix
+        # 同步 Docker 中的参数：禁用缓存，非交互
+        find . -name "*.php" | xargs -r php-cs-fixer fix --rules=@PSR12 --using-cache=no --no-interaction -q
     else
         echo "  [跳过] 未找到 php-cs-fixer"
     fi
@@ -92,7 +93,31 @@ done
 
 if [ ${#MISSING_TOOLS[@]} -ne 0 ]; then
     echo "提示: 以下开发/格式化工具未安装: ${MISSING_TOOLS[*]}"
-    echo "你可以运行: sudo pacman -S base-devel rust jq clang shfmt go google-java-format php-cs-fixer python-black"
+    echo "你可以运行以下命令安装基础工具 (Arch Linux):"
+    echo "  sudo pacman -S base-devel rust jq clang shfmt go python-black php jre-openjdk-headless"
+    echo ""
+    echo "对于手动下载的工具，你可以运行: ./dev.sh --setup-fmt"
+fi
+
+# 自动安装/设置格式化工具
+if [[ "$*" == *"--setup-fmt"* ]]; then
+    echo "--- 正在设置格式化工具 ---"
+    sudo pacman -S --needed --noconfirm jq clang shfmt go python-black php jre-openjdk-headless
+    
+    if ! command -v php-cs-fixer >/dev/null 2>&1; then
+        echo "正在下载 php-cs-fixer..."
+        sudo curl -Lo /usr/local/bin/php-cs-fixer "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/releases/latest/download/php-cs-fixer.phar"
+        sudo chmod a+x /usr/local/bin/php-cs-fixer
+    fi
+
+    if ! command -v google-java-format >/dev/null 2>&1; then
+        echo "正在下载 google-java-format..."
+        sudo mkdir -p /usr/local/share/google-java-format
+        sudo curl -Lo /usr/local/share/google-java-format/google-java-format.jar "https://github.com/google/google-java-format/releases/download/v1.22.0/google-java-format-1.22.0-all-deps.jar"
+        printf "#!/bin/sh\nexec java -jar /usr/local/share/google-java-format/google-java-format.jar \"\$@\"\n" | sudo tee /usr/local/bin/google-java-format > /dev/null
+        sudo chmod a+x /usr/local/bin/google-java-format
+    fi
+    echo "--- 设置完成 ---"
 fi
 
 # 编译本地 yargs 工具（判题核心需要它）

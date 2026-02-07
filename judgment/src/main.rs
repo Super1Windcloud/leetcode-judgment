@@ -72,6 +72,7 @@ struct FormatResponse {
 }
 
 fn format_code(language: &str, code: &str) -> (Option<String>, Option<String>) {
+    eprintln!("Formatting language: '{}'", language);
     let mut cmd = match language.to_lowercase().as_str() {
         "c" | "cpp" | "c++" | "csharp" | "java" => {
             let mut c = Command::new("clang-format");
@@ -87,8 +88,55 @@ fn format_code(language: &str, code: &str) -> (Option<String>, Option<String>) {
             c.arg("-q");
             c
         }
-        "rust" => Command::new("rustfmt"),
-        _ => return (Some(code.to_string()), None),
+        "rust" => {
+            let mut c = Command::new("rustfmt");
+            c.arg("--edition");
+            c.arg("2021");
+            c
+        }
+        "php" => {
+            // php-cs-fixer is very picky about stdin, use a temp file approach
+            let temp_dir = std::env::temp_dir();
+            let temp_file = temp_dir.join(format!("format_{}.php", uuid::Uuid::new_v4()));
+            if let Err(e) = std::fs::write(&temp_file, code) {
+                return (None, Some(format!("Failed to write temp file: {}", e)));
+            }
+            
+            let mut c = Command::new("php-cs-fixer");
+            c.arg("fix");
+            c.arg(&temp_file);
+            c.arg("--rules=@PSR12");
+            c.arg("--using-cache=no");
+            c.arg("-q");
+            c.arg("--no-interaction");
+            
+            let output = match c.output() {
+                Ok(o) => o,
+                Err(e) => {
+                    let _ = std::fs::remove_file(&temp_file);
+                    return (None, Some(e.to_string()));
+                }
+            };
+            
+            let formatted = if output.status.success() || output.status.code() == Some(8) {
+                std::fs::read_to_string(&temp_file).ok()
+            } else {
+                None
+            };
+            
+            let error = if formatted.is_none() {
+                Some(String::from_utf8_lossy(&output.stderr).to_string())
+            } else {
+                None
+            };
+            
+            let _ = std::fs::remove_file(&temp_file);
+            return (formatted, error);
+        }
+        _ => {
+            eprintln!("No formatter for: {}", language);
+            return (Some(code.to_string()), None);
+        },
     };
 
     cmd.stdin(Stdio::piped())
@@ -97,16 +145,24 @@ fn format_code(language: &str, code: &str) -> (Option<String>, Option<String>) {
 
     let mut child = match cmd.spawn() {
         Ok(c) => c,
-        Err(e) => return (None, Some(e.to_string())),
+        Err(e) => {
+            eprintln!("Failed to spawn formatter: {}", e);
+            return (None, Some(e.to_string()));
+        }
     };
 
     if let Some(mut stdin) = child.stdin.take() {
-        let _ = stdin.write_all(code.as_bytes());
+        if let Err(e) = stdin.write_all(code.as_bytes()) {
+            eprintln!("Failed to write to formatter stdin: {}", e);
+        }
     }
 
     let output = match child.wait_with_output() {
         Ok(o) => o,
-        Err(e) => return (None, Some(e.to_string())),
+        Err(e) => {
+            eprintln!("Failed to wait for formatter: {}", e);
+            return (None, Some(e.to_string()));
+        }
     };
 
     if output.status.success() {
@@ -115,9 +171,11 @@ fn format_code(language: &str, code: &str) -> (Option<String>, Option<String>) {
             None,
         )
     } else {
+        let err_msg = String::from_utf8_lossy(&output.stderr).to_string();
+        eprintln!("Formatter failed with status {}: {}", output.status, err_msg);
         (
             None,
-            Some(String::from_utf8_lossy(&output.stderr).to_string()),
+            Some(err_msg),
         )
     }
 }

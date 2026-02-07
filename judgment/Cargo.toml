@@ -19,6 +19,7 @@ close_fds = "0.3.2"
 capctl = "0.2.2"
 neli = "0.6.3"
 netdevice = "0.1.1"
+uuid = { version = "1.3.3", features = ["v4"] }
 
 
 
