@@ -74,9 +74,14 @@ struct FormatResponse {
 fn format_code(language: &str, code: &str) -> (Option<String>, Option<String>) {
     eprintln!("Formatting language: '{}'", language);
     let mut cmd = match language.to_lowercase().as_str() {
-        "c" | "cpp" | "c++" | "csharp" | "java" => {
+        "c" | "cpp" | "c++" | "csharp" => {
             let mut c = Command::new("clang-format");
             c.arg("-style=Google");
+            c
+        }
+        "java" => {
+            let mut c = Command::new("google-java-format");
+            c.arg("-");
             c
         }
         "go" => Command::new("gofmt"),

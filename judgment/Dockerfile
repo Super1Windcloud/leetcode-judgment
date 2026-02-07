@@ -43,7 +43,7 @@ FROM pin_skopeo
 # install dependencies
 RUN <<"EOF"
 set -ex
-pacman -Syu --noconfirm jq entr strace clang go python-black rust shfmt php php-interpreter jre-openjdk-headless
+pacman -Syu --noconfirm jq entr strace clang go python-black rust shfmt php php-interpreter jdk17-openjdk
 curl -Lo /usr/local/bin/tini "https://github.com/krallin/tini/releases/download/v0.19.0/tini-amd64"
 chmod +x /usr/local/bin/tini
 
@@ -51,9 +51,17 @@ chmod +x /usr/local/bin/tini
 curl -Lo /usr/local/bin/php-cs-fixer "https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/releases/latest/download/php-cs-fixer.phar"
 chmod a+x /usr/local/bin/php-cs-fixer
 
-# Install google-java-format
-curl -Lo /usr/local/share/google-java-format.jar "https://github.com/google/google-java-format/releases/download/v1.22.0/google-java-format-1.22.0-all-deps.jar"
-printf "#!/bin/sh\nexec java -jar /usr/local/share/google-java-format.jar \"\$@\"\n" > /usr/local/bin/google-java-format
+# Install google-java-format using JDK 17 explicitly
+curl -Lo /usr/local/share/google-java-format.jar "https://github.com/google/google-java-format/releases/download/v1.25.2/google-java-format-1.25.2-all-deps.jar"
+printf "#!/bin/sh\nexec /usr/lib/jvm/java-17-openjdk/bin/java \\
+  --add-exports jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED \\
+  --add-exports jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED \\
+  --add-exports jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED \\
+  --add-exports jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED \\
+  --add-exports jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED \\
+  --add-opens jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED \\
+  --add-opens jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED \\
+  -jar /usr/local/share/google-java-format.jar \"\$@\"\n" > /usr/local/bin/google-java-format
 chmod a+x /usr/local/bin/google-java-format
 
 # 确保 rustfmt 可用

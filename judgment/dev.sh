@@ -102,7 +102,7 @@ fi
 # 自动安装/设置格式化工具
 if [[ "$*" == *"--setup-fmt"* ]]; then
     echo "--- 正在设置格式化工具 ---"
-    sudo pacman -S --needed --noconfirm jq clang shfmt go python-black php jre-openjdk-headless
+    sudo pacman -S --needed --noconfirm jq clang shfmt go python-black php jdk17-openjdk
     
     if ! command -v php-cs-fixer >/dev/null 2>&1; then
         echo "正在下载 php-cs-fixer..."
@@ -113,8 +113,21 @@ if [[ "$*" == *"--setup-fmt"* ]]; then
     if ! command -v google-java-format >/dev/null 2>&1; then
         echo "正在下载 google-java-format..."
         sudo mkdir -p /usr/local/share/google-java-format
-        sudo curl -Lo /usr/local/share/google-java-format/google-java-format.jar "https://github.com/google/google-java-format/releases/download/v1.22.0/google-java-format-1.22.0-all-deps.jar"
-        printf "#!/bin/sh\nexec java -jar /usr/local/share/google-java-format/google-java-format.jar \"\$@\"\n" | sudo tee /usr/local/bin/google-java-format > /dev/null
+        sudo curl -Lo /usr/local/share/google-java-format/google-java-format.jar "https://github.com/google/google-java-format/releases/download/v1.25.2/google-java-format-1.25.2-all-deps.jar"
+        # 尝试定位 java 17
+        JAVA_BIN="java"
+        if [ -x "/usr/lib/jvm/java-17-openjdk/bin/java" ]; then
+            JAVA_BIN="/usr/lib/jvm/java-17-openjdk/bin/java"
+        fi
+        printf "#!/bin/sh\nexec $JAVA_BIN \\
+  --add-exports jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED \\
+  --add-exports jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED \\
+  --add-exports jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED \\
+  --add-exports jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED \\
+  --add-exports jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED \\
+  --add-opens jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED \\
+  --add-opens jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED \\
+  -jar /usr/local/share/google-java-format/google-java-format.jar \"\$@\"\n" | sudo tee /usr/local/bin/google-java-format > /dev/null
         sudo chmod a+x /usr/local/bin/google-java-format
     fi
     echo "--- 设置完成 ---"
